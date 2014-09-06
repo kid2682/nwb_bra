@@ -25,7 +25,7 @@ class items_tagsAction extends baseAction
 		import("ORG.Util.Page");
 		$count = $items_tags_mod->where($where)->count();
 		$p = new Page($count,40);
-		$tags_list = $items_tags_mod->join('left join (SELECT sum(hits) hits,tag_id FROM `vg5_items` left join `vg5_items_tags_item` on(vg5_items.id = vg5_items_tags_item.item_id) group by vg5_items_tags_item.tag_id) hits on(vg5_items_tags.id = tag_id)')->where($where)->relation('items_cate')->limit($p->firstRow.','.$p->listRows)->order($order_str)->select();
+		$tags_list = $items_tags_mod->where($where)->relation('items_cate')->limit($p->firstRow.','.$p->listRows)->order($order_str)->select();
 		$key = 1;
 		foreach($tags_list as $k=>$val){
 			$tags_list[$k]['key'] = ++$p->firstRow;
@@ -85,19 +85,6 @@ class items_tagsAction extends baseAction
 			$this->display();
 		}
 	}
-
-    function setHot(){
-
-        if((!isset($_GET['id']) || empty($_GET['id'])) && (!isset($_POST['id']) || empty($_POST['id']))) {
-            $this->error('请选择...');
-        }
-        $ids = implode(',',$_POST['id']);
-        $data["name"] = "hot_tags";
-        $data["data"] = $ids;
-        $setting_mod = M('setting');
-        $setting_mod->add($data,array(),true);
-        $this->success(L('operation_success'));
-    }
 
 	function delete()
     {
