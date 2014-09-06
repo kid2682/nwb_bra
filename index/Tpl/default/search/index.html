@@ -12,7 +12,7 @@
     <div class="search_top box_shadow mt15">
         <div class="search_box">
             <form method="get" action="{:u('search/index')}" onsubmit="return check_search(this);">
-                <input type="text" value="{$keywords}" name="keywords" id="keyword" class="fl">
+                <input type="text" value="{$keywords_decs}" name="keywords" id="keyword" class="fl">
                 <input type="submit" value="搜索" id="search_btn" class="white tc fl cursor">
             </form>
         </div>
@@ -21,11 +21,11 @@
 {/*-----------------------------------------------------------------------------*/}
     <div class="search_result">
         <if condition="$items_list eq ''">
-            <div class="no_result break_word mt15">很抱歉，没有找到与“<span class="keyword">{$keywords}</span>”相关的内容</div>
+            <div class="no_result break_word mt15">很抱歉，没有找到与“<span class="keyword">{$keywords_decs}</span>”相关的内容</div>
             <else/>
             <div class="result_header clearfix">
             	<if condition="!empty($keywords)">
-                <div class="fl">找到{$items_total}条与“<span class="keyword">{$keywords}</span>”相关的宝贝</div>
+                <div class="fl">找到{$items_total}条与“<span class="keyword">{$keywords_decs}</span>”相关的宝贝</div>
                 </if>
                 <div class="fr">
                     <a href="{:u('search/index',array('sortby'=>'likes','keywords'=>$keywords))}" <if condition="$sortby eq 'likes'">class="red"</if>>按喜欢排序</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{:u('search/index',array('sortby'=>'time','keywords'=>$keywords))}" <if condition="$sortby eq 'time'">class="red"</if>>按时间排序</a>
@@ -46,14 +46,13 @@
                             </div>
                         </div>    
                         <div class="catalog_item">
-                            <h3 class="no">热门搜索</h3>
+                            <h3 class="no">热门标签</h3>
                             <div class="clearfix">
                             	<volist name="search_keywords" id="val">
-                                <a href="{:u('search/index',array('keywords'=>$val))}" 
-                                	class="<if condition='$request.keywords eq $val'>bg_red</if> jq_corner" 
-                                    data-corner="10px">{$val}</a>
+                                <a href="{:u('search/index',array('keywords'=>$val['link']))}"
+                                	class="<if condition='$val["bg"] == 1'>bg_red</if> jq_corner"
+                                    data-corner="10px">{$val["key"]}</a>
                                 </volist>
-								 <a href="{:u('search/nocid',array('cid'=>no))}" class="<if condition='($request.cid eq $cid) AND ($cid neq "")'>bg_red</if> jq_corner" >大杂烩</a>
                             </div>
                         </div>                                    	
                     </div>

@@ -64,7 +64,7 @@ $(function(){
 				
 				<input id="a" type="hidden" name="a" value="index"/>
 				<div class="input_submit">
-					<input type="text" value="<if condition="$keywords neq ''">{$keywords}<else/>300家B2C网站商城商品，轻松搜索，一键分享！</if>" autocomplete="off" name="keywords" id="search_hd" />			
+					<input type="text" value="<if condition="$keywords neq ''"><else/>300家B2C网站商城商品，轻松搜索，一键分享！</if>" autocomplete="off" name="keywords" id="search_hd" />
 
 					<button type="submit" class="search" title="搜索" onclick="return checkSearch();">搜 索</button>
 				</div>
