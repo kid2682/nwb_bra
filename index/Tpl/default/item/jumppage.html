@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="refresh" content="1;url={$url}" /> 
+<title>{$seller_name}</title>
+<style type="text/css">
+        body{text-align:center;}
+        div.jump-cover {width:650px;height:380px;background:#F5F2ED;border-top:3px solid #F0F0F0;border-right:1px solid #F0F0F0;border-bottom:1px solid #F0F0F0;border-left:1px solid #F0F0F0;margin:100px auto 0px;}
+        div.jump-logo {width:131px;height:79px;margin:73px auto 60px;overflow:hidden;background:url(http://demo.wego360.com/jump_logo.png) no-repeat 0px 0px;}
+        div.jump-logo a {display:block;width:100%;height:100%;overflow:hidden;}
+        div.jump-time {width:auto;text-align:center;margin:0px auto;}
+        div.jump-time p {margin:0px;padding:0px;}
+        div.jump-time .jump-text01 {font:14px/24px arial;color:#808080;}
+        div.jump-time .jump-text01 strong {font-weight:bold;font-family:"宋体";color:#666666;}
+        div.jump-time .jump-text02 {font:12px/24px arial;color:#808080;}
+        div.jump-time .jump-text02 a {color:#FF1816;text-decoration:none;}
+        div.jump-time .jump-text02 a:hover {color:#FF1816;text-decoration:underline;}
+        div.jump-time .jump-pic {padding-top:4px;}
+</style>
+</head>
+<body>
+	<div class="jump-cover">
+    	<div class="jump-logo"><a href=" www.wego360.com" title="微购网 www.wego360.com"></a></div>
+    	<div class="jump-time">
+        	<p class="jump-text01">微购正带您去<strong style="color:red">{$seller_name}</strong>，请稍等……</p>
+            <p class="jump-text02" id="J_Jump">如果您等待时间过长，<a href="{$url}" style="color:red">请直接点击这里</a></p>
+            <p class="jump-pic"><img src="__TMPL__public/images/jump_loading.gif"></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<include file="public:ucheader"/>
+<load href="__TMPL__public/css/account.css" />
+<!--样式-->
+<load href="__TMPL__public/css/uc/css_b.css" />
+<load href="__TMPL__public/css/ucindex.css" /> 
+
+<div class="ucleft">
+	<!--用户-->
+    <include file="userleft"/>
+    <!--用户-->
+   
+    <br clear="all"/>
+</div>
+<div class="ucright">
+	<div class="ucnav">
+ 		<ul>
+        	<li><a href="{:u('uc/account_commission')}">返利列表</a></li>
+            <li><a href="{:u('uc/account_commission',array(status=>no))}">待审核订单</a></li>
+            <li><a href="{:u('uc/account_cash_details',array(type=>1))}">收入明细</a></li>
+            <li><a href="{:u('uc/account_cash_details',array(type=>2))}">支出明细</a></li>
+            <li><a href="{:u('uc/account_user_tixian')}">提现记录</a></li>
+            <li><a <eq name="ACTION_NAME" value="account_get_cash"> class="navon" </eq> href="{:u('uc/account_get_cash')}">我要提现</a></li>
+			<div class="clearfix"></div>
+        </ul>    	    
+    </div>
+    <div class="uccontent">	
+    <div class="uc_account clearfix"> 
+		<div class="cash_back">		
+			<p>亲！您当前的可用余额是<span>{$u.money}元</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{:u('uc/account_get_cash')}"><span>申请提现</span>　>>></a></p>		
+			<p>亲！您当前的可用<if condition="$cashback_type eq '1'">集分宝
+						  <else/>
+						 	{$tb_fanxian_name}
+						  </if>
+				<span>{$u.jifenbao}{$tb_fanxian_unit}</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{:u('uc/account_get_cash',array(type=>2))}"><span>申请提现</span>　>>></a>
+			</p>
+			
+		</div>
+        <if condition="$type eq 1">
+	        <!--右侧-->
+	        <div class="right_region">  				
+	       		 <div style="width:660px;">				
+		            <form name="myform" id="myform" action="" method="post" style="padding-top:25px;">
+		                <table>
+		                	<tr>
+		                		<th></th>
+								<td>
+									<present name="err">
+						            <div class="err"  style="width:300px;">
+								        <div class="icon_{$err.err}">{$err.msg}</div>                
+						            </div>
+						            </present> 								
+								</td>
+		                	</tr>
+		                	<tr>	                	
+		                        <th style="width:100px;">可提现金额：</th>
+		                        <td><div class="yh_cjyy_b1"> {$money}元</div></td>
+		                    </tr>
+		                    <tr>
+		                        <th style="width:100px;">提现金额：</th>
+		                        <td>
+		                        	<input type="text" id="money" name="money" class="input_text" value="{$money}" style="width:100px;"/><span>  元</span>									
+								</td>
+		                    </tr>
+							<tr>
+                                <th style="width:100px;">姓　名：</th>
+                                <td>
+                                	<input class="input_text" readonly="readonly" type="text" name="realname"  value="{$realname}" tabindex="2" value="">
+									<span style="font-size:12px;">　提示：请到账号设置里面设置</span>
+								</td>
+                            </tr>							
+                            <tr>
+                                <th style="width:100px;">支付宝账号：</th>
+                                <td>
+                                	<input class="input_text" readonly="readonly" type="text" name="alipay"  value="{$alipay}" tabindex="3" value="">
+									<span style="font-size:12px;">　提示：请到账号设置里面设置</span>
+								</td>
+                            </tr>
+		                    <tr>
+		                        <th>备    注：</th>
+		                        <td>
+		                        	<textarea style="padding:3px; width:400px; height:100px;" name="remark"></textarea>
+									<br />
+									<span style="font-size:12px;">确保您的姓名与支付宝账号一致，否则我们没法把钱或者集分宝打到您的账户上面，申请提现后我们将及时把钱打到您的账户上面 </span>
+								</td>
+		                    </tr>              
+		                                 
+		                    <tr>
+		                        <th></th>
+		                        <td><input type="submit" class="submit" value="确定" name="dosubmit"/></td>
+		                    </tr>
+		                </table>            
+		            </form>   
+				</div>  
+	    </div>
+		<!--右侧结束-->
+	<else/>
+	 		<!--右侧-->
+	        <div class="right_region">  
+	       		 <div style="width:660px;">				
+		            <form name="myform" id="myform" action="" method="post" style="padding-top:25px;">
+		                <table>
+		                	<tr>
+		                		<th></th>
+								<td>
+									<present name="err">
+						            <div class="err"  style="width:300px;">
+								        <div class="icon_{$err.err}">{$err.msg}</div>                
+						            </div>
+						            </present> 								
+								</td>
+		                	</tr>
+		                	<tr>	                	
+		                        <th style="width:100px;">可提<if condition="$cashback_type eq '1'">集分宝
+								  <else/>
+								 	{$tb_fanxian_name}
+								  </if>：
+					  			</th>
+		                        <td>
+		                          <div class="yh_cjyy_b1"> {$jifenbao}{$tb_fanxian_unit}<if condition="$cashback_type eq '1'">集分宝
+									  <else/>
+									 	{$tb_fanxian_name}
+									  </if>
+								  </div>
+								</td>
+		                    </tr>
+		                    <tr>
+		                        <th style="width:100px;">申请提现：</th>
+		                        <td>
+		                        	<input type="text" id="jifenbao" name="jifenbao" class="input_text" value="{$jifenbao}" style="width:100px;"/><span>　{$tb_fanxian_unit}</span>									
+								</td>
+		                    </tr>
+							<tr>
+                                <th style="width:100px;">姓　名：</th>
+                                <td>
+                                	<input class="input_text" readonly="readonly" type="text" name="realname"  value="{$realname}" tabindex="2" value="">
+									<span style="font-size:12px;">　提示：请到账号设置里面设置</span>
+								</td>
+                            </tr>							
+                            <tr>
+                                <th style="width:100px;">支付宝账号：</th>
+                                <td>
+                                	<input class="input_text" readonly="readonly" type="text" name="alipay"  value="{$alipay}" tabindex="3" value="">
+									<span style="font-size:12px;">　提示：请到账号设置里面设置</span>
+								</td>
+                            </tr>
+							
+		                    <tr>
+		                        <th>备    注：</th>
+		                        <td>
+		                        	<textarea style="padding:3px; width:400px; height:100px;" name="remark"></textarea>
+									<br />
+									<span style="font-size:12px;">确保您的姓名与支付宝账号一致，否则我们没法把钱或者集分宝打到您的账户上面，申请提现后我们将及时把钱打到您的账户上面 </span>
+								</td>
+		                    </tr>              
+		                                 
+		                    <tr>
+		                        <th></th>
+		                        <td><input type="submit" class="submit" value="确定" name="dosubmit"/></td>
+		                    </tr>
+		                </table>            
+		            </form>   
+				</div>  
+	   		</div>
+			<!--右侧结束-->
+	</if>
+</div>
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){ 
+	$.formValidator.initConfig({formid:"myform",autotip:true,
+		onerror:function(msg,obj){
+			art.dialog({content:msg,lock:true,width:'200',height:'50'}, 
+					   function(){this.close();$(obj).focus();})
+			}
+	});
+		
+	$("#passwd").formValidator({onshow:"填写密码",onfocus:"填写6位以上密码"})
+		.inputValidator({min:6,onerror:"请填写6位以上密码"});
+		
+	$("#new_pwd").formValidator({onshow:"填写密码",onfocus:"填写6位以上密码"})
+		.inputValidator({min:6,onerror:"请填写6位以上密码"});
+
+	$("#confirm_pwd").formValidator({onshow:"确认密码",onfocus:"确认密码",oncorrect:"填写正确"})
+		.inputValidator({min:6,onerror:"请填写6位以上密码"})
+		.compareValidator({desid:"new_pwd",operateor:"=",onerror:"两次输入密码不一致"});	
+});
+</script>
+<include file="public:footer"/> 

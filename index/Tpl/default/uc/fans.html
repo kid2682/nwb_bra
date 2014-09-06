@@ -1,0 +1,51 @@
+<include file="public:ucheader"/>
+<load href="__TMPL__public/css/ucindex.css" />   
+<div class="ucleft">
+	<!--用户-->
+    
+    <include file="userleft"/>
+    <!--用户-->
+    
+    <br clear="all"/>
+</div>
+<div class="ucright">
+    <div class="album_list_fans">
+        <div class="album_list">
+        <if condition="empty($list)">
+            <span class="empty" style="margin: 25px;">看来主人刚入住哦，还没有她的粉丝~</span>
+        </if>
+        <volist name="list" id="val">
+            <div class="ucenter_fans">
+                <div class="ucface_fans">
+                <a href="{:u('uc/index',array('uid'=>$val['uid']))}"  target="_blank">
+                <img src="{:getUserFace($val['uid'],'z')}"/>
+                </a>
+                </div>
+                <div class="ucenter_right_fans">
+                    <div style="width:350px;min-height:60px;float:left;">
+                        <div class="ucenter_name_fans">
+                            <a href="{:u('uc/index',array('uid'=>$val['uid']))}" target="_blank">{$val.user_info.name}</a>
+                        </div>
+                        <div class="ucenter_content_fans">{$val.user_info.info}</div>
+                    </div>
+                    <div class="ucenter_list_fans">
+                        <ul>
+                            <li><span>{$val.user_info.share_num}</span>分享</li>
+                            <li class="solid"><span>{$val.user_info.album_num}</span>专辑</li>
+                            <li><span>{$val.user_info.like_num}</span>喜欢</li>
+                        </ul>
+                    </div>
+					<div class="clearfix"></div>
+                </div>
+				<div class="clearfix"></div>
+            </div>
+        
+         </volist>
+            
+            <div class="page">{$page}</div>
+        </div>
+        
+    </div>
+</div>
+
+<include file="public:footer"/> 

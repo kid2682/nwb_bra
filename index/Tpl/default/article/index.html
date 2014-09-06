@@ -1,0 +1,89 @@
+<include file="public:header"/>
+<load href="__TMPL__public/css/article.css" />
+<load href="__ROOT__/statics/js/jquery/plugins/jquery.masonry.js" />
+<load href="__ROOT__/statics/js/jquery/plugins/jquery.infinitescroll.js" />
+<load href="__TMPL__public/js/item.js" />
+<div class="content">    
+	<div class="art_left fl">
+    	<div class="art_body box_shadow clearfix">
+        	<h1>{$art_info.title}</h1>
+            <div class="art_content">
+            	{$art_info.info}
+            </div>
+			<div class="pre_next">
+				<p>【上一篇】
+					
+					<if condition="$pre_artile eq ''">
+						已经是第一篇了
+					<else/>
+						<a href="{:u('article/index',array('id'=>$pre_artile['id']))}">{$pre_artile.title}</a>
+					</if>
+					 
+				</p>
+				<p>【下一篇】
+					<if condition="$next_artile eq ''">
+						已经是最后一篇了
+					<else/>
+						<a href="{:u('article/index',array('id'=>$next_artile['id']))}">{$next_artile.title}</a>
+					</if>
+				</p>
+			</div>
+        </div>
+    </div>
+	<div class="art_right fr"> 
+			<volist name="article_cate_list['parent']" id='val'>  	
+	        	<div class="shoptopshow">	   		
+					<div class="title">
+						<h2>{$val.name}</h2>
+					</div>
+					<ul>	
+						<volist name="article_cate_list['sub'][$val['id']]" id='sval'>			
+							<li>
+                            	<a href="{:u('articlelist/index',array('cid'=>$sval['id']))}">{$sval.name}</a>
+                            </li>
+						</volist>																							
+					</ul>				
+				</div> 
+		  </volist> 	  		
+    </div>
+	<div class="clearfix"></div>
+	<div style="padding-left:5px;">
+        <h3 class="f16 mt15 red">也许你还喜欢~~</h3>
+        <div class="detail_item_list infinite_scroll">
+			<!--列表结束-->
+		<volist name="items_list" id="val">
+			    <div class="item mt15 masonry_brick jq_corner" data-corner="7px" iid="{$val['id']}">
+			        <div class="item_t">
+			            <div class="img tc"> 
+			            	<a target="_blank" href="{:u('item/index',array('id'=>$val['id']))}" hidefocus="true" rel="nofollow">            		
+			                    <php>if($seo['goods_save_images']){</php>                   	 	
+									<img src="__TMPL__public/images/grey.gif" url="upload/{:replace_url($val['img'],1)}" class="no_encode_url" alt="{$val['title']}"/>
+			                    <php>}else{</php>
+			                    <img alt="{$val.title}" url="{:base64_encode($val['img'])}" style="display:inline;" class="encode_url" src="__TMPL__public/images/grey.gif"/>
+			                    <php>}</php>                    
+			            	</a>
+			                <span class="price">￥{$val.price}&nbsp;&nbsp;
+								<if condition="$is_cashback eq 1">
+									<if condition="$val['sid'] eq 1">  
+											返：<php> echo intval($val['cash_back_rate'])*$tb_fanxian_bili*$cashback_rate/100; </php>	<if condition="$cashback_type eq '1'">个集分宝<else/>{$tb_fanxian_unit}{$tb_fanxian_name}</if>
+									<else/>							
+											返：<php>if(strpos($val['cash_back_rate'],"%") !==false){if(strpos($val['cash_back_rate'],"-") === false){echo round($val['price'] * substr($val['cash_back_rate'],0,strlen($val['cash_back_rate'])-1)/100,1)."元";}else{echo round($val['price'] * substr($val['cash_back_rate'],0,strpos($val['cash_back_rate'],"-"))/100,1)."-".round($val['price'] * substr($val['cash_back_rate'],strpos($val['cash_back_rate'],"-"),strlen($val['cash_back_rate'])-1)/100,1)."元";}}else{echo $val['cash_back_rate'];}</php>							
+									</if>
+								</if>
+							</span>
+			               
+			         	</div>
+			            <div class="title">
+			                <span><if condition="$val['seller_name'] neq '' "><span class="fanxian">【{$val.seller_name}】</span></if><a alt="{$val.title}" target="_blank" href="{:U('item/index',array('id'=>$val['id']))}">&nbsp;{$val.title}</a></span>
+			            </div>
+			        </div>
+			                
+				<div style="hight:0px;"></div>   
+			</div>    
+		</volist>			
+			<!--列表开始-->           
+
+        </div>       
+	</div>
+</div>
+<include file="public:footer"/>

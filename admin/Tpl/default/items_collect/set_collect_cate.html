@@ -1,0 +1,18 @@
+<include file="public:header" />
+<form id="myform" name="myform" action="{:u('items_collect/set_collect_cate')}" method="post">
+  <div class="pad-10">
+          <table width="100%" cellpadding="2" cellspacing="1" class="table_form">           
+            <tr>
+              <th width="120">要一键采集的分类ID :</th>
+              <td><input type="text" name="collect_cate"  size="80" value="{$cateset.collect_cate}"><br>
+			   <span class="gray">提示：填写要采集的三级分类名称，如果为空则表示采集所有分类,多个分类id以逗号隔开,例如括号里面的（,）,例如：12,13,14,16表示一键采集的时候只采集分类id为这几个数字的分类，分类id在商品</span><br></td>
+            </tr>           
+        </table>
+
+      <div class="bk15"></div>
+      <div class="btn"><input type="submit" value="{$Think.lang.submit}" onclick="return submitFrom();" name="dosubmit" class="button" id="dosubmit"></div>
+
+    </div>
+  </div>
+</form>
+</body></html>

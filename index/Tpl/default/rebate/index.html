@@ -1,0 +1,309 @@
+<include file="public:header"/>
+<load href="__ROOT__/statics/js/jquery/plugins/jquery.masonry.js" />
+<load href="__ROOT__/statics/js/jquery/plugins/jquery.infinitescroll.js" />
+<load href="__TMPL__public/js/item.js" />
+<style type="text/css">
+		.nogoods{			
+			min-height:300px;
+			background:#FFF;
+			padding:40px 20px 20px 20px;
+			font-size:14px;
+		}
+		.nogoods span{
+			font-weight:bold;
+		}
+		.list-notice{
+		    color: #666666;
+		    line-height: 180%;
+		    margin: 20px 0;
+			font-size:12px;
+		}
+		.list-notice p{
+			font-weight:bolder;
+			color:black;
+			font-size:14px;
+		}
+		.nogoods .list-notice ol{
+			list-style: decimal;
+			padding-left:20px;
+		}
+		.nogoods .list-notice ol li{
+			list-style: decimal;
+		}
+		.six{
+		    background: none repeat scroll 0 0 #F6F6F6;
+		    border-bottom: 1px solid #DDDDDD;
+		    font-size: 14px;
+		    font-weight: bold;
+		    height: 34px;
+		    line-height: 36px;
+		    overflow: hidden;
+		    padding: 0 10px;
+		}
+		.side-product {
+		    padding: 5px;
+		}
+		.side-product dl{
+			border-bottom:1px solid #eee;
+			padding:5px;	
+		}
+		.side-product .dt_img{
+			width:100px;
+			height:100px;
+			float:left;
+		}	
+		.side-product .dt_img img{
+			padding:5px;
+		}
+		.side-product dd{
+			padding:2px 0px;
+		}
+		.side-product .dd_title{
+			height:34px;
+			line-height:150%;
+			overflow:hidden;
+			
+		}
+		#main-side {
+		    border: 1px solid #E1E1E1;
+		    float: right;
+		    overflow: hidden;
+		    width: 228px;
+		}
+		.chafanli a{
+			background-color: #FF6600;
+		    color: #FFFFFF;
+		    cursor: pointer;
+		    display: block;
+		    font-family: "微软雅黑";
+		    font-size: 16px;
+		    font-weight: bold;
+		    height: 36px;
+		    letter-spacing: 1px;
+		    line-height: 36px;
+		    margin-top: 14px;
+		    text-align: center;
+		    width: 230px;
+			float:right;
+			letter-spacing:2px;
+		}
+		.chafanli a:hover{
+			text-decoration:underline;
+		}		
+		.qgm {
+		    background-color: #FF6600;
+		    color: #FFFFFF;
+		    cursor: pointer;
+		    display: block;
+		    font-family: "微软雅黑";
+		    font-size: 16px;
+		    font-weight: bold;
+		    height: 36px;
+		    letter-spacing: 1px;
+		    line-height: 36px;
+		    margin-top: 14px;
+		    text-align: center;
+		    width: 140px;
+		}	
+	.list_qgm {
+	    background-color: #FF6600;
+	    color: #FFFFFF;
+	    cursor: pointer;
+	    display: block;
+	    font-family: "微软雅黑";
+	    font-size: 12px;
+	    font-weight: bold;
+	    height: 20px;
+	    letter-spacing: 1px;
+	    line-height: 20px;
+	    margin: 0 auto;
+	    text-align: center;
+	    width: 90px;
+		margin-bottom:10px;
+	}
+	.list_qgm:hover{
+		color: #FFFFFF;
+		text-decoration:underline;
+	}
+</style>
+<if condition="$nogoods eq 1">
+	<div class="nogoods">	
+		<br>
+		<br>
+		很抱歉，没有查到与<span class="red">"{$url}"</span>相关的宝贝，<span class="red">此宝贝可能不返利</span>或者您输入的URl信息有误，您可以直接访问此宝贝
+		<div class="list-notice">
+			<p>说明：</p>
+			<ol>
+				<li>淘宝不返利的商品没发获取商品信息</li>
+				<li>必须输入有效的商品详情地址才能查询返利信息</li>
+				<li>确认复制的是地址栏里面正确的商品地址</li>
+			</ol>
+		</div>
+	</div>
+<else/>
+<div class="content" style="background:#fff;">
+	<div class="mt15">
+		<script language="javascript" src="{:u('advert/index', array('id'=>4))}"></script>
+    </div>
+<div style="padding:0px 7px 7px 7px;">
+	<div class="item_left fl">
+    	<div class="single_item mt15 clearfix">        	          
+        	<div class="item_pic" style="width:360px; height:450px; overflow:hidden;">			
+				<div id=preview>
+					<a href="javascript:void(0);" onclick="window.open('<if condition="$site eq tao">{:u('item/fanli',array('iid'=>$item['num_iid']))}<else/>{:u('item/b2c',array('id'=>$item['id'],'uid'=>$uid))}</if>')">
+		               	<img src="{$item['pic_url']}" jqimg="{$item['pic_url']}" style="max-width:350px; max-height:350px;"/>		                
+					</a>					
+				</div>
+			</div>
+            <div class="item_detail">
+            	<div class="break_word" style="position: relative;">
+            	<p class="item_title f14 bold">
+            		<a onclick="window.open('<if condition="$site eq tao">{:u('item/fanli',array('iid'=>$item['num_iid']))}<else/>{:u('item/b2c',array('id'=>$item['id'],'uid'=>$uid))}</if>')" href="javascript:void(0)">{$item.title}</a>
+				</p>
+					<div class="clearfix" style="padding:6px 0;">
+                        <p class="fl">淘宝买家: <span style="color:red;"><a href="{$data.shop_click_url}" target="_blank">{$item.nick}</a></span></p>
+                    </div> 
+					<div class="clearfix" style="padding:6px 0;">
+                        <p class="fl">30天内成交: <span id="volume" style="color:red;font-weight:bold; font-size:16px;"><img src="__TMPL__public/images/loading_jifenbao.gif" /></span>件</p>
+                    </div> 
+                    <div class="clearfix" style="padding:6px 0;">
+                        <p class="fl">淘宝价: <span style="color:red;font-weight:bolder; font-size:20px;">{$item.price}</span>元</p>
+                    </div>  
+					<div class="clearfix" style="padding:6px 0;">
+                        <p class="fl">
+                                                                        立反: <span id="taofanli" style="color:red;font-weight:bolder; font-size:24px;"><img src="__TMPL__public/images/loading_jifenbao.gif" /></span>
+						<php>if($cashback_type==1){</php>个集分宝<php>}else{</php>{$tb_fanxian_unit}{$tb_fanxian_name}<php>}</php>
+						<span id="rmb"><img src="__TMPL__public/images/loading_jifenbao.gif" /></span>
+						</p>
+                    </div>										           	
+					<p style="margin-top:20px;">					
+						<span onclick="window.open('<if condition="$site eq tao">{:u('item/fanli',array('iid'=>$item['num_iid']))}<else/>{:u('item/b2c',array('id'=>$item['id'],'uid'=>$uid))}</if>')" href="javascript:void(0)" class="qgm">
+							去购买拿返利						
+						</span>
+					</p>
+                   
+                </div>
+            </div>            
+        </div>
+    </div>
+	<!--右侧-->	
+    <div class="item_right fr mt10" id="main-side"> 
+	        <h5 class="six">				
+				相似宝贝
+			</h5>
+			<div class="side-product">				
+				<volist name="relate_items" id="val" key="k" offset="0" length='4'>	
+					<if condition="$k eq 4">			
+						<dl style="border-bottom:none;">
+							<dt class="dt_img">
+								<a target="_blank" href="{:u('item/fanli',array('iid'=>$val['num_iid']))}">
+									<img src="{:getTaoImg($val['pic_url'],80,80)}" />
+								</a>								 
+							</dt>
+							<dd class="dd_title"><a target="_blank" href="{:u('item/fanli',array('iid'=>$val['num_iid']))}">{$val['title']}</a> </dd>
+							<dd>
+								<em style="color:black; font-weight:bold;">￥{$val.price}</em>
+							</dd>
+							<dd class="nine">
+								返：
+								<span class="red">
+								<php> echo intval($val['commission'])*$tb_fanxian_bili*$cashback_rate/100; </php>	<if condition="$cashback_type eq '1'">个集分宝<else/>{$tb_fanxian_unit}{$tb_fanxian_name}</if>
+								</span>
+							</dd>
+							<dd class="nine">
+								30天成交
+								<span>{$val.volume}</span>
+								笔
+							</dd>
+						</dl>
+					<else />
+						<dl>
+							<dt class="dt_img">
+								 <a target="_blank" href="{:u('item/fanli',array('iid'=>$val['num_iid']))}">
+								 	<img src="{:getTaoImg($val['pic_url'],80,80)}" />
+								 </a>
+							</dt>
+							<dd class="dd_title">
+								<a target="_blank" href="{:u('item/fanli',array('iid'=>$val['num_iid']))}">
+									{$val['title']}
+								</a>
+							</dd>
+							<dd>
+								<em style="color:black; font-weight:bold;">￥{$val.price}</em>
+							</dd>
+							<dd class="nine">
+								返：
+								<span class="red">
+								<php> echo intval($val['commission'])*$tb_fanxian_bili*$cashback_rate/100; </php>	<if condition="$cashback_type eq '1'">个集分宝<else/>{$tb_fanxian_unit}{$tb_fanxian_name}</if>
+								</span>
+							</dd>
+							<dd class="nine">
+								30天成交
+								<span>{$val.volume}</span>
+								笔
+							</dd>
+						</dl>
+					</if>
+				</volist>
+			</div>
+    </div>
+	<div class="clearfix"></div>
+	</div>
+	<div style="padding-left:5px;">
+        <h3 class="f16 mt15 red">也许你还喜欢~~</h3>
+        <div class="detail_item_list infinite_scroll">
+            <volist name="relate_items" id="val" offset="5" length="30">
+			    <div class="item mt15 masonry_brick jq_corner" data-corner="7px"">
+			        <div class="item_t" style="padding-bottom:0px;">
+			            <div class="img tc"> 
+							<a target="_blank" href="{:u('item/fanli',array('iid'=>$val['num_iid']))}" hidefocus="true" rel="nofollow">
+									<img alt="{$val.title}" style="display:inline;" src="{$val['pic_url_210']}"/>								              
+			            	</a>             
+							 <span class="price">￥{$val.price}　　
+								<if condition="$is_cashback eq 1">								
+									返：<php> echo intval($val['commission'])*$tb_fanxian_bili*$cashback_rate/100; </php>	<if condition="$cashback_type eq '1'">个集分宝<else/>{$tb_fanxian_unit}{$tb_fanxian_name}</if>								
+								</if>
+							</span> 
+			         	</div>
+			            <div class="title">
+			                <span><if condition="$val['seller_name'] neq '' "><span class="fanxian">【{$val.seller_name}】</span></if><a alt="{$val.title}" target="_blank" href="{:u('item/fanli',array('iid'=>$val['num_iid']))}">&nbsp;{$val.title}</a></span>
+			            </div>
+			        </div>
+			        <div class="item_b clearfix" style="position: relative; padding-top:0px;">
+						<div class="items_comment fl"> 
+			            	<b class="item_commnet">30天内已成交</b>
+			                <em class="red" id="like_num_{$val.id}">{$val.volume}</em>
+							<b class="item_commnet">件</b> 
+			           	</div>						
+			        </div>	
+					<div class="item_qgm">
+						<a class="list_qgm" target="_blank" href="{:u('item/fanli',array('iid'=>$val['num_iid']))}">去购买拿返利</a>
+					</div>       
+			    </div>
+			</volist>		
+        </div>       
+	</div>
+	<script type="text/javascript">
+		var cashback_rate={$cashback_rate};
+		var tb_fanxian_bili={$tb_fanxian_bili};
+		TOP.api('rest', 'get',{
+		   	method:'taobao.taobaoke.widget.items.convert',
+		    num_iids:'{$num_iid}',
+		   	fields:'num_iid,commission_rate,commission,volume',	
+			
+		 },function(resp){
+		   if(resp.error_response){   	
+		   		 $('#taofanli').html('获取返利失败，请刷新重试');    	 
+		     	 return false;
+		     }
+		    var respItem=resp.taobaoke_items.taobaoke_item;	
+			var taofanli=respItem[0].commission*cashback_rate/100*tb_fanxian_bili;
+			var rmb=respItem[0].commission*cashback_rate/100;
+			 $('#taofanli').html(taofanli.toFixed(0));
+			 $('#rmb').html('(<font style="color:red">等值于'+rmb.toFixed(2)+'元</font>)');
+			 $('#volume').html(respItem[0].volume);		
+		 }) 
+		</script> 
+</div>
+</if>
+<include file="public:footer"/>

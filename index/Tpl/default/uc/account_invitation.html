@@ -1,0 +1,112 @@
+<include file="public:ucheader"/>
+<load href="__TMPL__public/css/ucindex.css" />  
+<script language="javascript" type="text/javascript" src="__ROOT__/statics/js/jquery/plugins/formvalidator.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/statics/js/jquery/plugins/formvalidatorregex.js"></script>
+<load href="__TMPL__public/css/account.css" /> 
+<link href="__ROOT__/statics/css/formvalidator.css" rel="stylesheet" type="text/css" />
+<!--全局样式-->
+<load href="__TMPL__public/css/uc/common.css" />
+<!--样式-->
+<load href="__TMPL__public/css/uc/css_b.css" />
+
+
+<load href="__ROOT__/statics/js/dateselect.js" />
+<load href="__ROOT__/statics/js/area.js" />
+<load href="__ROOT__/statics/js/zeroclipboard.js" />
+
+ 
+<div class="ucleft">
+	<!--用户-->
+    <include file="userleft"/>
+    <!--用户-->
+   
+    <br clear="all"/>
+</div>
+<div class="ucright">
+    <div class="uccontent">
+    <div class="uc_account clearfix"> 	
+        
+        <!--右侧-->
+        <div class="right_region exchange">
+        <div class="right_region account">
+			<p>方式一、这是您的专用邀请链接，请通过QQ或MSN发送给好友：</p>	
+            <textarea style="width:600px;height:60px; margin:10px 0;" id="uc_url" readonly="readonly">女人天生爱逛街，和我们一起来逛吧！~{$site_domain}</textarea>
+           	<p>
+				<input type="button" class="submit" id="copy_url" value="复制" name="dosubmit"/>             
+            </p>
+            <p class="clearfix">方式二、通过SNS网站分享邀请好友：</p>
+            <div class="share">
+                <a class="renren" href="javascript:window.open('http://share.renren.com/share/buttonshare.do?link='+encodeURIComponent('{$site_domain}')+'&title='+encodeURIComponent('{$share.info}'));void(0)">人人网</a>
+                <a class="kaixin" href="javascript:window.open('http://www.kaixin001.com/repaste/share.php?rtitle='+encodeURIComponent('{$share.info}')+'&rurl='+encodeURIComponent('{$site_domain}'));void(0)">开心网</a>
+                <a class="sina" href="javascript:window.open('http://service.t.sina.com.cn/share/share.php?title='+encodeURIComponent('{$share.info}'));void(0)">新浪微博</a>
+                <a class="sohu" href="javascript:window.open('http://t.sohu.com/third/post.jsp?title='+encodeURIComponent('{$share.info}')+'&url='+encodeURIComponent('{$site_domain}')+'&content=utf-8');void(0)">搜狐微博</a>
+                <a class="qzone" href="javascript:window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?title='+encodeURIComponent('{$share.info}')+'&url='+encodeURIComponent('{$site_domain}')+'&content=utf-8');void(0)">QQ空间</a>
+                <a class="tqq" href="javascript:window.open('http://share.v.t.qq.com/index.php?c=share&a=index&url='+encodeURIComponent('{$site_domain}')+'&content='+encodeURIComponent('{$share.info}')+'');void(0)">腾讯微博</a>             
+            </div>
+        </div>
+    </div>
+		<div style="clear:both;"></div>
+    </div>
+
+<script type="text/javascript">
+//var sex=$.trim("{$user.sex|default='0'}");
+//var brithday=$.trim("{$user.brithday}");
+//var address=$.trim("{$user.address}");
+//
+//$(function(){ 	  
+//	$.formValidator.initConfig({formid:"myform",autotip:true,
+//		onerror:function(msg,obj){
+//			art.dialog({content:msg,lock:true,width:'200',height:'50'}, 
+//					   function(){this.close();$(obj).focus();})
+//			}
+//	});		
+//	$("#name").formValidator({onshow:"填写昵称",onfocus:"6个字符以上"})
+//		.inputValidator({min:6,onerror:"6个字符以上"});
+//		
+//	$("input[name='sex'][value='"+sex+"']").attr("checked","checked");
+//	//出生日期
+//	var year = 1985;
+//	var month = 1;
+//	var day = 1;	
+//	if(brithday != null){
+//	  	var bths = brithday.split("|");
+//	  	year = bths[0];
+//	  	month = bths[1];
+//	  	day = bths[2];
+//	}
+//	var ds = new DateSelector("J_Year", "J_Month", "J_Day", 
+//		{Year: year, Month: month, Day: day, MinYear: new Date().getFullYear() -100, MaxYear: new Date().getFullYear() });	
+//	//所在地
+//	var pro = "请选择";
+//	var city = "请选择";
+//	if(address != null){
+//	  var adds = address.split("|");
+//	  pro = adds[0];
+//	  city = adds[1];
+//	}
+//	setup(pro,city);	
+//	
+//});
+$(function(){ 
+  
+    	var clip = new ZeroClipboard.Client();
+    	clip.setHandCursor( true );
+    	clip.addEventListener('mouseOver', function (client) {
+    		clip.setText($('#uc_url').val());
+    	});
+        clip.addEventListener('complete', function () {
+				messagebox('复制成功!');
+        });
+    	clip.glue('copy_url');
+    	document.getElementById("copy_url").onmouseover = function(){
+    		clip.reposition(this);
+    	}
+    
+   
+});
+</script>   
+     
+    </div>
+</div>
+
+<include file="public:footer"/> 

@@ -1,0 +1,97 @@
+<include file="public:header" />
+<div class="pad_10">
+    <form action="{:u('user/edit')}" method="post" name="myform" id="myform" enctype="multipart/form-data" >
+        <input type="hidden" name="id" value="{$info.id}" />
+        <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+            <tr>
+                <th width="60">{:L('name')}:</th>
+                <td><input type="text" name="name" id="name" size="25" value="{$info.name}" ></td>
+            </tr>
+			<tr>
+                <th width="60">会员密码:</th>
+                <td><input class="input-text" type="password" name="password" id="password" size="25" value="" >
+					<span style="color:red;">*密码为空表示不修改密码，不为空则表示要修改密码，</span>
+				</td>
+				
+            </tr>
+			<tr>
+                <th width="60">真实姓名:</th>
+                <td><input type="text" name="realname" id="realname" size="25" value="{$info.realname}" ></td>
+            </tr>
+			<tr>
+                <th width="80">支付宝账号:</th>
+                <td><input type="text" name="alipay" id="alipay" size="25" value="{$info.alipay}" ></td>
+            </tr>
+			<tr>
+				<th width="60">{:L('money')}</th>
+				<td><input type="text" name="money" id="money" size="14" value="{$info.money}" >元</td>		 		 
+			</tr>
+			<tr>
+				<th width="60"><if condition="$cashback_type eq '1'">集分宝
+					  <else/>
+					 	{$tb_fanxian_name}
+					  </if></th>
+				<td><input type="text" name="jifenbao" id="jifenbao" size="14" value="{$info.jifenbao}" >{$tb_fanxian_unit}</td>		 		 
+			</tr>
+			<tr>
+				<th width="60">{:L('integral')} :</th>
+				<td><input type="text" name="integral" id="integral" size="14" value="{$info.integral}" ></td>
+			</tr>
+			
+			<tr>
+                <th width="60">{:L('email')} :</th>
+                <td><input type="text" name="email" id="email" size="25" value="{$info.email}" ></td>
+            </tr>
+			<tr>
+                <th>{:L('sex')} :</th>
+                <td><input type="radio" name="sex" value="0" <if condition="$info.sex eq '0'"> checked</if>>&nbsp;男&nbsp;&nbsp;&nbsp; 
+					<input type="radio" name="sex" value="1" <if condition="$info.sex eq '1'"> checked</if>>&nbsp;女&nbsp;&nbsp;&nbsp; 
+					<input type="radio" name="sex" value="2" <if condition="$info.sex eq '2'"> checked</if>>&nbsp;未知					
+				</td>
+            </tr>
+			<tr>
+                <th>{:L('img')} :</th>
+                <td>
+                	<if condition="$info.img eq ''">
+		                <img src="__ROOT__/statics/admin/images/avatar-60.png" width="40px" height="40px"/>
+		            <else/>
+		                <img src="{$info.img}" width="60px" height="60px" />                
+		            </if>                	
+				</td>
+            </tr>
+			<tr>
+                <th width="60">{:L('blog')} :</th>
+                <td><input type="text" name="blog" id="blog" size="50" value="{$info.blog}" ></td>
+            </tr>
+            <tr>
+                <th>{:L('brithday')} :</th>
+                <td><input type="text" name="brithday" id="brithday" size="50" value="{$info.brithday}"  ></td>
+            </tr>
+            <tr>
+                <th>{:L('address')} :</th>
+                <td><input type="text" name="address" id="address" size="50" value="{$info.address}"  ></td>
+            </tr>
+			<tr>
+                <th>{:L('info')} :</th>
+                <td><textarea rows="4" cols="50" name="info" id="info">{$info.info}</textarea></td>
+            </tr>
+            <tr>
+                <th>{:L('status')} :</th>
+                <td><input type="radio" name="status" value="1" 
+                    <if condition="$info.status eq 1"> checked</if>
+                    >&nbsp;已审核&nbsp;&nbsp;&nbsp; <input type="radio" name="status" value="0" 
+                    <if condition="$info.status eq 0"> checked</if>
+                    >&nbsp;未审核</td>
+            </tr>
+        </table>
+        <input type="submit" name="dosubmit" id="dosubmit" class="dialog" value="">
+    </form>
+    <script type="text/javascript">
+	$(function(){
+		$.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){window.top.art.dialog({content:msg,lock:true,width:'250',height:'50'}, function(){this.close();$(obj).focus();})}});
+		$("#name").formValidator({onshow:"不能为空",onfocus:"不能为空"}).inputValidator({min:1,onerror:"请填写链接名称"});
+		$("#url").formValidator({onshow:"不能为空",onfocus:"http开头"}).inputValidator({min:1,onerror:"请填写链接地址"});
+	})
+</script>
+</div>
+</body></html>

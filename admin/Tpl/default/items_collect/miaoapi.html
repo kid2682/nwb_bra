@@ -1,0 +1,22 @@
+<include file="public:header" />
+<form id="myform" name="myform" action="{:u('items_collect/miaoapi')}" method="post">
+  <div class="pad-10">
+          <table width="100%" cellpadding="2" cellspacing="1" class="table_form">           
+            <tr>
+              <th width="120">59秒App Key :</th>
+              <td><input type="text" name="miao_appkey"  size="40" value="{$miao.miao_appkey}"> <span class="gray">通过http://www.59miao.com开发平台获取</span></td>
+            </tr>
+            <tr>
+              <th>59秒App Secret :</th>
+              <td><input type="text" name="miao_appsecret" size="40" value="{$miao.miao_appsecret}"> <span class="gray">通过http://www.59miao.com开发平台获取</span></td>
+            </tr>
+        </table>
+
+      <div class="bk15"></div>
+
+      <div class="btn"><input type="submit" value="{$Think.lang.submit}" onclick="return submitFrom();" name="dosubmit" class="button" id="dosubmit"></div>
+
+    </div>
+  </div>
+</form>
+</body></html>

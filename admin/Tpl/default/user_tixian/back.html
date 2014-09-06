@@ -1,0 +1,68 @@
+<include file="public:header" />
+
+<div class="pad_10">
+<form action="{:u('user_tixian/back_update')}" method="post" name="myform" id="myform" >
+<input type="hidden" name="uname" value="{$tixian_info.uname}"/>
+<input type="hidden" name="type" value="{$type}"/>
+<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+	<tr>
+      <th></th>
+      <td><input type="hidden" name="id" class="input-text" value="{$tixian_info.id}"></td>
+    </tr>	
+	<tr>
+      <th width="100">{:L('uname')} :</th>
+      <td>{$tixian_info.uname} <a href="{:u('cash_back_log/index',array('keyword'=>$val[uname]))}" style="font-size:14px;">【查看交易明细】</a></td>
+    </tr>
+    <tr>
+	<tr>
+      <th width="100">{:L('money')} :</th>
+      <td>{$tixian_info.money}</td>
+    </tr>
+	<tr>
+      <th width="100"><if condition="$cashback_type eq '1'">集分宝
+					  <else/>
+					 	{$tb_fanxian_name}
+					  </if> :
+	  </th>
+      <td>{$tixian_info.jifenbao}{$tb_fanxian_unit}</td>
+    </tr>
+    <tr>
+      <th>{:L('remark')} :</th>
+      <td>{$tixian_info.remark}</td>
+    </tr>
+    <tr>
+      <th>{:L('addtime')} :</th>
+      <td>{$tixian_info.addtime|date="Y-m-d H:i:s",###}</td>
+    </tr>
+    <tr>
+      <th>{:L('ip')} :</th>
+      <td>
+      	{$tixian_info.ip}
+      </td>
+    </tr>
+     <tr>
+      <th width="100">{:L('status')} :</th>
+      <td>
+      	<if condition="$tixian_info.status eq '0' "><span class="red">尚未处理</span></if> <if condition="$tixian_info.status eq '1' "><span class="green">提现成功</span></if> <if condition="$tixian_info.status eq '2' "><span class="red">提现失败</span></if>
+		<input type="hidden" value="2" name="status" />
+	 </td>
+    </tr>  
+	<tr>
+      <th>退回原因 :</th>
+      <td>
+      	<if condition="$tixian_info.status eq '0' ">
+      		<textarea name="reply" style="width:400px; height:100px;"></textarea>
+		<else/>
+			{$tixian_info.reply}
+		</if>
+      </td>
+    </tr>  
+</table>
+
+<if condition="$tixian_info.status eq '0' ">
+	<div class="btn"><input type="submit" value="{$Think.lang.submit}" name="dosubmit" class="button" id="dosubmit"></div>
+</if>
+</form>
+</div>
+</body>
+</html>

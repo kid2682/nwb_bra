@@ -1,0 +1,196 @@
+<include file="public:header" />
+<div class="pad-10">		
+	<if condition="$code eq 'taobao'">
+	<div class="data_top">
+		<a href="javascript:collectAllTao();" class="cat">一键采集所有淘宝分类</a>
+	</div>
+    <div class="table-list">
+    <form action="" method="post">
+        <table width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th>分类</th>
+				<th>关键词</th>
+                <th>采集时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="items_cate_list" id='val'>
+            <tr class="{$val.cls}" iid="{$val.id}" pid="{$val.pid}" level="{$val.level}">
+              	<td align="left" style="padding-left:{$val['level']*20+10}px;"> 
+                	<img src="__ROOT__/statics/admin/images/tv-collapsable.gif" class="expandable" id="{$val.id}" />
+                    &nbsp;&nbsp;{$val.name}
+               	</td>
+				<td align="center"> 
+               
+                    &nbsp;&nbsp;{$val.keywords}
+               	</td>
+                <td align="center" class="red">
+                	<if condition="$val.collect_time neq 0">{$val.collect_time|date="Y-m-d H:i:s",###}</if>
+               	</td>
+                <td align="center">
+                	<if condition="$val.level eq 2">
+                	<a href="javascript:collect({$val.id}, '{$val.keywords}');" class="blue">采集</a>
+                    </if>
+               	</td>
+            </tr>
+            </volist>            
+            </tbody>
+        </table>
+    </form>
+    </div>
+<script language="javascript">
+$(function(){   	
+	$('.expandable').click(function(){ 
+		var subcate=".sub_"+$(this).attr('id');
+		if($(subcate+":visible").size()>0){ 
+			$(subcate).hide();
+			$(this).attr('src',ROOT_PATH+'/statics/admin/images/tv-expandable.gif');
+		}else{
+			$(subcate).show();
+			$(this).attr('src',ROOT_PATH+'/statics/admin/images/tv-collapsable.gif');
+		}
+	});
+});
+function collect(cate_id, cate_name) {
+	window.top.art.dialog({id:'collect'}).close();
+	window.top.art.dialog({title:'淘宝数据采集--'+cate_name,id:'collect',iframe:'?m=items_collect&a=taobao_collect&cate_id='+cate_id+'&cate_name='+cate_name,width:'430',height:'160'});
+}
+function collectAllTao() {
+	window.top.art.dialog({id:'collect_tao'}).close();
+	window.top.art.dialog({title:'采集所有淘宝分类',id:'collect',iframe:'?m=items_collect&a=collect_all_tao',width:'680',height:'250'});
+}
+</script>
+<!--显示59秒的数据-->
+<elseif condition="$code eq 'miao'" />
+	<div class="data_top">
+		<a href="javascript:collectAll();" class="cat">一键采集所有B2C分类</a>
+	</div>
+    <div class="table-list">
+    <form action="" method="post">
+        <table width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th>分类</th>
+				<th>关键词</th>
+                <th>采集时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="items_cate_list" id='val'>
+            <tr class="{$val.cls}" iid="{$val.id}" pid="{$val.pid}" level="{$val.level}">
+              	<td align="left" style="padding-left:{$val['level']*20+10}px;"> 
+                	<img src="__ROOT__/statics/admin/images/tv-collapsable.gif" class="expandable" id="{$val.id}" />
+                    &nbsp;&nbsp;{$val.name}
+               	</td>
+				<td align="center"> 
+               
+                    &nbsp;&nbsp;{$val.keywords}
+               	</td>
+                <td align="center" class="red">
+                	<if condition="$val.collect_time neq 0">{$val.collect_time|date="Y-m-d H:i:s",###}</if>
+               	</td>
+                <td align="center">
+                	<if condition="$val.level eq 2">
+                	<a href="javascript:collect({$val.id}, '{$val.keywords}');" class="blue">采集</a>
+                    </if>
+               	</td>
+            </tr>
+            </volist>            
+            </tbody>
+        </table>
+    </form>
+    </div>
+<script language="javascript">
+$(function(){   	
+	$('.expandable').click(function(){ 
+		var subcate=".sub_"+$(this).attr('id');
+		if($(subcate+":visible").size()>0){ 
+			$(subcate).hide();
+			$(this).attr('src',ROOT_PATH+'/statics/admin/images/tv-expandable.gif');
+		}else{
+			$(subcate).show();
+			$(this).attr('src',ROOT_PATH+'/statics/admin/images/tv-collapsable.gif');
+		}
+	});
+});
+function collect(cate_id, cate_name) {
+	window.top.art.dialog({id:'collect'}).close();
+	window.top.art.dialog({title:'59秒数据采集--'+cate_name,id:'collect',iframe:'?m=items_collect&a=miao_collect&cate_id='+cate_id+'&cate_name='+cate_name,width:'430',height:'160'});
+}
+function collectAll() {
+	window.top.art.dialog({id:'collect'}).close();
+	window.top.art.dialog({title:'采集所有B2C分类',id:'collect',iframe:'?m=items_collect&a=collect_all',width:'680',height:'250'});
+}
+</script>
+<!--显示微购采集的数据-->
+<elseif condition="$code eq 'wego'" />	
+	<div class="data_top">
+		<a href="javascript:collectAll();" class="cat">一键采集所有分类</a>
+	</div>
+    <div class="table-list">
+    <form action="" method="post">
+        <table width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th>分类</th>
+				<th>关键词</th>
+                <th>采集时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="items_cate_list" id='val'>
+            <tr class="{$val.cls}" iid="{$val.id}" pid="{$val.pid}" level="{$val.level}">
+              	<td align="left" style="padding-left:{$val['level']*20+10}px;"> 
+                	<img src="__ROOT__/statics/admin/images/tv-collapsable.gif" class="expandable" id="{$val.id}" />
+                    &nbsp;&nbsp;{$val.name}
+               	</td>
+				<td align="center"> 
+               
+                    &nbsp;&nbsp;{$val.keywords}
+               	</td>
+                <td align="center" class="red">
+                	<if condition="$val.collect_time neq 0">{$val.collect_time|date="Y-m-d H:i:s",###}</if>
+               	</td>
+                <td align="center">
+                	<if condition="$val.level eq 2">
+                	<a href="javascript:collect({$val.id}, '{$val.keywords}');" class="blue">采集</a>
+                    </if>
+               	</td>
+            </tr>
+            </volist>            
+            </tbody>
+        </table>
+    </form>
+    </div>
+<script language="javascript">
+$(function(){   	
+	$('.expandable').click(function(){ 
+		var subcate=".sub_"+$(this).attr('id');
+		if($(subcate+":visible").size()>0){ 
+			$(subcate).hide();
+			$(this).attr('src',ROOT_PATH+'/statics/admin/images/tv-expandable.gif');
+		}else{
+			$(subcate).show();
+			$(this).attr('src',ROOT_PATH+'/statics/admin/images/tv-collapsable.gif');
+		}
+	});
+});
+function collect(cate_id, cate_name) {
+	window.top.art.dialog({id:'collect'}).close();
+	window.top.art.dialog({title:'59秒数据采集--'+cate_name,id:'collect',iframe:'?m=items_collect&a=wego_collect&cate_id='+cate_id+'&cate_name='+cate_name,width:'430',height:'160'});
+}
+function collectAll() {
+	window.top.art.dialog({id:'collect'}).close();
+	window.top.art.dialog({title:'采集所有B2C分类',id:'collect',iframe:'?m=items_collect&a=collect_all_wego',width:'680',height:'250'});
+}
+</script>
+
+
+</if>
+</div>
+</body>
+</html>

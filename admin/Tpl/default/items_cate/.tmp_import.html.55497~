@@ -1,0 +1,36 @@
+<tagLib name="wego" />
+<include file="public:header" />
+
+<style type="text/css">
+	.explain-col table tr td input{
+		margin:0px 5px 0px 10px;
+	}
+</style>
+
+
+<form action="{:u('items_cate/import')}" method="post" name="myform" id="myform" style="margin-top:10px;">
+    <div class="pad-10">
+        <div class="col-tab">
+            <ul class="tabBut cu-li">
+                <li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',1,1);">导入分类</li>
+            </ul>
+            <div id="div_setting_1" class="contentList pad-10">
+	            <div class="explain-col">	
+				<p style="padding:12px 30px; color:red;">提示：只有选中的分类才可以在后台分类列表中看到</p>            	
+					<table>
+	                    <tr>
+	                        <th width="120">分类类别 :</th>
+	                        <td>
+	                        	<wego:checkbox checkboxes="item_cate_list" checked="item_cate_list_select" name="item_cate" />
+	                        </td>
+	                    </tr>                       
+	                </table>						
+				</div>                
+            </div>
+            <div class="btn">
+                <input type="submit" value="导入" class="button" name="dosubmit" />
+            </div>
+        </div>
+    </div>
+</form>
+</body></html>

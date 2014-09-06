@@ -1,0 +1,36 @@
+<include file="public:header"/>
+<load href="__TMPL__public/js/album.js" />
+<load href="__TMPL__public/css/album_index.css" />   
+<if condition="$display_b2c_ad eq 1">
+	<!--B2C随机广告-->
+	<div class="mt15">
+		<volist name="ad_rel" id='val' key='key'> 
+			<if condition="$key eq 1">			       		
+				<a href="javascript:void(0)" style="border:none; margin-right:20px;" onclick="window.open('{$val['click_url']}')"><img src="{$val.pic_url}" /></a>
+				<else/>
+				<a href="javascript:void(0)" style="border:none;" onclick="window.open('{$val['click_url']}')"><img src="{$val.pic_url}" /></a>
+			</if>
+		</volist>
+	</div>
+	<!--B2C随机广告结束-->
+</if>
+<div class="content">
+	<div id="group_nav" class="clearfix">
+		<ul>
+			<li><a href="{:u('album/index')}" <if condition="$cid eq -1">class="on"</if>>推荐</a></li>
+			<volist name="album_cate" id="val" offset="0" length="10">
+				<li><a href="{:u('album/index',array('cid'=>$val['id']))}" <if condition="$val.id eq $cid">class="on"</if>>{$val.title}</a></li>
+			</volist>
+			 <if condition="!is_null($uid)">
+	        	<li><a href="{:uc('uc/index')}" target="_blank">我的专辑</a></li>
+	        </if>
+		</ul>
+	</div>
+    <div class="album_index infinite_scroll clearfix" style="min-height:200px;">
+        <include file="album_list"/>   
+    </div> 
+    <div id="page" class="page mt20 clearfix" style="display: block;">
+        <span class="page_num">{$page}</span>
+    </div>        
+</div>
+<include file="public:footer"/>

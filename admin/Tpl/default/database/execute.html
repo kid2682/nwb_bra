@@ -1,0 +1,73 @@
+<include file="public:header" />
+<form action="{:u(MODULE_NAME.'/'.ACTION_NAME)}" method="post" name="myform" id="myform" style="margin-top:10px;">
+    <div class="pad-10">
+        <div class="col-tab">
+            <ul class="tabBut cu-li">
+                <li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',2,1);">执行sql</li>
+            </ul>
+            <div id="div_setting_1" class="contentList pad-10">
+                
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        			<tr>
+        				<td valign="top">
+        					<textarea id="execSql" style="width:100%; font-size:13px; height:212px; line-height:18px;"></textarea>
+        				</td>
+        				<td width="10">&nbsp;
+        					
+        				</td>
+        				<td width="260" valign="top">
+        					<select name="table_name" id="tableName" multiple="multiple" style="width:100%; font-size:13px; height:212px; line-height:18px;">
+        						<foreach name="tables" item="table" >
+        							<option value="{$table}">{$table}</option>
+        						</foreach>
+        					</select>
+        				</td>
+        			</tr>
+  
+        		</table>
+            </div>
+            <div class="btn">
+                <input type="button" value="执行" id="runQuery" name="dosubmit" class="button">
+                <span style="color: red;">查询数据库请谨慎使用！</span>
+            </div>
+        </div>
+    </div>
+</form>
+<fieldset id="queryBox" style="margin:10px;">
+	<legend>数据库查询结果 <strong class="blue" id="resultNum"></strong></legend>
+	<div id="sqlResult" style="margin:10px;">
+		
+	</div>
+</fieldset>
+<script type="text/javascript">
+jQuery(function($){
+	$("#runQuery").click(function(){
+		var sql = $.trim($("#execSql").val());
+		if(sql == '')
+			return;
+		
+		$("#runQuery").attr({"disabled":true});
+		$.ajax({
+			url: "{:U('database/doExecute')}",
+            type:"POST",
+			cache: false,
+			data:{"sql":sql},
+			dataType:"json",
+			success: function(result){
+				$("#resultNum").html(result.info);
+				$("#sqlResult").html(result.html);
+				$("#runQuery").attr({"disabled":false});
+			},
+			error:function(){
+				$("#runQuery").attr({"disabled":false});	
+			}
+		});
+	});
+	
+	$("#tableName").dblclick(function(){
+		var sql = $("#execSql").val();
+		$("#execSql").val(sql + ' ' + this.value);
+	});
+});
+</script>
+</body></html>

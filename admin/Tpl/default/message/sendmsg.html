@@ -1,0 +1,91 @@
+<tagLib name="wego" />
+<include file="public:header" />
+
+<form action="{:u('message/doSendMsg')}" method="post" name="myform" id="myform" style="margin-top:10px;">
+<eq name='type' value='edit'>
+<input type="hidden" value="{$info.id}" name='id' />	
+</eq>
+<input type="hidden" value="{$Think.session.admin_info.user_name}" name='from_user' />
+<div class="pad_10">	
+<div class="col-tab">
+	 <div id="div_setting_1" class="contentList pad-10">
+	 	<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+            <tr>
+				<th width="150">发件人:</th>
+				<td>{$info.from_user}</td>
+			</tr>
+			<tr>
+				<th>标题 :</th>
+				<td>
+					{$info.title}
+				</td>
+			</tr>
+			<tr>
+				<th>内容 :</th>
+				<td>
+                    
+                    {$info.content}
+                    
+					
+				</td>
+			</tr>
+            <tr><td colspan="2"><hr/></td></tr>
+			<tr>
+				<th width="150">收件人:</th>
+				<td><input type="text" name="to_user" value="{$info.from_user}" readonly=""/></td>
+			</tr>
+			<tr>
+				<th>标题 :</th>
+				<td>
+					<input type="text" value="{$info.title}" name="title" readonly=""/>
+				</td>
+			</tr>
+			<tr>
+				<th>内容 :</th>
+				<td>
+                    <textarea name="content" style="height: 100px;width:400px;">
+    
+                    </textarea>
+					
+				</td>
+			</tr>
+
+		</table>
+	 </div>
+	    
+	  
+<div class="btn"><input type="submit" value="{$Think.lang.submit}" name="dosubmit" class="button" id="dosubmit"></div>
+</div>	
+</div>
+</form>
+<script type="text/javascript">	
+	$(function(){
+		$.formValidator.initConfig({
+			formid:"myform",
+			autotip:true,
+			onerror:function(msg,obj){
+				window.top.art.dialog({
+					content:msg,
+					lock:true,
+					width:'200',
+					height:'50'},
+					 function()
+					 {
+					 	this.close();
+						$(obj).focus();
+					 })
+		}});		
+		
+		$("#name").formValidator({
+			onshow:"不能为空",onfocus:"标题不能为空哦"
+		}).inputValidator({
+			min:1,onerror:"请输入商品名称"
+		});	
+		$("#integral").formValidator({onshow:"请输入积分（1-100000）",onfocus:"只能输入1-100000之间的数字哦",oncorrect:"恭喜你,输入正确"}).inputValidator({min:1,max:100000,type:"value",onerrormin:"你输入的值必须大于等于1",onerror:"积分必须在1-100000之间，必须是数字，请确认"}).defaultPassed();
+		$("#stock").formValidator({onshow:"请输入库存（0-100000的数字）",onfocus:"只能输入0-100000之间的数字哦",oncorrect:"恭喜你,输入正确"}).inputValidator({min:0,max:100000,type:"value",onerrormin:"你输入的值必须大于等于0",onerror:"库存必须在0-100000之间，必须是数字，请确认"}).defaultPassed();
+		$("#user_num").formValidator({onshow:"请输入（1-100000的数字）",onfocus:"只能输入1-100000之间的数字哦",oncorrect:"恭喜你,输入正确"}).inputValidator({min:1,max:100000,type:"value",onerrormin:"你输入的值必须大于等于1",onerror:"每人限兑必须在1-100000之间，必须是数字，请确认"}).defaultPassed();
+				
+	})
+</script>
+</body>
+</html>

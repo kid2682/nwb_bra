@@ -1,0 +1,39 @@
+<include file="public:header" />
+<form action="{:u('user/'.ACTION_NAME)}" method="post" name="myform" id="myform"  enctype="multipart/form-data" style="margin-top:10px;">
+  <div class="pad-10">
+    <div class="col-tab">
+      <ul class="tabBut cu-li">
+        <li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',2,1);">批量添加</li>        
+      </ul>
+      <div id="div_setting_1" class="contentList pad-10">
+        <table width="100%" cellpadding="2" cellspacing="1" class="table_form">  
+          <tr>
+            <th width="100">{:L('name')} :</th>
+            <td style="vertical-align: middle;">
+            	<textarea cols=20 rows=20 name="name" id="name"></textarea>
+				 <span><br>
+				 <span style="color:red">提示</span>：所有马甲会员的密码都是一样的,默认为 abc-123，<br>
+				 多个会员以回车隔开,例如<br><img src="__ROOT__/statics/admin/images/user.jpg"></span>
+            </td>
+          </tr>		 
+        </table>
+      </div>      
+      <div class="bk15"></div>
+      <div class="btn"><input type="submit" value="{$Think.lang.submit}"  name="dosubmit" class="button" id="dosubmit"></div>
+    </div>
+  </div>
+</form>
+<script type="text/javascript">
+function SwapTab(name,cls_show,cls_hide,cnt,cur){
+    for(i=1;i<=cnt;i++){
+		if(i==cur){
+			 $('#div_'+name+'_'+i).show();
+			 $('#tab_'+name+'_'+i).attr('class',cls_show);
+		}else{
+			 $('#div_'+name+'_'+i).hide();
+			 $('#tab_'+name+'_'+i).attr('class',cls_hide);
+		}
+	}
+}
+</script>
+</body></html>

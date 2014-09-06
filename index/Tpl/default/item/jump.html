@@ -1,0 +1,27 @@
+<div id="jump_dialog" class="box_content">
+   <div class="jump_info">
+   	<p>
+   		即将以返现模式进入
+		<span class="aa8b55">
+			<empty name="seller_logo">
+				“{$seller_name}” 
+			<else />				
+				<img src="{$seller_logo}" alt="{$seller_name}">
+			</empty>
+		</span>
+		最高返：50%</p>
+   </div>
+   <p class="p_login"><span class="aa8b55">已是会员</span> 请登录...</p>
+	<div class="login_box">			
+			<div class="fl login_input">
+				<p>
+					用户名：<input id="login_username" class="input_text" type="text" name="username" style="width:150px; border:2px solid #ECDEC4;" />　
+					密　码：<input id="login_password" class="input_text" type="password" name="username" style="width:150px; border:2px solid #ECDEC4;" />
+				</p>
+			</div>
+			<a id="fast_login" class="btn-go fr" onclick="" href="javascript:void(0);">登录</a>			
+			<div class="clearfix"></div>		
+			<p class="hint"></p>
+	</div>
+	<p class="reg_go">尚未注册，请 <a href="{:u('uc/register',array(item_id=>$item_id))}" class="red">[注册]</a></p>
+</div>

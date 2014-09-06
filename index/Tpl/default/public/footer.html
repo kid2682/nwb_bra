@@ -1,0 +1,106 @@
+</div>
+<div class="foot">
+	<div class="footer">
+    	<div class="footlj">
+        	<div class="logo2"><a href="./"><img src="__TMPL__public/images/logo2.png" /></a></div>
+            <div class="footlj_a">
+            	<h6>逛宝贝</h6>
+            	<ul>
+                	<li><a target="_blank" href="{:U('cate/index',array('cid'=>548))}">衣服</a></li>
+                    <li><a target="_blank" href="{:U('cate/index',array('cid'=>2))}">鞋子</a></li>
+                    <li><a target="_blank" href="{:U('cate/index',array('cid'=>3))}">包包</a></li>
+                    <li><a target="_blank" href="{:U('cate/index',array('cid'=>4))}">配饰</a></li>
+					<li><a target="_blank" href="{:U('cate/index',array('cid'=>5))}">美妆</a></li>
+					<li><a target="_blank" href="{:U('cate/index',array('cid'=>6))}">家居</a></li>
+                </ul>
+            </div>
+            
+            <div class="footlj_a">
+            	<h6>关于我们</h6>
+            	<ul>
+                <volist name="fabout" id="vo">
+                	<li><a target="_blank" href="<eq name="vo.url" value="">{:u('article/index',array('id'=>$vo['id']))}<else/>{$vo.url}</eq>">{$vo.title}</a></li>
+                </volist>                     
+                </ul>
+            </div>
+            
+            <div class="footlj_a">
+            	<h6>合作伙伴</h6>
+            	<ul>       
+					<volist name="huoban_list" id="val">
+						<li><a target="_blank" href="{$val.url}">{$val.name}</a></li>
+	               </volist>
+                </ul>
+            </div>
+            
+		<div class="footlj_a footlj_b">
+            	<h6>友情链接</h6>
+		       	  <ul>  
+					  <volist name="flink_list" id="val">
+							<li><a target="_blank" href="{$val.url}" class="f_links fl">{$val.name}</a></li>
+		              </volist>
+		          </ul>
+        </div>
+            
+            <div class="footlj_a footlj_c">
+            	<h6>关注我们</h6>
+            	<ul> 
+                	<neq name="follow_us.weibo_url" value=""><li><a href="{$follow_us.weibo_url}">新浪微博</a></li></neq>
+                    <neq name="follow_us.qqweibo_url" value=""><li><a href="{$follow_us.qqweibo_url}" style="background:url(__TMPL__public/images/guanz5.png) no-repeat;">腾讯微博</a></li></neq>
+                    <neq name="follow_us.163_url" value=""><li><a href="{$follow_us.163_url}" style="background:url(__TMPL__public/images/guanz6.png) no-repeat;">网易微博</a></li></neq>
+                    <neq name="follow_us.qqzone_url" value=""><li><a href="{$follow_us.qqzone_url}" style="background:url(__TMPL__public/images/guanz2.png) no-repeat;">QQ空间</a></li></neq>
+                    <neq name="follow_us.douban_url" value=""><li><a href="{$follow_us.douban_url}" style="background:url(__TMPL__public/images/guanz3.png) no-repeat;">豆瓣</a></li></neq>
+                    <neq name="follow_us.renren_url" value=""><li><a href="{$follow_us.renren_url}" style="background:url(__TMPL__public/images/guanz4.png) no-repeat;">人人网</a></li></neq>
+                </ul>
+            </div>
+        </div>
+        <div class="banquan">Powered by <a href="{$site_domain}">{$site_name}</a>&nbsp;&nbsp;{$site_icp}</div>
+		<div  class="banquan">{$statistics_code}</div>
+		<div class="banquan">{$site_share}</div>
+        <div class="browse none_f"> 
+        	<a class="close_z"></a> 
+        	温馨提示：你正在使用的<b>IE6浏览器</b>，网购支付不安全，{$site_name}推荐 
+            <a class="jisuie" href="http://download.microsoft.com/download/1/6/1/16174D37-73C1-4F76-A305-902E9D32BAC9/IE8-WindowsXP-x86-CHS.exe" target="_blank">IE8浏览器</a>，
+            <a class="jisugg" href="http://www.google.cn/intl/zh-CN/chrome/browser/" target="_blank">Chrome浏览器</a>，
+            <a class="jisuff" href="http://download.firefox.com.cn/releases/partners/baidu/webins3.0/zh-CN/Firefox-setup.exe" target="_blank">firefox浏览器</a>，
+            网速更快更安全。
+        </div>
+        
+    </div>
+</div>
+
+<div style="display:none;" id="gotopbtn" class="to_top"></div>
+
+<div id="user_info_tip" style="display:none;">
+	<div class="tip_info">		
+		<img src="__ROOT__/statics/images/loading_60.gif" />
+	</div>
+</div>
+<script type="text/javascript">
+    //IE6提示
+    var isIE6= /msie 6/i.test(navigator.userAgent);
+    if(isIE6){
+        $(".none_f").css("display","block");
+        $(".close_z").click(function(){
+            $(".none_f").css("display","none")
+        })
+    }
+</script>
+<script>
+        $(function(){
+            var classname;
+            $(".ucenter-list ul li").each(function(){
+                $(this).mousemove(function(){
+                    $(this).css("background","#FFF3F3");
+                    classname = $(this).find("span").attr('class');
+                    $(this).find("span").addClass('n'+classname);
+                    
+                }).mouseout(function(){
+                    $(this).css("background","#F9F7F8");
+                    $(this).find("span").removeClass('n'+classname);                    
+                })
+            })
+        })
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<include file="public:ucheader"/>
+<load href="__TMPL__public/css/ucindex.css" />   
+<div class="ucleft">
+	<!--用户-->
+    <include file="userleft"/>
+    <!--用户-->
+    
+    <br clear="all"/>
+</div>
+<div class="ucright" style="background: none;margin-top:5px;">
+	<!--导航-->
+    <!--div class="uchead">
+        <ul>
+        <if condition="$u['id'] neq $user['id']">
+            <li><a class="hon1" href="{:uc('uc/index')}"><php>if($u['sex']==0){</php>他<php>}elseif($u['sex']==1){</php>她<php>}else{</php>ta<php>}</php>的专辑</a></li>
+            <li class="hon"><a class="hon2" href="{:uc('uc/share')}"><php>if($u['sex']==0){</php>他<php>}elseif($u['sex']==1){</php>她<php>}else{</php>ta<php>}</php>的分享</a></li>
+            <li><a class="hon3" href="{:uc('uc/like')}"><php>if($u['sex']==0){</php>他<php>}elseif($u['sex']==1){</php>她<php>}else{</php>ta<php>}</php>的喜欢</a></li>
+        <else/>
+            <li><a class="hon1" href="{:uc('uc/index')}">我的专辑</a></li>
+            <li class="hon"><a class="hon2" href="{:uc('uc/share')}">我的分享</a></li>
+            <li><a class="hon3" href="{:uc('uc/like')}">我的喜欢</a></li>
+        </if>
+        </ul>
+        
+    </div-->
+    <!--导航-->
+    <div class="album_list_fans" style="background: none;">
+      
+        <div class="item_list infinite_scroll like_list" style="min-height:200px;">
+        	<if condition="!empty($items_list)">
+	            <include file="public:share_goods_list"/>
+			<else/>                
+				<div class="home_empty">
+					<span class="des" style="margin: 10px;display:block;">还没有分享宝贝哦~</span>
+              	</div>            	
+            </if>
+        </div>
+        <if condition="$show_sp eq 1">
+            <div id="more" class="center">
+                <a href="{:u('uc/share',array('sp'=>2,'cid'=>$cid,'p'=>$p))}" hidefocus="true"></a>
+            </div>    	
+        </if> 
+        <if condition="$page neq ''">
+            <div id="page" class="page mt20 clearfix" style="display: none;">
+                <span class="page_num">{$page}</span>
+            </div>
+         </if>
+    </div>
+</div>
+
+<include file="public:footer"/> 

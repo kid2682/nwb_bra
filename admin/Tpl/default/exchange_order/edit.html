@@ -1,0 +1,132 @@
+<tagLib name="wego" />
+<include file="public:header" />
+<form action="{:u('exchange_order/update')}" method="post" name="myform" id="myform" style="margin-top:10px;">
+<div class="pad_10">	
+<div class="col-tab">
+	 <div id="div_setting_1" class="contentList pad-10">
+	 	<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+			<tr>
+				<th width="150">{:L('data_name')} :</th>
+				<td>{$ex_order_info.data_name}</td>
+			</tr>
+			<tr>
+				<th>{:L(sn)} :</th>
+				<td>
+					{$ex_order_info.sn}
+				</td>
+			</tr>
+			<tr>
+				<th>{:L('user_name')} :</th>
+				<td>
+					{$ex_order_info.user_name}
+                    <input type="hidden" name="to_user" value="{$ex_order_info.user_name}"/>
+				</td>
+			</tr>
+			<tr>
+				<th>{:L('address')} :</th>
+				<td>
+					{$ex_order_info.address}
+				</td>
+			</tr>
+			<tr>
+				<th>{:L('zip')} :</th>
+				<td>
+					{$ex_order_info.zip}
+				</td>
+			</tr>
+			<tr>
+				<th>{:L('consignee')} :</th>
+				<td>
+					{$ex_order_info.consignee}
+				</td>
+			</tr>
+			<tr>
+				<th>{:L('email')} :</th>
+				<td>
+					{$ex_order_info.email}
+				</td>
+			</tr>
+			<tr>
+				<th>{:L('mobile_phone')} :</th>
+				<td>
+					{$ex_order_info.mobile_phone}					
+				</td>
+			</tr>
+			<tr>
+				<th>{:L('qq')} :</th>
+				<td>
+					{$ex_order_info.qq}
+				</td>
+			</tr>
+			<tr>
+				<th>{:L('fax_phone')} :</th>
+				<td>
+					{$ex_order_info.fax_phone}
+				</td>
+			</tr>
+			<tr>
+				<th>{:L('remark')} :</th>
+				<td>
+					{$ex_order_info.remark}
+				
+				</td>
+			</tr>
+		    <tr>
+		      <th>{:L('goods_status')} :</th>
+			    <td>		
+					<if condition="$ex_order_info.goods_status eq '0' ">
+						<input type="radio" name="goods_status" value="0" checked="checked" />
+					<else />
+						<input type="radio" name="goods_status" value="0" /> 
+					</if>
+					未发货					 
+										   
+					<if condition="$ex_order_info.goods_status eq '1'">
+						<input type="radio" name="goods_status" value="1" checked="checked" />
+					<else />
+						<input type="radio" name="goods_status" value="1" /> 
+					</if>
+					已发货					 					      
+	         	</td>
+		    
+		    </tr>
+
+		</table>
+	 </div>
+	  <input type="hidden" value="{$ex_order_info.id}" name='id' />	  
+	  
+<div class="btn"><input type="submit" value="{$Think.lang.submit}" name="dosubmit" class="button" id="dosubmit"></div>
+</div>	
+</div>
+</form>
+<script type="text/javascript">	
+	$(function(){
+		$.formValidator.initConfig({
+			formid:"myform",
+			autotip:true,
+			onerror:function(msg,obj){
+				window.top.art.dialog({
+					content:msg,
+					lock:true,
+					width:'200',
+					height:'50'},
+					 function()
+					 {
+					 	this.close();
+						$(obj).focus();
+					 })
+		}});		
+		
+		$("#name").formValidator({
+			onshow:"不能为空",onfocus:"标题不能为空哦"
+		}).inputValidator({
+			min:1,onerror:"请输入商品名称"
+		});	
+		$("#integral").formValidator({onshow:"请输入积分（1-100000）",onfocus:"只能输入1-100000之间的数字哦",oncorrect:"恭喜你,输入正确"}).inputValidator({min:1,max:100000,type:"value",onerrormin:"你输入的值必须大于等于1",onerror:"积分必须在1-100000之间，必须是数字，请确认"}).defaultPassed();
+		$("#stock").formValidator({onshow:"请输入库存（0-100000的数字）",onfocus:"只能输入0-100000之间的数字哦",oncorrect:"恭喜你,输入正确"}).inputValidator({min:0,max:100000,type:"value",onerrormin:"你输入的值必须大于等于0",onerror:"库存必须在0-100000之间，必须是数字，请确认"}).defaultPassed();
+		$("#user_num").formValidator({onshow:"请输入（1-100000的数字）",onfocus:"只能输入1-100000之间的数字哦",oncorrect:"恭喜你,输入正确"}).inputValidator({min:1,max:100000,type:"value",onerrormin:"你输入的值必须大于等于1",onerror:"每人限兑必须在1-100000之间，必须是数字，请确认"}).defaultPassed();
+				
+	})
+</script>
+</body>
+</html>

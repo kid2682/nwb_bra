@@ -1,0 +1,46 @@
+<include file="public:header" />
+<form action="{:u('database/doRestore')}" method="post" name="myform" id="myform" style="margin-top:10px;">
+    <div class="pad-10">
+        <div class="col-tab">
+            <ul class="tabBut cu-li">
+                <li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',2,1);">数据恢复</li>
+            </ul>
+            <div id="div_setting_1" class="table-list">
+            	<div style="padding:10px; overflow:hidden;">
+					<div class="main_top" style="clear:both;">
+						<h4>温馨提示：</h4>
+						<p class="green">1. 本功能在恢复备份数据的同时，将全部覆盖原有数据，恢复前请备份好原来的数据，以免造成数据损失</p>
+						<p class="green">2. 数据恢复功能只能恢复由dShop导出的数据文件，其他软件导出格式可能无法识别</p>
+						<p class="green">3. 从本地恢复数据需要服务器支持文件上传并保证数据尺寸小于允许上传的上限，否则只能使用从服务器恢复</p>
+						<p class="green">4. 如果您使用了分卷备份，只需手工导入文件卷1，其他数据文件会由系统自动导入</p>    
+					</div>
+				</div>                
+                <table width="100%" border="0" cellpadding="0" cellspacing="1">
+            		<tr align="center" class="header">
+            			<td colspan="2" align="center">数据恢复</td>
+            		</tr>
+            		<tr>
+            			<td width="33%"><input type="radio" name="restorefrom" value="server"
+            				checked> 从服务器文件恢复</td>
+            			<td width="67%">
+                            <select name="serverfile">
+            					<option value="">-请选择-</option>
+                                {$dir}
+                            </select>
+                        </td>
+            		</tr>
+            		<!--tr>
+            			<td><input type="radio" name="restorefrom" value="localpc"> 从本地文件恢复</td>
+            			<td><input type="hidden" name="MAX_FILE_SIZE" value="1500000"> <input
+            				type="file" name="myfile"></td>
+            		</tr-->
+            		
+            	</table>
+            </div>
+            <div class="btn">
+                <input type="submit" value="执行" name="dosubmit" class="button">
+            </div>
+        </div>
+    </div>
+</form>
+</body></html>

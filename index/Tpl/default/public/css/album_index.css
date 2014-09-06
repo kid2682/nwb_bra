@@ -1,0 +1,78 @@
+@charset "utf-8";
+.album_index .album_item {
+	width:215px;
+	float:left;
+	padding:10px;
+	background:#fff;
+	box-shadow: 0 1px 3px rgba(34, 25, 25, 0.2);
+	-webkit-box-shadow: rgba(34, 25, 25, 0.2) 0px 1px 3px;
+	-webkit-border-radius: 4px;	
+	margin-right:6px;
+}
+.album_index .album_item .img img {
+	margin:3px 1px 3px 5px;
+	width:64px;
+	height:64px;
+}
+.album_index .title .left {
+	color: #666;
+	text-decoration: none;
+	font-size:14px;
+	font-weight:bold;
+}
+.album_index  .title .left:hover{
+	text-decoration:underline;
+}
+.album_index .title .right {
+	line-height:18px;
+	font-size:16px;
+	color:#999;
+}
+.album_index .title {
+	height:30px;
+	line-height:30px;
+	text-indent:12px;
+}
+.album_index .album_item .like {
+	background:url(../images/uc/myalbum_icon_v3.png) no-repeat -80px 1px;
+	height: 18px;
+	padding-left: 23px;
+}
+
+.album_index .album_item .title .right i {
+	font-weight:bold;
+}
+
+/*转换为大图的列表页面*/
+.album_index ul li.album_list{
+	background: none repeat scroll 0 0 #ffffff;
+    float: left;
+    margin: 18px 10px 0 2px;
+    overflow: hidden;
+    position: relative;
+    width: 230px;
+	border-radius: 2px 2px 2px 2px;
+    box-shadow: 0 1px 2px rgba(34, 25, 25, 0.2);
+}
+.album_index ul li.album_list .album_title{
+	color: #676767;	  
+    font-size: 14px;
+    font-weight: bold;
+    height: 24px;
+    line-height: 24px;
+    overflow: hidden;
+    padding:15px;	    
+}
+.album_index ul li.album_list .album_title span{
+	float:right;
+	font-size:12px;
+	font-weight:normal;	
+}
+
+
+.album_list .groupbg {      
+   margin:0 auto;
+   width:202px;  
+   height:216px;
+   
+}

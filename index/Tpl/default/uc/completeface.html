@@ -1,0 +1,171 @@
+<include file="public:ucheader"/>
+<load href="__TMPL__public/css/account.css" />
+
+<!--样式-->
+<load href="__TMPL__public/css/uc/css_b.css" />
+
+
+<script type="text/javascript" src="__TMPL__public/js/uc/jquery.imgareaselect.min.js"></script>
+
+<script type="text/javascript"> 
+
+function preview(img, selection) { 
+	var scaleX = 100 / selection.width; 
+	var scaleY = 100 / selection.height; 
+	var jswidth = parseInt($("#thumbnail").css("width"));
+    var jsheight = parseInt($("#thumbnail").css("height"));
+	$('#thumbnail + div > img').css({ 
+		width: Math.round(scaleX * jswidth) + 'px', 
+		height: Math.round(scaleY * jsheight) + 'px',
+		marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px', 
+		marginTop: '-' + Math.round(scaleY * selection.y1) + 'px' 
+	});
+	$('#x1').val(selection.x1);
+	$('#y1').val(selection.y1);
+	$('#x2').val(selection.x2);
+	$('#y2').val(selection.y2);
+	$('#w').val(selection.width);
+	$('#h').val(selection.height);
+} 
+
+$(document).ready(function () { 
+	$('#save_thumb').click(function() {
+		var x1 = $('#x1').val();
+		var y1 = $('#y1').val();
+		var x2 = $('#x2').val();
+		var y2 = $('#y2').val();
+		var w = $('#w').val();
+		var h = $('#h').val();
+   
+        var scale = 32/w;
+		if(x1=="" || y1=="" || x2=="" || y2=="" || w=="" || h==""){
+			alert("请使用鼠标选择头像的位置");
+			return false;
+		}else{
+            $.getJSON("{:U('uc/showface')}", {image:"<php>echo $_SESSION['face']</php>",w:w,h:h,x1:x1,y1:y1 }, function(json){
+                $("#showface").remove();
+                $(".tupdxzans").src=json[80];
+                alert("JSON Data: " + json);
+            });
+			return true;
+		}
+	});
+}); 
+
+$(window).load(function () { 
+	//$('#thumbnail').imgAreaSelect({ aspectRatio: '1:1', onSelectChange: preview }); 
+    $('#thumbnail').imgAreaSelect({aspectRatio: '1:1', onSelectChange: preview, x1: 0, y1: 0, x2: 80, y2: 80 }); 
+    
+});
+
+</script>
+<load href="__TMPL__public/css/ucindex.css" /> 
+
+<div class="ucleft">
+	<!--用户-->
+    <include file="userleft"/>
+    <!--用户-->
+   
+    <br clear="all"/>
+</div>
+<div class="ucright">
+	<div class="ucnav">
+ 		<ul>
+        	<li><a href="{:u('uc/account_basic')}">基本信息</a></li>
+            <li><a <eq name="ACTION_NAME" value="completeface"> class="navon" </eq>  href="{:u('uc/account_face')}">上传头像</a></li>
+            <li><a href="{:u('uc/account_sns')}">账号绑定</a></li>
+            <li><a href="{:u('uc/account_pwd')}">修改密码</a></li>
+        </ul>    	    
+    </div>
+    <div class="uccontent">
+
+    <div class="uc_account clearfix"> 
+		
+        
+        <!--右侧-->
+        <form action="{:u('uc/upload')}" method="post" name="myform" id="myform" enctype="multipart/form-data">
+        <div class="right_region exchange">
+            <div class="yhxg_you_b">
+
+                <div class="prompt_div">
+                    <ul>
+                        <li>1.选择图片</li>
+                        <li class="hide_li"></li>
+                        <li>2.剪辑图片</li>
+                        <li class="show_li"></li>
+                        <li class="show_color">3.修改完成</li>
+                    </ul>
+                </div>
+            	<table cellpadding="0" cellspacing="0">
+
+                    <tr>
+                        <td class="tiaotc">缩略头像：</td>
+                        <td>
+                          	<div class="tupdxzans">
+                            <neq name="face['80']" value="">
+                            <img src="{$face['80']}" width="80" height="80" />
+                            <else/>
+                            <img src="/data/user/m_avatar.gif" width="80" height="80" />
+                            </neq>
+                              
+                            </div>
+                            <div class="tupdxzans_a">
+                            <neq name="face['60']" value="">
+                            <img src="{$face['60']}" width="60" height="60" />
+                            <else/>
+                            <img src="/data/user/z_avatar.gif" width="60" height="60" />
+                            
+                            </neq>
+                            </div>
+                            <div class="tupdxzans_b">
+                            <neq name="face['35']" value="">
+                            <img src="{$face['35']}" width="35" height="35" />
+                            <else/>
+                            <img src="/data/user/s_avatar.gif" width="35" height="35" />
+                            
+                            </neq>
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>    
+            </div>
+            
+        </div>
+        </form>
+    </div>
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){ 
+	$.formValidator.initConfig({formid:"myform",autotip:true,
+		onerror:function(msg,obj){
+			art.dialog({content:msg,lock:true,width:'200',height:'50'}, 
+					   function(){this.close();$(obj).focus();})
+			}
+	});
+		
+	$("#passwd").formValidator({onshow:"填写密码",onfocus:"填写6位以上密码"})
+		.inputValidator({min:6,onerror:"请填写6位以上密码"});
+		
+	$("#new_pwd").formValidator({onshow:"填写密码",onfocus:"填写6位以上密码"})
+		.inputValidator({min:6,onerror:"请填写6位以上密码"});
+
+	$("#confirm_pwd").formValidator({onshow:"确认密码",onfocus:"确认密码",oncorrect:"填写正确"})
+		.inputValidator({min:6,onerror:"请填写6位以上密码"})
+		.compareValidator({desid:"new_pwd",operateor:"=",onerror:"两次输入密码不一致"});	
+});
+</script>
+<include file="public:footer"/> 

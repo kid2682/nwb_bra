@@ -1,0 +1,71 @@
+<include file="public:header" />
+<form action="{:u('items_cate/'.ACTION_NAME)}" method="post" name="myform" id="myform"  enctype="multipart/form-data" style="margin-top:10px;">
+  <div class="pad-10">
+  	<div style="padding:10px; overflow:hidden;">
+		<div class="main_top" style="clear:both;">
+			<h4>添加时请仔细阅读下面文字：</h4>
+			<p class="green">1.分类名称为前台显示的分类</p>
+			<p class="green">
+			2.关键字为同步数据的时候的调取关键词			
+			</p>
+			<p>
+				3.<span style="color:red;">关键字可以不填写，不填写关键字将和分类名称保持一致，如果填写关键字，关键字顺序要和分类顺序保持一致</span></span>
+			</p>
+			<p>4.多个关键词以回车分割开</p>
+		</div>
+	</div>	
+    <div class="col-tab">
+      <ul class="tabBut cu-li">
+        <li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',2,1);">批量添加</li>        
+      </ul>
+      <div id="div_setting_1" class="contentList pad-10">
+        <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+          <tr>
+            <th></th>
+            <td><input type="hidden" name="id" class="input-text" value="{$items_cate_info.id}"></td>
+          </tr>
+          <tr>
+            <th>{:L('pid')}：</th>
+            <td>
+            <select name="pid" style="width:150px;">
+                  <option value="0" <if condition="$items_cate_info.pid eq 0">selected="selected"</if>>--顶级分类--</option>
+                   <volist name="items_cate_list" id="val">
+                  	<option value="{$val.id}" <if condition="$items_cate_info.pid eq $val['id']">selected="selected"</if>>
+                    	{:str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',$val['level'])}
+                  		{$val.name}
+               		</option>
+                  </volist>
+            </select>
+			<span>　　　提示：上级分类不要选择三级分类，不然后台将无法显示添加的数据，前台也无法调用</span>
+            </td>
+          </tr>
+          <tr>
+            <th width="100" style="vertical-align: bottom;">{:L('name')} :</th>
+            <td style="vertical-align: middle;">
+            	<textarea cols=20 rows=10 name="name" id="name"></textarea>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<span style="color:#666;">{:L('keyword')}</span>:
+				<textarea cols=20 rows=10 name="keywords" id="keywords"></textarea>				
+            </td>
+          </tr>         
+        </table>
+      </div>      
+      <div class="bk15"></div>
+      <div class="btn"><input type="submit" value="{$Think.lang.submit}"  name="dosubmit" class="button" id="dosubmit"></div>
+    </div>
+  </div>
+</form>
+<script type="text/javascript">
+function SwapTab(name,cls_show,cls_hide,cnt,cur){
+    for(i=1;i<=cnt;i++){
+		if(i==cur){
+			 $('#div_'+name+'_'+i).show();
+			 $('#tab_'+name+'_'+i).attr('class',cls_show);
+		}else{
+			 $('#div_'+name+'_'+i).hide();
+			 $('#tab_'+name+'_'+i).attr('class',cls_hide);
+		}
+	}
+}
+</script>
+</body></html>

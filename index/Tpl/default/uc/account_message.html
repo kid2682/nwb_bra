@@ -1,0 +1,83 @@
+<include file="public:ucheader"/>
+<load href="__TMPL__public/css/ucindex.css" />  
+<load href="__TMPL__public/js/message.js" />
+<load href="__TMPL__public/css/account.css" />
+<load href="__TMPL__public/css/uc/css_b.css" />
+ 
+<div class="ucleft">
+	<!--用户-->
+    <include file="userleft"/>
+    <!--用户-->
+   
+    <br clear="all"/>
+</div>
+<div class="ucright">
+	<div class="ucnav">
+ 		<ul>
+            <li><a <php>if(ACTION_NAME == account_message && $_GET['type'] == 1 ||  !$_GET['type']){ echo "class='navon'";}</php> href="{:u('uc/account_message',array('type'=>'1'))}">收短信</a></li>
+            <li><a <php>if(ACTION_NAME == account_message && $_GET['type'] == 2){ echo "class='navon'";}</php> href="{:u('uc/account_message',array('type'=>'2'))}">已发送</a></li>
+            <li><a href="javascript:void(0)" onclick="message_callback({$val.id})">发短信</a></li>
+        </ul>    	    
+    </div>
+    <div class="uccontent">
+
+        
+        
+        
+        
+        
+        
+        
+
+    <div class="uc_account clearfix"> 
+		
+        
+        <!--右侧-->
+        <div class="right_region exchange">
+
+            <div class="yhsy_dingd wdst_yh">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="dingdbtss">
+                        <td class="dingdbt" width="10%">标题</td>
+                        <td class="dingdbt" width="30%"  align="center">内容</td>                        
+                        <td class="dingdbt" width="15%">时间</td>
+                        <td class="dingdbt" width="10%">操作</td>
+                        
+                    </tr>
+                    
+                    <volist name="msg_list" id="val" key='k' >
+					<tr class="dingdbtssb"  id="tr_{$val.id}">
+                        <td width="10%">{$val.title}</td>
+                        <td width="35%">{$val.content}</td>
+                        <td width="15%">{$val.date|date="Y-m-d H:i:s",###}</td>
+                        <td width="10%">
+                        <neq name="Think.get.type" value="2">
+                            <a id="hid_{$val.id}" onclick="message_callback({$val.id})" href="javascript:void(0)">回复</a > |  
+                        </neq>
+                            <a id="del_{$val.id}" onclick="message_delback({$val.id})" href="javascript:void(0)">删除</a>
+                        </td>
+                    </tr>
+				    </volist>
+                    
+                </table>
+                <present name="err">
+                <div class="err"  style="width:150px;">
+    		        <div class="icon_{$err.err}">{$err.msg}</div>                
+                </div>
+                </present>
+				
+            </div>
+			<div class="page_b">{$page}</div>
+        </div>
+		<div style="clear:both;"></div>
+    </div>
+
+
+        
+
+        
+        
+    </div>
+</div>
+
+<include file="public:footer"/> 

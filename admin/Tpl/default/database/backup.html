@@ -1,0 +1,66 @@
+<include file="public:header" />
+<form action="{:u('database/doBackup')}" method="post" name="myform" id="myform" style="margin-top:10px;">
+    <div class="pad-10">
+        <div class="col-tab">
+            <ul class="tabBut cu-li">
+                <li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',2,1);">数据备份</li>
+            </ul>
+            <div id="div_setting_1" class="table-list">
+        		<div style="padding:10px; overflow:hidden;">
+					<div class="main_top" style="clear:both;">
+						<h4>温馨提示：</h4>
+						<p class="green">1. 服务器备份目录为backup</p>
+						<p class="green">2. 对于较大的数据表，强烈建议使用分卷备份</p>
+						<p class="green">3. 只有选择备份到服务器，才能使用分卷备份功能</p>
+					</div>
+				</div>
+               
+                
+                <table width="100%" border="0" cellpadding='0' cellspacing='1'>
+            		<tr align="center" class='header'>
+            			<td colspan="2">数据备份</td>
+            		</tr>
+            		<tr>
+            			<td colspan="2">备份方式</td>
+            		</tr>
+            		<tr>
+            			<td><input type="radio" checked="checked" name="bfzl" value="quanbubiao"> 备份全部数据</td>
+            			<td>备份全部数据表中的数据到一个备份文件</td>
+            		</tr>
+            		<tr>
+            			<td><input type="radio" name="bfzl" value="danbiao"> 备份单张表数据 
+                        <select name="tablename">
+          					<option value="">请选择</option>
+                            {$options}
+                        </select>
+                        </td>
+            			<td>备份选中数据表中的数据到单独的备份文件</td>
+            		</tr>
+            		<tr>
+            			<td colspan="2">使用分卷备份</td>
+            		</tr>
+            		<tr>
+            			<td colspan="2"><input type="checkbox" name="fenjuan" value="yes">
+            				分卷备份 <input name="filesize" type="text" size="10"> K</td>
+            		</tr>
+            		<!--tr>
+            			<td colspan="2">选择目标位置</td>
+            		</tr>
+            		<tr>
+            			<td colspan="2"><input type="radio" name="weizhi" value="server"
+            				checked> 备份到服务器</td>
+            		</tr>
+            		<tr class="cells">
+            			<td colspan='2'><input type="radio" name="weizhi" value="localpc">
+            				备份到本地</td>
+            		</tr-->
+            		
+            	</table>
+            </div>
+            <div class="btn">
+                <input type="submit" value="执行" name="dosubmit" class="button">
+            </div>
+        </div>
+    </div>
+</form>
+</body></html>

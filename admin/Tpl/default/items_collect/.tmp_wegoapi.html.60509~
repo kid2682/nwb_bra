@@ -1,0 +1,127 @@
+<include file="public:header" />
+<form id="myform" name="myform" action="{:u('items_collect/wegoapi')}" method="post">
+  <div class="pad-10">
+          <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+            <tr>
+              <th width="100">阿里妈妈登录帐号:</th>
+              <td><input type="text" name="username"　　 size="40" value="{$wegoapi.username}"> <span class="gray">阿里妈妈登录账户</span></td>
+            </tr>
+            <tr>
+              <th >阿里妈妈登录密码:</th>
+              <td><input type="password" class="input-text" name="password" size="40" value="{$wegoapi.password}"> <span class="gray">阿里妈妈登录密码</span></td>
+            </tr>
+            <tr>
+              <th>授权网站域名 :</th>
+              <td><input type="text" name="weburl"  size="40" value="{$wegoapi.weburl}"> <span class="gray">您网站的域名地址</span></td>
+            </tr>
+			<tr>
+              <th>微购授权码 :</th>
+              <td><input type="text" name="token" size="80" value="{$wegoapi.sign}"> <span class="gray">通过联系<span style="color:red;">微购客服</span></span></td>
+            </tr>
+            <tr>
+              <th>数据调用授权码 :</th>
+              <td><input type="text" name="token" size="80" value="{$wegoapi.token}"> <span class="gray">通过秀客开放平台索取初级码http://open.showcoo.net  通过联系<span style="color:red;">微购客服</span>索取高级调用包</span></td>
+            </tr>		
+			<tr>
+             	  <th width="120px">商品佣金比率：</th>
+			      <td>
+			    	<input type="text" style="height:15px; width:40px; font-size:12px;" name="commission_rate_min" value="{$wegoapi.commission_rate_min}">					
+					<span>40表示佣金比例为40%</span>
+			      </td>
+            </tr>
+			<tr>
+             	  <th width="120px">价格区间：</th>
+			      <td>
+			    	<input type="text" style="height:15px; width:40px; font-size:12px;" name="price_min" value="{$wegoapi.price_min}"> -  		
+					<input type="text" style="height:15px; width:40px; font-size:12px;" name="price_max" value="{$wegoapi.price_max}">
+					<span>(最小价格  - 最大价格) 单位为  元</span>
+			      </td>
+            </tr>
+			<tr>
+              <th width="120px">卖家信誉等级：</th>
+		      <td>		      
+					<select name="levelstart">
+						<option value="5goldencrown" <if condition="$wegoapi.levelstart eq '5goldencrown'">selected="selected"</if> label="5金冠">5金冠</option>
+						<option value="4goldencrown" <if condition="$wegoapi.levelstart eq '4goldencrown'">selected="selected"</if> label="4金冠">4金冠</option>
+						<option value="3goldencrown" <if condition="$wegoapi.levelstart eq '3goldencrown'">selected="selected"</if> label="3金冠">3金冠</option>
+						<option value="2goldencrown" <if condition="$wegoapi.levelstart eq '2goldencrown'">selected="selected"</if> label="2金冠">2金冠</option>
+						<option value="1goldencrown" <if condition="$wegoapi.levelstart eq '1goldencrown'">selected="selected"</if> label="1金冠">1金冠</option>
+						<option value="5crown" <if condition="$wegoapi.levelstart eq '5crown'">selected="selected"</if> label="5冠">5冠</option>
+						<option value="4crown" <if condition="$wegoapi.levelstart eq '4crown'">selected="selected"</if> label="4冠">4冠</option>
+						<option value="3crown" <if condition="$wegoapi.levelstart eq '3crown'">selected="selected"</if> label="3冠">3冠</option>
+						<option value="2crown" <if condition="$wegoapi.levelstart eq '2crown'">selected="selected"</if> label="2冠">2冠</option>
+						<option value="1crown" <if condition="$wegoapi.levelstart eq '1crown'">selected="selected"</if> label="1冠">1冠</option>
+						<option value="5diamond" <if condition="$wegoapi.levelstart eq '5diamond'">selected="selected"</if> label="5钻">5钻</option>
+						<option value="4diamond" <if condition="$wegoapi.levelstart eq '4diamond'">selected="selected"</if> label="4钻">4钻</option>
+						<option value="3diamond" <if condition="$wegoapi.levelstart eq '3diamond'">selected="selected"</if> label="3钻">3钻</option>
+						<option value="2diamond" <if condition="$wegoapi.levelstart eq '2diamond'">selected="selected"</if> label="2钻">2钻</option>
+						<option value="1diamond" <if condition="$wegoapi.levelstart eq '1diamond'">selected="selected"</if> label="1钻">1钻</option>
+						<option value="5heart" <if condition="$wegoapi.levelstart eq '5heart'">selected="selected"</if> label="5星">5星</option>
+						<option value="4heart" <if condition="$wegoapi.levelstart eq '4heart'">selected="selected"</if> label="4星">4星</option>
+						<option value="3heart" <if condition="$wegoapi.levelstart eq '3heart'">selected="selected"</if> label="3星">3星</option>
+						<option value="2heart" <if condition="$wegoapi.levelstart eq '2heart'">selected="selected"</if> label="2星">2星</option>
+						<option value="1heart" <if condition="$wegoapi.levelstart eq '1heart'">selected="selected"</if> label="1星">1星</option>
+					</select> - 
+					<select name="levelend">
+						<option value="5goldencrown" <if condition="$wegoapi.levelend eq '5goldencrown'">selected="selected"</if> label="5金冠">5金冠</option>
+						<option value="4goldencrown" <if condition="$wegoapi.levelend eq '4goldencrown'">selected="selected"</if> label="4金冠">4金冠</option>
+						<option value="3goldencrown" <if condition="$wegoapi.levelend eq '3goldencrown'">selected="selected"</if> label="3金冠">3金冠</option>
+						<option value="2goldencrown" <if condition="$wegoapi.levelend eq '2goldencrown'">selected="selected"</if> label="2金冠">2金冠</option>
+						<option value="1goldencrown" <if condition="$wegoapi.levelend eq '1goldencrown'">selected="selected"</if> label="1金冠">1金冠</option>
+						<option value="5crown" <if condition="$wegoapi.levelend eq '5crown'">selected="selected"</if> label="5冠">5冠</option>
+						<option value="4crown" <if condition="$wegoapi.levelend eq '4crown'">selected="selected"</if> label="4冠">4冠</option>
+						<option value="3crown" <if condition="$wegoapi.levelend eq '3crown'">selected="selected"</if> label="3冠">3冠</option>
+						<option value="2crown" <if condition="$wegoapi.levelend eq '2crown'">selected="selected"</if> label="2冠">2冠</option>
+						<option value="1crown" <if condition="$wegoapi.levelend eq '1crown'">selected="selected"</if> label="1冠">1冠</option>
+						<option value="5diamond" <if condition="$wegoapi.levelend eq '5diamond'">selected="selected"</if> label="5钻">5钻</option>
+						<option value="4diamond" <if condition="$wegoapi.levelend eq '4diamond'">selected="selected"</if> label="4钻">4钻</option>
+						<option value="3diamond" <if condition="$wegoapi.levelend eq '3diamond'">selected="selected"</if> label="3钻">3钻</option>
+						<option value="2diamond" <if condition="$wegoapi.levelend eq '2diamond'">selected="selected"</if> label="2钻">2钻</option>
+						<option value="1diamond" <if condition="$wegoapi.levelend eq '1diamond'">selected="selected"</if> label="1钻">1钻</option>
+						<option value="5heart" <if condition="$wegoapi.levelend eq '5heart'">selected="selected"</if> label="5星">5星</option>
+						<option value="4heart" <if condition="$wegoapi.levelend eq '4heart'">selected="selected"</if> label="4星">4星</option>
+						<option value="3heart" <if condition="$wegoapi.levelend eq '3heart'">selected="selected"</if> label="3星">3星</option>
+						<option value="2heart" <if condition="$wegoapi.levelend eq '2heart'">selected="selected"</if> label="2星">2星</option>
+						<option value="1heart" <if condition="$wegoapi.levelend eq '1heart'">selected="selected"</if> label="1星">1星</option>
+					</select>
+				<span>设置全站商品卖家信用过滤,不在设定范围内的卖家以及商品将会被过滤。建议（1钻 - 5金冠）</span>
+		      </td>
+            </tr>
+			 <tr>
+              <th width="120">数据采集设置 :</th>
+              <td>
+             	<input type="radio" <if condition="$wegoapi.tao_collect_set eq '0'">checked="checked"</if> onclick="" value="0" name="tao_collect_set" /> 全部促销 &nbsp;&nbsp;
+                <input type="radio" <if condition="$wegoapi.tao_collect_set eq '1'">checked="checked"</if> onclick="" value="1" name="tao_collect_set" /> 打折秒杀 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+				<input type="radio" <if condition="$wegoapi.tao_collect_set eq '3'">checked="checked"</if> onclick="" value="3" name="tao_collect_set" /> 淘金币 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" <if condition="$wegoapi.tao_collect_set eq '4'">checked="checked"</if> onclick="" value="4" name="tao_collect_set" /> 限时打折 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" <if condition="$wegoapi.tao_collect_set eq '5'">checked="checked"</if> onclick="" value="5" name="tao_collect_set" /> 天天特价 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" <if condition="$wegoapi.tao_collect_set eq '6'">checked="checked"</if> onclick="" value="6" name="tao_collect_set" /> 金牌秒杀 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" <if condition="$wegoapi.tao_collect_set eq '7'">checked="checked"</if> onclick="" value="7" name="tao_collect_set" /> 定向优惠其它 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" <if condition="$wegoapi.tao_collect_set eq '8'">checked="checked"</if> onclick="" value="8" name="tao_collect_set" /> 店铺标签优惠 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" <if condition="$wegoapi.tao_collect_set eq '9'">checked="checked"</if> onclick="" value="9" name="tao_collect_set" /> 淘宝VIP &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+            </tr>
+			<tr>
+              <th width="120">排序方式 :</th>
+              <td>
+             	<input type="radio" <if condition="$wegoapi.order eq '1'">checked="checked"</if> onclick="" value="1" name="order" /> 单价降序 &nbsp;&nbsp;
+                <input type="radio" <if condition="$wegoapi.order eq '2'">checked="checked"</if> onclick="" value="2" name="order" /> 单价升序 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+				<input type="radio" <if condition="$wegoapi.order eq '3'">checked="checked"</if> onclick="" value="3" name="order" /> 佣金比例降序 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" <if condition="$wegoapi.order eq '4'">checked="checked"</if> onclick="" value="4" name="order" /> 佣金比例升序 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" <if condition="$wegoapi.order eq '5'">checked="checked"</if> onclick="" value="5" name="order" /> 30天推广量降序 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" <if condition="$wegoapi.order eq '6'">checked="checked"</if> onclick="" value="6" name="order" /> 30天推广量升序 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" <if condition="$wegoapi.order eq '7'">checked="checked"</if> onclick="" value="7" name="order" /> 30天支出佣金降序 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" <if condition="$wegoapi.order eq '8'">checked="checked"</if> onclick="" value="8" name="order" /> 30天支出佣金升序 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<br>
+				<span style="color:red;">提示：设置完成后请更新缓存不然设置无法生效</span>				
+              </td>
+            </tr>			
+        </table>
+      <div class="bk15"></div>
+
+      <div class="btn"><input type="submit" value="{$Think.lang.submit}" onclick="return submitFrom();" name="dosubmit" class="button" id="dosubmit"></div>
+
+    </div>
+  </div>
+</form>
+</body></html>

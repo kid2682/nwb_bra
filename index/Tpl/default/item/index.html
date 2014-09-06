@@ -1,0 +1,307 @@
+<include file="public:header"/>
+<script type="text/javascript">
+var items_id="{$items_id}";
+</script>
+<load href="__ROOT__/statics/js/jquery/plugins/jquery.masonry.js" />
+<load href="__ROOT__/statics/js/jquery/plugins/jquery.infinitescroll.js" />
+<load href="__TMPL__public/js/item.js" />
+<load href="__TMPL__public/js/comments.js" />
+<load href="__TMPL__public/js/album.js" />
+<load href="__TMPL__public/js/user.js" />
+<load href="__TMPL__public/js/user_tip.js" />
+<style type="text/css">
+	.item_article{		
+		 background: none repeat scroll 0 0 #FFFFFF;
+	     border-radius: 4px 4px 4px 4px;
+	     box-shadow: 0 1px 3px rgba(34, 25, 25, 0.2);
+		 padding:10px;		 
+		 overflow:hidden;
+		 margin-top:5px;
+		 border: 1px solid #DDDDDD;
+	}
+	.item_article ul li{
+		height:24px;
+		line-height:24px;
+		overflow:hidden;
+	}
+</style>
+<div class="content" style="background:#fff;">
+	<div class="mt15">
+		<script language="javascript" src="{:u('advert/index', array('id'=>4))}"></script>
+    </div>
+<div style="padding:0px 7px 7px 7px;">
+	<div class="item_left fl">
+    	<div class="single_item mt15 clearfix">
+        	<dl class="twitter_top">
+                <eq name="item.uid" value="0">
+                <dt>                	
+                	<img src="__ROOT__/data/author/32_{$item.items_site.site_logo}">
+               	</dt>
+                <dd>
+                    <span style="color:#ccc;" class="fr">{$item.add_time|date="m月 d日 H:i",###}</span>
+                    <a href="javascript:void(0)" class="red">{$item.items_site.name}</a>
+                    <span class="gray">分享的</span>
+                    <span><a target="_blank" href="{:u('cate/index',array('cid'=>$item['items_cate']['id']))}" class="red f12">#{$item.items_cate.name}#</a></span>
+                </dd>
+                <else/>
+                <dt>
+                	<a target="_blank" href="{:u('uc/index',array('uid'=>$item['uid']))}">
+                		<img src="{:getUserFace($item['uid'])}"></a>
+               	</dt>
+                <dd>
+                    <span style="color:#ccc;" class="fr">{$item.add_time|date="m月 d日 H:i",###}</span>
+                    <a target="_blank" href="{:u('uc/index',array('uid'=>$item['uid']))}" class="red">{:getUserName($item['uid'])}</a>
+                    <span class="gray">分享的</span>
+                    <span><a target="_blank" href="{:u('cate/index',array('cid'=>$item['items_cate']['id']))}" class="red f12">#{$item.items_cate.name}#</a></span>
+                </dd>
+                </eq>
+                
+                <dd class="quote_goods_title break_word">{$item.title}</dd>
+            </dl>            
+        	<div class="item_pic" style="width:450px; height:450px; overflow:hidden;">
+				<a onclick="window.open('<if condition="$site eq tao">{:u('item/tao',array('id'=>$item['id'],'uid'=>$uid))}<else/>{:u('item/b2c',array('id'=>$item['id'],'uid'=>$uid))}</if>')" href="javascript:void(0)">
+                <php>if($seo['goods_save_images']){</php>
+                <!--
+					<img url="{:base64ImagesPath($item['id'],450)}" class="encode_url" style="max-width:450px;"/>
+				-->
+				<img src="upload/{:replace_url($item['bimg'],1)}" style="max-width:450px; max-height:450px;" alt="{$item['title']}"/>
+                <php>}else{</php>
+                <img url="{:base64_encode($item['bimg'])}" class="encode_url" style="max-width:450px; max-height:450px;"/>
+                <php>}</php>
+                </a>
+			</div>
+            <div class="item_detail">
+            	<div class="break_word" style="position: relative;">
+            	<p class="item_title f14 bold">
+            		<a onclick="window.open('<if condition="$site eq tao">{:u('item/tao',array('id'=>$item['id'],'uid'=>$uid))}<else/>{:u('item/b2c',array('id'=>$item['id'],'uid'=>$uid))}</if>')" href="javascript:void(0)"><if condition="$item['seller_name'] neq '' ">
+            			<span class="fanxian">【{$item.seller_name}】
+						<php>if($is_cashback==1){</php>										
+								<span class="price">￥{$item.price}&nbsp;&nbsp;
+									<php>if($item['sid']==1){</php>									
+											立返：<php> echo intval($item['cash_back_rate'])*$tb_fanxian_bili*$cashback_rate/100; </php>	 <php>if($cashback_type==1){</php>个集分宝<php>}else{</php>{$tb_fanxian_unit}{$tb_fanxian_name}<php>}</php>
+									<php>}else{</php>							
+											立返：<php>if(strpos($item['cash_back_rate'],"%") !==false){if(strpos($item['cash_back_rate'],"-") === false){echo round($item['price'] * substr($item['cash_back_rate'],0,strlen($item['cash_back_rate'])-1)/100,1)."元";}else{echo round($item['price'] * substr($item['cash_back_rate'],0,strpos($item['cash_back_rate'],"-"))/100,1)."-".round($item['price'] * substr($item['cash_back_rate'],strpos($item['cash_back_rate'],"-"),strlen($item['cash_back_rate'])-1)/100,1)."元";}}else{echo $item['cash_back_rate'];}</php>									
+									<php>}</php>
+								</span>						
+						<php>}</php>
+						</span>
+					</if>&nbsp;&nbsp;  {$item.title}</a>
+				</p>
+                    <div class="clearfix" style="padding:12px 0;">
+                        <p class="fl">价格:<span style="color:#FF679A;font-weight:bolder; font-size:30px;">{$item.price}</span>元</p>
+                    </div>  
+					<if condition="$seller_logo neq ''">
+						<div class="item_seller_logo">
+							<div class="fl seller_logo">
+								<img src="{$seller_logo}" alt="{$item.seller_name}">
+							</div>
+							<if condition="$is_cashback eq 1">
+								<div class="fl sheng">
+									<p>立省：</p>
+									<p class="red">
+										<php>
+											if(strpos($item['cash_back_rate'],"%") !==false)
+											{
+												if(strpos($item['cash_back_rate'],"-") === false)
+													{
+														echo round($item['price'] * substr($item['cash_back_rate'],0,strlen($item['cash_back_rate'])-1)/100,1)."元";
+													}
+												else
+													{
+													echo round($item['price'] * substr($item['cash_back_rate'],0,strpos($item['cash_back_rate'],"-"))/100,1)."-".round($item['price'] * substr($item['cash_back_rate'],strpos($item['cash_back_rate'],"-"),strlen($item['cash_back_rate'])-1)/100,1)."元";
+												}
+											}else
+											{
+												echo $item['cash_back_rate'];
+											}
+										</php>
+									</p>
+								</div>
+							</if>
+						</div> 
+					</if> 					           	
+					<p style="margin-top:20px;">					
+						<a onclick="window.open('<if condition="$site eq tao">{:u('item/tao',array('id'=>$item['id'],'uid'=>$uid))}<else/>{:u('item/b2c',array('id'=>$item['id'],'uid'=>$uid))}</if>')" href="javascript:void(0)" class="red f16"><img src="__TMPL__/public/images/qgm.png"" />
+						</a>
+					</p>
+                   
+                </div>
+            </div>
+            <present name="likelist">
+            <div class="item_like_user">
+            	<p>喜欢这件宝贝的用户……</p>
+                <ul>
+                <volist name="likelist" id="vo">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <img width="30px" height="30px" uid="{$vo.uid}" class="tipuser" src="{:getUserFace($vo['uid'],'s')}"/>
+                        </a>
+                    </li>
+                </volist>
+                </ul>
+            </div>
+            </present>
+            <div class="item_tags clearfix">
+				<span class="fl">宝贝标签：</span>
+                <volist name="item['items_tags']" id="val">
+				<a href="{:u('cate/tag',array('id'=>$val['id']))}">{$val.name}</a>
+                </volist>
+			</div>
+
+            <!-- Baidu Button BEGIN -->
+            <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare mt10" style="float:right;">
+                <a class="bds_qzone"></a>
+                <a class="bds_tsina"></a>
+                <a class="bds_tqq"></a>
+                <a class="bds_renren"></a>
+                <span class="bds_more"></span>
+            </div>
+            <script type="text/javascript" id="bdshare_js" data="type=tools" ></script>
+            <script type="text/javascript" id="bdshell_js"></script>
+            <script type="text/javascript">
+            /**
+             * 在这里定义bds_config
+             */
+            var bds_config = {
+            	'bdPic':base64_decode("{:base64_encode($item['bimg'])}")//'请参考自定义分享出去的图片'
+            }				
+                document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+            </script>
+            <!-- Baidu Button END -->
+            <span class="fr mt15"><b class="red f14" id="comments_count">{$comments.count}</b>评论&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <div class="clearfix"></div>
+{/*----------------------------------------------评论------------------------------------------------------*/}
+            <div id="items_comments" class="clearfix comments">
+				<div class="arrow"></div>            		
+                <textarea id="comments_box" class="comments_box" maxlength="300" def="对心爱的宝贝说几句话吧~！" maxlength="2000">
+                </textarea>
+                <div class="clearfix mt10">
+                    <span class="plcount">您还可以输入100个汉字</span>
+                	<a id="comments_btn" class="comments_btn" pid="{$items_id}">评论</a>
+                </div>
+                <div class="list_wrap">
+                <div class="list">
+                    <ul>
+                        <volist name="comments['list']" id="val">
+                        <li class="clearfix">
+                            <em class="avatar">
+                            	<a href="{:u('uc/index',array('uid'=>$val['user']['id']))}" title="{$val.user.name}" target="_blank">
+                                    <img src="{:getUserFace($val['user']['id'])}"/>                
+                                </if>
+                            </a></em>
+                            <div class="item_info">
+                            	<div class="left">
+                                    <a class="name" href="{:u('uc/index',array('uid'=>$val['user']['id']))}" target="_blank">{$val.user.name}：</a>
+                                    {$val.info}                
+                                </div>
+                                <if condition="MODULE_NAME eq 'item'">
+                                    <div class="right">
+                                        <i>{:date("Y-n-j   H:i:s",$val["add_time"])}</i>
+                                    </div>
+                                </if>
+                                <div class="clear"></div>
+                			</div>
+                        </li>
+                        </volist>
+                    </ul>
+                </div>
+                <if condition="strlen(trim($comments['page'])) neq 0">   
+                <div id="page_wrap">
+                    <div id="page" class="page mt20 clearfix comments" style="display:block;">
+                	    <div class="page_num">{$comments.page}</div>
+                    </div>
+                </div>
+                </if> 
+                <script type="text/javascript">
+                $(function(){ 
+                	if(def.module=="album"){ 
+                		$('.comments .unprev,.comments .prev').html('<');
+                		$('.comments .unnext,.comments .next').html('>');
+                	}else{
+                		$('.comments .unprev,.comments .prev').html('上一页');
+                		$('.comments .unnext,.comments .next').html('下一页');	
+                	}			   	
+                	$('#items_comments span').each(function(){ 
+                		if($(this).attr('class')=='unprev'||$(this).attr('class')=='prev'||$(this).attr('class')=='unnext'||$(this).attr('class')=='next'){ 
+                			$(this).hide();
+                		}										
+                	});
+                });
+                </script>
+
+                </div>
+            </div>
+{/*----------------------------------------------------------------------------------------------------*/}          
+        </div>
+    </div>
+    <div class="item_right fr">    	
+    	<div class="album_like" style="margin-top:24px;">
+    		<ul>    			
+    			<li class="album_like1"> 
+					<div class="like_already" ></div>  
+					<span><a onclick="javascript:void(0);" class="like_it" iid="{$item.id}" style="background:none; float:none; display:inline;">喜欢(<span class="nums" id="like_num_{$item.id}">{$item.likes}</span>)</a></span> 	
+				</li>
+				<li class="album_like2"><a href="javascript:comment()">评论 ({$item.comments})</a></li>
+				<li class="album_like3"><a href="javascript:void(0)">浏览({$item.browse_num})</a></li>
+				<li class="album_like4"><a iid="{$item.id}" class="img_album_btn_c" href="javascript:;">加入专辑</a></li>
+    		</ul>
+    		<div class="clearfix"></div>
+    	</div>
+    	<if condition="$item['items_cate']['id'] neq ''"> 
+	    	<h3 class="f16 mt15">所在分类</h3>
+	    	<div class="box_shadow mt15 group_box">
+				<div class="groupbg">
+					<h3 class="f16 bold"><a target="_blank" href="{:u('cate/index',array('cid'=>$item['items_cate']['id']))}">{$item.items_cate.name}</a></h3>					
+					<ul>
+						<volist name="this_cate_group" key="key" id='val'>
+							<li <if condition="$key eq 1">class="first"</if> <if condition="($key eq 2) or ($key eq 3) or ($key eq 6)">style="margin-right: 0;"</if>>
+								<a href="{:u('cate/index',array('cid'=>$item['items_cate']['id']))}" title="{$val.title}" target="_blank">
+									<php>if($seo['goods_save_images']){</php>
+										<img class="pg_pic_s"  src="upload/{:replace_url($val['simg'],1)}" <if condition="$key eq 1">style="width:130px;height:130px; margin:0 auto;"</if> alt="{$val.title}" />
+					                <php>}else{</php>
+					               		<img class="pg_pic_s encode_url"  url="{:base64_encode($val['simg'])}" <if condition="$key eq 1">style="width:130px;height:130px; margin:0 auto;"</if> alt="{$val.title}" />
+					                <php>}</php>
+								</a>
+							</li>
+						</volist>	
+					</ul>					
+					<div class="group_desc mt10">
+						<span class="follow_red_btn tc cursor fr"><a target="_blank" href="{:u('cate/index',array('cid'=>$item['items_cate']['id']))}" class="white">去看看</a></span>
+						<span class="share_nums gray">{$item.items_cate.item_nums}个分享</span>
+					</div>
+					<div class="mt10"></div>
+				</div>
+			</div>
+			</if>			
+	       <div class="clearfix"></div>
+			<h3 class="f16 mt15">热门文章</h3>
+			<div class="item_article">
+				<ul>					
+					<volist name="article_list" key="key" id='val'>
+						<li><a href="{:u('article/index',array('id'=>$val['id']))}" target="_blank" title="{$val.title}">{$val.title}</a></li>
+					</volist>
+				</ul>
+			</div>
+    </div>
+	<div class="clearfix"></div>
+	</div>
+	<div style="padding-left:5px;">
+        <h3 class="f16 mt15 red">也许你还喜欢~~</h3>
+        <div class="detail_item_list infinite_scroll">     
+		   <include file="public:goods_list"/>		
+        </div>
+	</div>
+</div>
+<script type="text/javascript">
+/*
+function comment(){
+		$('#comments_box').focus();
+	}	
+	$(function(){
+		var iid={$iid};
+		var sid={$sid};
+		$.post("index.php?m=item&a=checkItem", { iid:iid,sid:sid} );
+	})
+*/	
+</script>
+<include file="public:footer"/>

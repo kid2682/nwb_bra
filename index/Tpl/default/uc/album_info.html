@@ -1,0 +1,41 @@
+<div class="middle uc clear-fix">	       
+            <table cellpadding="10">
+                <tr>
+                    <td style="width:70px;" align="right">
+                    标题:
+                    </td>
+                    <td>
+                        <input type="text" class="input_text" id="title" name="title" value="{$album.title}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                    分类:
+                    </td>
+                    <td>
+                        <select name="cid" id="cid">
+                            <volist name="cate" id="val">
+                            	<option value="{$val.id}" <if condition="$album['cid'] eq $val['id']">selected="selected"</if>>{$val.title}</option>
+                            </volist>
+                        </select>
+                    </td>
+                </tr>   
+                <tr>
+                    <td align="right">
+                    专辑介绍:
+                    </td>
+                    <td>
+                       <textarea name="remark" id="remark" style="width:400px;height:100px;">{$album.remark}</textarea>
+                    </td>
+                </tr>                              
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" id="submit" name="submit" value="完成" class="submit"/>
+                        <if condition="$act eq 'edit'">
+                        <input type="hidden" value="{$album.id}" name="id" id="id"/>
+                        </if>
+                    </td>
+                </tr>
+            </table>
+</div>

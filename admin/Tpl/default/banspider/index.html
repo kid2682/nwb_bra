@@ -1,0 +1,45 @@
+<tagLib name="wego" />
+<include file="public:header" />
+<style type="text/css">
+.contentList table tr td input {
+    margin: 0 5px 0 10px;
+}
+.contentList table{
+	margin:15px 0px;
+}
+</style>
+<form action="{:u('banspider/update')}" method="post" name="myform" id="myform" style="margin-top:10px;">
+    <div class="pad-10">
+        <div class="col-tab">
+            <ul class="tabBut cu-li">
+                <li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',2,1);">屏蔽蜘蛛</li>
+            </ul>
+            <div id="div_setting_1" class="contentList pad-10">                
+     			<div style="padding:10px; overflow:hidden;">
+					<div class="main_top" style="clear:both;">
+						<h4>温馨提示:</h4>
+						<p class="green">屏蔽对应的搜索引擎只要选中对应的搜索引擎即可 。</p>						
+						<p class="green">屏蔽对应的搜索引擎后，对应的搜索引擎将没法访问你的网站。 </p>
+					</div>
+				
+				</div>
+				<table class="banip">
+					<tr>
+						<td class="left">
+							<p>选择屏蔽的蜘蛛名称：<br></p>			
+						</td>
+						<td class="right">
+							<wego:checkbox checkboxes="banarray" checked="banspider" name="ban_spider" />
+						</td>			
+					</tr>
+					
+				</table>
+
+            </div>
+            <div class="btn">
+                <input type="submit" value="执行" id="runQuery" name="dosubmit" class="button">                
+            </div>
+        </div>
+    </div>
+</form>
+</body></html>

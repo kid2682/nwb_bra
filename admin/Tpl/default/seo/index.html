@@ -1,0 +1,517 @@
+<tagLib name="wego" />
+<include file="public:header" />
+
+<script type="text/javascript">
+window.onload = function () {
+	var oltitle = document.getElementById('oltitle');	
+	var ol = document.getElementsByTagName('ol');
+	var a = ol[0].getElementsByTagName('a');	
+	for (i=0;i<a.length;i++) {
+		a[i].className = null;
+		if (oltitle.innerHTML == a[i].innerHTML) {
+			a[i].className = 'selected';
+		}
+	}
+}
+</script>
+
+<style type="text/css">
+#seo_header{
+	padding:10px;	
+}
+#seo_header ol {
+    height: 29px;  
+	list-style-type:none;
+	border-bottom:1px solid #ccc;
+}
+#seo_header ol li {   
+    float: left;
+   
+	
+}
+*html #seo_header ol li{
+	width:120px;
+	float: left;
+}
+
+#seo_header ol li a{
+	background: none repeat scroll 0 0 #F0F0F0;;
+	text-decoration:none;
+	display: block;   
+	color:#666;	
+  	margin: 0 5px 0 0;
+    padding: 0 18px;
+ 	height: 29px;
+    line-height: 29px;  
+
+}
+#seo_header ol li a.selected {
+    background: none repeat scroll 0 0 #3B6EA5;
+    color: #FFFFFF;
+}
+.add_update table tr th{
+	fort-weight:normal;	
+	color:#666;
+}
+table tr td{padding: 8px 0 8px 8px;}
+</style>
+<!--h2><a target="_blank" href="?a=seo&m=showrewrite" style="float:right; color:#2366A8;">查看当前的 Rewrite 规则</a>网站优化设置</h2-->
+<div style="padding:10px; overflow:hidden;">
+<literal>
+	<div class="main_top" style="clear:both;">
+		<h4>温馨提示:</h4>
+		<p class="green">1.修改完成以后请不要忘记点击"确认修改"按钮哦!</p>	
+		<p class="green">2.<span style="color:red;">请不要修改标签里面的内容,也就是{}和它里面的内容</span> ，您可以移动他们的位置，标签设置错误将无法解析.</p>
+		<p class="green">3.示例说明：{$site_name} 为网站名称,{ $uname}为会员名称，{$name} 为分类名称，{$title}为标题名称</p>
+        <p class="green">{$album}专辑，{$pname}为父级分类名称,{$lname}为顶级分类名称，{$tags} 为标签名称</p>
+	</div>
+</literal>
+</div>
+<div id="seo_header">
+	<ol>
+		<li style="display:none;"><a href="{:U('seo/index')}" class="selected">网站首页</a></li>
+        <li><a href="{:U('seo/index')}" class="selected">网站首页</a></li>
+		<li><a href="{:U('seo/seller')}">返现商家</a></li>
+		<li><a href="{:U('seo/search')}">逛宝贝</a></li>
+        <li><a href="{:U('seo/album')}">专辑</a></li>
+		<li><a href="{:U('seo/promo')}">促销活动页</a></li>
+        <li><a href="{:U('seo/exchange_goods')}">积分商城</a></li>
+        <li><a href="{:U('seo/cate')}">商品分类页</a></li>
+        <li><a href="{:U('seo/item')}">商品详细页</a></li>
+
+	</ol>
+</div>
+
+<!-- 网站首页 -->
+<eq name="ACTION_NAME" value="index">
+<strong id="oltitle" style="display:none;">{$title}</strong>
+<form method="post" name="add" action="{:U('seo/edit')}">	
+<php>if(!empty($info['id'])){</php>
+    <input type="hidden" name="id" value="{$info.id}"/>
+<php>}</php>
+<input type="hidden" name="actionname" value="{:ACTION_NAME}"/>
+	<div class="add_update">		
+		<table cellspacing="0">			
+			 <tr>
+			      <th width="160px">Title：</th>
+			      <td><input type="text" class="text" name="title" id="title" style="width:820px;" value="{$info.title}" />	
+				</td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Keywords：</th>
+			      <td>
+			      	<textarea class="text" name="keywords" id="keywords"  style="width:820px;">{$info.keywords}</textarea>
+			    </td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Description：</th>
+			      <td>
+					<textarea class="text" name="description" id="description" style="width:820px;">{$info.description}</textarea>			      
+				 </td>
+  		 	 </tr>
+  		 	 <tr>
+				<td>
+				</td>
+				<td>
+					<input type="submit" value="立即修改" class="button"/>
+				</td>
+			</tr>
+		</table>
+	</div>
+</form>
+</eq>
+<!-- 商家列表 -->
+<eq name="ACTION_NAME" value="seller">
+
+<span id="oltitle" style="display:none;">{$title}</span>
+<form method="post" name="add" action="{:U('seo/edit')}">	
+<php>if(!empty($info['id'])){</php>
+    <input type="hidden" name="id" value="{$info.id}"/>
+<php>}</php>
+<input type="hidden" name="actionname" value="{:ACTION_NAME}"/>
+	<div class="add_update">		
+		<table cellspacing="0">			
+			 <tr>
+			      <th width="160px">Title：</th>
+			      <td><input type="text" class="text" name="title" id="title" style="width:820px;" value="{$info.title}" />	
+				</td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Keywords：</th>
+			      <td>
+			      	<textarea class="text" name="keywords" id="keywords"  style="width:820px;">{$info.keywords}</textarea>
+			    </td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Description：</th>
+			      <td>
+					<textarea class="text" name="description" id="description" style="width:820px;">{$info.description}</textarea>			      
+				 </td>
+  		 	 </tr>
+  		 	 <tr>
+				<td>
+				</td>
+				<td>
+					<input type="submit" value="立即修改" class="button" />
+				</td>
+			</tr>
+		</table>
+	</div>
+</form>
+</eq>
+<!-- 商家详情 -->
+<eq name="ACTION_NAME" value="search">
+
+<span id="oltitle" style="display:none;">{$title}</span>
+<form method="post" name="add" action="{:U('seo/edit')}">	
+<php>if(!empty($info['id'])){</php>
+    <input type="hidden" name="id" value="{$info.id}"/>
+<php>}</php>	
+<input type="hidden" name="actionname" value="{:ACTION_NAME}"/>
+	<div class="add_update">		
+		<table cellspacing="0">			
+			 <tr>
+			      <th width="160px">Title：</th>
+			      <td><input type="text" class="text" name="title" id="title" style="width:820px;" value="{$info.title}" />	
+				</td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Keywords：</th>
+			      <td>
+			      	<textarea class="text" name="keywords" id="keywords"  style="width:820px;">{$info.keywords}</textarea>
+			    </td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Description：</th>
+			      <td>
+					<textarea class="text" name="description" id="description" style="width:820px;">{$info.description}</textarea>			      
+				 </td>
+  		 	 </tr>
+  		 	 <tr>
+				<td>
+				</td>
+				<td>
+					<input type="submit" value="立即修改" class="button" />
+				</td>
+			</tr>
+		</table>
+	</div>
+</form>
+</eq>
+<!-- 商品分类页 -->
+<eq name="ACTION_NAME" value="album">
+
+<span id="oltitle" style="display:none;">{$title}</span>
+<form method="post" name="add" action="{:U('seo/edit')}">	
+<php>if(!empty($info['id'])){</php>
+    <input type="hidden" name="id" value="{$info.id}"/>
+<php>}</php>
+<input type="hidden" name="actionname" value="{:ACTION_NAME}"/>
+	<div class="add_update">		
+		<table cellspacing="0">			
+			 <tr>
+			      <th width="160px">Title：</th>
+			      <td><input type="text" class="text" name="title" id="title" style="width:820px;" value="{$info.title}" />	
+				</td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Keywords：</th>
+			      <td>
+			      	<textarea class="text" name="keywords" id="keywords"  style="width:820px;">{$info.keywords}</textarea>
+			    </td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Description：</th>
+			      <td>
+					<textarea class="text" name="description" id="description" style="width:820px;">{$info.description}</textarea>			      
+				 </td>
+  		 	 </tr>
+  		 	 <tr>
+				<td>
+				</td>
+				<td>
+					<input type="submit" value="立即修改" class="button" />
+				</td>
+			</tr>
+		</table>
+	</div>
+</form>
+</eq>
+<!-- 促销活动 -->
+<eq name="ACTION_NAME" value="promo">
+
+<span id="oltitle" style="display:none;">{$title}</span>
+<form method="post" name="add" action="{:U('seo/edit')}">	
+<php>if(!empty($info['id'])){</php>
+    <input type="hidden" name="id" value="{$info.id}"/>
+<php>}</php>
+<input type="hidden" name="actionname" value="{:ACTION_NAME}"/>
+	<div class="add_update">		
+		<table cellspacing="0">			
+			 <tr>
+			      <th width="160px">Title：</th>
+			      <td><input type="text" class="text" name="title" id="title" style="width:820px;" value="{$info.title}" />	
+				</td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Keywords：</th>
+			      <td>
+			      	<textarea class="text" name="keywords" id="keywords"  style="width:820px;">{$info.keywords}</textarea>
+			    </td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Description：</th>
+			      <td>
+					<textarea class="text" name="description" id="description" style="width:820px;">{$info.description}</textarea>			      
+				 </td>
+  		 	 </tr>
+  		 	 <tr>
+				<td>
+				</td>
+				<td>
+					<input type="submit" value="立即修改" class="button" />
+				</td>
+			</tr>
+		</table>
+	</div>
+</form>
+</eq>
+<!-- 商品列表 -->
+<eq name="ACTION_NAME" value="exchange_goods">
+
+<span id="oltitle" style="display:none;">{$title}</span>
+<form method="post" name="add" action="{:U('seo/edit')}">	
+<php>if(!empty($info['id'])){</php>
+    <input type="hidden" name="id" value="{$info.id}"/>
+<php>}</php>
+<input type="hidden" name="actionname" value="{:ACTION_NAME}"/>
+	<div class="add_update">		
+		<table cellspacing="0">			
+			 <tr>
+			      <th width="160px">Title：</th>
+			      <td><input type="text" class="text" name="title" id="title" style="width:820px;" value="{$info.title}" />	
+				</td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Keywords：</th>
+			      <td>
+			      	<textarea class="text" name="keywords" id="keywords"  style="width:820px;">{$info.keywords}</textarea>
+			    </td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Description：</th>
+			      <td>
+					<textarea class="text" name="description" id="description" style="width:820px;">{$info.description}</textarea>			      
+				 </td>
+  		 	 </tr>
+  		 	 <tr>
+				<td>
+				</td>
+				<td>
+					<input type="submit" value="立即修改" class="button" />
+				</td>
+			</tr>
+		</table>
+	</div>
+</form>
+</eq>
+<!-- 商品详细 -->
+<eq name="ACTION_NAME" value="cate">
+
+<span id="oltitle" style="display:none;">{$title}</span>
+<form method="post" name="add" action="{:U('seo/edit')}">	
+<php>if(!empty($info['id'])){</php>
+    <input type="hidden" name="id" value="{$info.id}"/>
+<php>}</php>	
+<input type="hidden" name="actionname" value="{:ACTION_NAME}"/>
+	<div class="add_update">		
+		<table cellspacing="0">			
+			 <tr>
+			      <th width="160px">Title：</th>
+			      <td><input type="text" class="text" name="title" id="title" style="width:820px;" value="{$info.title}" />	
+				</td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Keywords：</th>
+			      <td>
+			      	<textarea class="text" name="keywords" id="keywords"  style="width:820px;">{$info.keywords}</textarea>
+			    </td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Description：</th>
+			      <td>
+					<textarea class="text" name="description" id="description" style="width:820px;">{$info.description}</textarea>			      
+				 </td>
+  		 	 </tr>
+  		 	 <tr>
+				<td>
+				</td>
+				<td>
+					<input type="submit" value="立即修改" class="button" />
+				</td>
+			</tr>
+		</table>
+	</div>
+</form>
+</eq>
+<!-- 淘宝店铺 -->
+
+<eq name="ACTION_NAME" value="item">
+
+<span id="oltitle" style="display:none;">{$title}</span>
+<form method="post" name="add" action="{:U('seo/edit')}">	
+<php>if(!empty($info['id'])){</php>
+    <input type="hidden" name="id" value="{$info.id}"/>
+<php>}</php>
+<input type="hidden" name="actionname" value="{:ACTION_NAME}"/>
+	<div class="add_update">		
+		<table cellspacing="0">			
+			 <tr>
+			      <th width="160px">Title：</th>
+			      <td><input type="text" class="text" name="title" id="title" style="width:820px;" value="{$info.title}" />	
+				</td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Keywords：</th>
+			      <td>
+			      	<textarea class="text" name="keywords" id="keywords"  style="width:820px;">{$info.keywords}</textarea>
+			    </td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Description：</th>
+			      <td>
+					<textarea class="text" name="description" id="description" style="width:820px;">{$info.description}</textarea>			      
+				 </td>
+  		 	 </tr>
+  		 	 <tr>
+				<td>
+				</td>
+				<td>
+					<input type="submit" value="立即修改" class="button" />
+				</td>
+			</tr>
+		</table>
+	</div>
+</form>
+</eq>
+<!-- 购物资讯页 -->
+<eq name="ACTION_NAME" value="artile">
+
+<span id="oltitle" style="display:none;">{$title}</span>
+<form method="post" name="add" action="{:U('seo/edit')}">	
+<php>if(!empty($info['id'])){</php>
+    <input type="hidden" name="id" value="{$info.id}"/>
+<php>}</php>
+<input type="hidden" name="actionname" value="{:ACTION_NAME}"/>
+	<div class="add_update">		
+		<table cellspacing="0">			
+			 <tr>
+			      <th width="160px">Title：</th>
+			      <td><input type="text" class="text" name="title" id="title" style="width:820px;" value="{$info.title}" />	
+				</td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Keywords：</th>
+			      <td>
+			      	<textarea class="text" name="keywords" id="keywords"  style="width:820px;">{$info.keywords}</textarea>
+			    </td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Description：</th>
+			      <td>
+					<textarea class="text" name="description" id="description" style="width:820px;">{$info.description}</textarea>			      
+				 </td>
+  		 	 </tr>
+  		 	 <tr>
+				<td>
+				</td>
+				<td>
+					<input type="submit" value="立即修改" class="button" />
+				</td>
+			</tr>
+		</table>
+	</div>
+</form>
+</eq>
+
+<!-- 购物资讯列表 -->
+<eq name="ACTION_NAME" value="artile_list">
+
+<span id="oltitle" style="display:none;">{$title}</span>
+<form method="post" name="add" action="{:U('seo/edit')}">	
+<php>if(!empty($info['id'])){</php>
+    <input type="hidden" name="id" value="{$info.id}"/>
+<php>}</php>
+<input type="hidden" name="actionname" value="{:ACTION_NAME}"/>	
+	<div class="add_update">		
+		<table cellspacing="0">			
+			 <tr>
+			      <th width="160px">Title：</th>
+			      <td><input type="text" class="text" name="title" id="title" style="width:820px;" value="{$info.title}" />	
+				</td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Keywords：</th>
+			      <td>
+			      	<textarea class="text" name="keywords" id="keywords"  style="width:820px;">{$info.keywords}</textarea>
+			    </td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Description：</th>
+			      <td>
+					<textarea class="text" name="description" id="description" style="width:820px;">{$info.description}</textarea>			      
+				 </td>
+  		 	 </tr>
+  		 	 <tr>
+				<td>
+				</td>
+				<td>
+					<input type="submit" value="立即修改" class="button" />
+				</td>
+			</tr>
+		</table>
+	</div>
+</form>
+</eq>
+
+<!-- 购物资讯详情 -->
+<eq name="ACTION_NAME" value="artile_content">
+<span id="oltitle" style="display:none;">{$title}</span>
+<form method="post" name="add" action="{:U('seo/edit')}">	
+<php>if(!empty($info['id'])){</php>
+    <input type="hidden" name="id" value="{$info.id}"/>
+<php>}</php>
+<input type="hidden" name="actionname" value="{:ACTION_NAME}"/>	
+	<div class="add_update">		
+		<table cellspacing="0">			
+			 <tr>
+			      <th width="160px">Title：</th>
+			      <td><input type="text" class="text" name="title" id="title" style="width:820px;" value="{$info.title}" />	
+				</td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Keywords：</th>
+			      <td>
+			      	<textarea class="text" name="keywords" id="keywords"  style="width:820px;">{$info.keywords}</textarea>
+			    </td>
+		     </tr>
+		     <tr>
+			      <th width="120px">Description：</th>
+			      <td>
+					<textarea class="text" name="description" id="description" style="width:820px;">{$info.description}</textarea>			      
+				 </td>
+  		 	 </tr>
+  		 	 <tr>
+				<td>
+				</td>
+				<td>
+					<input type="submit" value="立即修改" class="button" />　　　　　　　　　　　
+                    
+				</td>
+			</tr>
+		</table>
+	</div>
+</form>
+</eq>
+</body>
+</html>

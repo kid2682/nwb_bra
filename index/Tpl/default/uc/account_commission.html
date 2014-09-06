@@ -1,0 +1,80 @@
+<include file="public:ucheader"/>
+<load href="__TMPL__public/css/account.css" />
+<!--样式-->
+<load href="__TMPL__public/css/uc/css_b.css" />
+<load href="__TMPL__public/css/ucindex.css" /> 
+
+<div class="ucleft">
+	<!--用户-->
+    <include file="userleft"/>
+    <!--用户-->
+   
+    <br clear="all"/>
+</div>
+<div class="ucright">
+	<div class="ucnav">
+ 		<ul>
+        	<li><a <php>if(ACTION_NAME == account_commission && !$_GET['status']){ echo "class='navon'";}</php> href="{:u('uc/account_commission')}">返利列表</a></li>
+            <li><a <php>if(ACTION_NAME == account_commission && $_GET['status']){ echo "class='navon'";}</php> href="{:u('uc/account_commission',array(status=>no))}">待审核订单</a></li>
+            <li><a href="{:u('uc/account_cash_details',array(type=>1))}">收入明细</a></li>
+            <li><a href="{:u('uc/account_cash_details',array(type=>2))}">支出明细</a></li>
+            <li><a href="{:u('uc/account_user_tixian')}">提现记录</a></li>
+            <li><a href="{:u('uc/account_get_cash')}">我要提现</a></li>
+        </ul>    	    
+    </div>
+    <div class="uccontent">
+	    <div class="uc_account clearfix"> 
+	        <!--右侧-->
+	        <div class="right_region exchange">
+	  
+	        <div class="yhsy_dingd wdst_yh">
+	                <table cellpadding="0" cellspacing="0">
+	                    <tr class="dingdbtss">
+	                        <td class="dingdbt" width="15%">订单号</td>
+	                        <td class="dingdbt" width="20%">下单商城</td>                        
+	                        <td class="dingdbt" width="10%">订单状态</td>
+	                        <td class="dingdbt" width="10%">返现</td>
+							<td class="dingdbt" width="10%">返<if condition="$cashback_type eq '1'">集分宝
+					  <else/>
+					 	{$tb_fanxian_name}
+					  </if></td>
+	                        <td class="dingdbt" width="20%">成交时间</td>
+	                    </tr>
+	                    <volist name="order_list" id="val" key='k' >
+						<tr class="dingdbtssb">
+	                        <td width="10%">{$val.order_code}</td>
+	                        <td width="15%">{$val.seller_name}</td>
+	                        <td width="15%"><if condition="$val.status eq '未确认' "><span class="red">{$val.status}</span><else /><span class="green">{$val.status}</span></if></td>
+	                        <td width="10%">{$val.cash_back}</td>
+							<td width="10%">{$val.cash_back_jifenbao}</td>
+	                        <td width="15%">{$val.order_time}</td>
+	                    </tr>
+					    </volist>
+	                </table>
+	            </div>
+	            <div class="page_b">{$page}</div>   
+	    	</div>
+	    </div>        
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){ 
+	$.formValidator.initConfig({formid:"myform",autotip:true,
+		onerror:function(msg,obj){
+			art.dialog({content:msg,lock:true,width:'200',height:'50'}, 
+					   function(){this.close();$(obj).focus();})
+			}
+	});
+		
+	$("#passwd").formValidator({onshow:"填写密码",onfocus:"填写6位以上密码"})
+		.inputValidator({min:6,onerror:"请填写6位以上密码"});
+		
+	$("#new_pwd").formValidator({onshow:"填写密码",onfocus:"填写6位以上密码"})
+		.inputValidator({min:6,onerror:"请填写6位以上密码"});
+
+	$("#confirm_pwd").formValidator({onshow:"确认密码",onfocus:"确认密码",oncorrect:"填写正确"})
+		.inputValidator({min:6,onerror:"请填写6位以上密码"})
+		.compareValidator({desid:"new_pwd",operateor:"=",onerror:"两次输入密码不一致"});	
+});
+</script>
+<include file="public:footer"/> 

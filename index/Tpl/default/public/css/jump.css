@@ -1,0 +1,58 @@
+@CHARSET "UTF-8";
+/*用户购买跳转页面*/
+#jump_dialog{
+	width:514px;
+	height:270px;
+}
+.jump_info{
+	text-align:center;
+	font-size:14px;
+	font-family:"微软雅黑";
+	padding:30px 20px;
+	background:#F5F2ED;
+	width:454px;
+	margin:10px auto 10px auto;
+	border:1px solid #eee;
+}
+.aa8b55{
+	color: #AA8B55;
+}
+.p_login{
+	font-size:14px;
+	font-family:"微软雅黑";
+	padding:20px 0px;
+}
+.login_box{
+	width:514px;
+	padding-bottom:10px;
+	border-bottom:1px solid #eee;
+}
+.login_box p{
+	height:44px;
+	line-height:44px;	
+}
+.login_box p.hint{
+	height:16px;
+	line-height:16px;
+	text-align:center;	
+	color:red;
+	font-family:"微软雅黑";
+}
+.login_input{
+	width:440px;
+}
+.btn-go{
+	display:inline-block;
+	width:68px;
+	height:29px;
+	background:url(../images/jump_login.png) no-repeat center center;
+	text-indent:-999999px;
+	position:relative;	
+	left:-2px;
+	top:7px;
+	overflow:hidden;
+}
+.reg_go{
+	text-align:center;
+	padding:10px;
+}

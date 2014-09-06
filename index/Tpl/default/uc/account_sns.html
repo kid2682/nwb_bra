@@ -1,0 +1,101 @@
+<include file="public:ucheader"/>
+<script language="javascript" type="text/javascript" src="__ROOT__/statics/js/jquery/plugins/formvalidator.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/statics/js/jquery/plugins/formvalidatorregex.js"></script>
+
+
+<link href="__ROOT__/statics/css/formvalidator.css" rel="stylesheet" type="text/css" />
+<!--全局样式-->
+<load href="__TMPL__public/css/uc/common.css" />
+<!--样式-->
+<load href="__TMPL__public/css/uc/css_b.css" />
+<load href="__TMPL__public/css/ucindex.css" /> 
+<load href="__TMPL__public/css/account.css" /> 
+<div class="ucleft">
+	<!--用户-->
+    <include file="userleft"/>
+    <!--用户-->
+   
+    <br clear="all"/>
+</div>
+<div class="ucright">
+	<div class="ucnav">
+ 		<ul>
+        	<li><a href="{:u('uc/account_basic')}">基本信息</a></li>
+            <li><a href="{:u('uc/account_face')}">上传头像</a></li>
+            <li><a <eq name="ACTION_NAME" value="account_sns"> class="navon" </eq>  href="{:u('uc/account_sns')}">账号绑定</a></li>
+            <li><a href="{:u('uc/account_pwd')}">修改密码</a></li>
+        </ul>    	    
+    </div>
+    <div class="uccontent">
+
+    <div class="uc_account clearfix"> 
+		
+        
+        <!--右侧-->
+        <div class="right_region exchange">
+            <div class="yhxg_you_b">
+            <if condition="$seo.sina_app_key && $seo.qq_app_key">
+            <ul id="sns_list">
+            <neq name="seo.sina_app_key" value="">
+            	<li>
+                	<div class="sns_icon sina"></div>
+                    <div class="text">
+                    	<div class="sns_name">新浪微博</div>
+                        <div class="hint">
+                        	<present name="bind_sina">
+                            已绑定<a href="{:u('uc/sns_unbind',array('type'=>'sina'))}" target="_blank" class="error">解除账号</a>
+							<else/>
+                        	<a href="{:u('uc/sina_login',array('type'=>'bind'))}" target="_blank">绑定账号</a>和好友分享你的发现
+                            </present></div>
+                    </div>
+                </li>
+            </neq>
+            <neq name="seo.qq_app_key" value="">
+                <li>
+                	<div class="sns_icon qq"></div>
+                    <div class="text">
+                    	<div class="sns_name">腾讯QQ</div>
+                        <div class="hint">
+                        <present name="bind_qq">
+                        	已绑定<a href="{:u('uc/sns_unbind',array('type'=>'qq'))}" target="_blank" class="error">解除账号</a>
+                        <else/>
+                        	<a href="{:u('uc/qq_login',array('type'=>'bind'))}" target="_blank">绑定账号</a>和好友分享你的发现
+                        </present>
+						</div>
+                    </div>
+                </li>
+            </neq>
+                <li style="display:none;">
+                	<div class="sns_icon taobao"></div>
+                    <div class="text">
+                    	<div class="sns_name">淘宝网</div>
+                        <div class="hint">
+                        <present name="bind_taobao">
+	                        已绑定<a href="{:u('uc/taobao_login',array('type'=>'taobao'))}" target="_blank" class="error">解除账号</a>
+                        <else/>
+	                        <a href="{:u('uc/taobao_login',array('type'=>'bind'))}" target="_blank">绑定账号</a>和好友分享你的发现
+                        </present>                    
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            </if>
+            </div>
+        </div>
+    </div>
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </div>
+</div>
+
+<include file="public:footer"/> 

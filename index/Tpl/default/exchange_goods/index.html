@@ -1,0 +1,238 @@
+<include file="public:header"/>
+<script type="text/javascript">
+$(function(){
+	/*交换商品*/
+	$('.exchange_btn').click(function(){ 		
+		var goods_id = $(this).attr('exchange_id');
+		var goods_title = $(this).attr('exchange_title');		
+		var btn=$(this);
+		if(def.user_id==null){ 
+			login();
+			return;	
+		}
+		//信息检测
+		$.post(def.root+"index.php?m=exchange_goods&a=check_info",{goods_id:goods_id},function(data){
+			if(data=='not_login'){ 
+				login();
+				return false;
+			}
+			else if(data=='no_goods'){ 
+				messagebox('商品id异常!','error');
+				return false;
+			}
+			else if(data=='score_short'){ 
+				messagebox('您的积分不足，无法兑换此商品!','error');
+				return false;
+			}			
+			else if(data=='stock_short'){ 
+				messagebox('对不起，此商品库存不足无法兑换此商品!','error');
+				return false;
+			}
+			else if(data=='max_exchange'){
+				messagebox('您的兑换次数不能大于每人限兑的次数，请兑换其他商品!','error');
+				return false;
+			}
+			else{ //执行入库操作
+				
+				set_order(goods_id,goods_title);		
+				
+			}
+			
+		});
+		//获取地址信息
+							   
+	});	
+})
+function set_order(goods_id,goods_title){
+	$.post(def.root+"index.php?m=exchange_goods&a=order_dialog",function(data){ 
+			try{ 
+				var error= eval("("+data+")");
+				if(error.data=='not_login'){ 
+					login();
+					return;	
+				}
+			}catch(e){}
+			
+			var exchange_goods_dialg=art.dialog({
+				title:'兑换商品',
+				id:'exchange_goods_dialg',
+				content:data,
+				width:'570',
+				height:'60',
+				lock:true
+			});	
+			$("#good_title").html(goods_title);	  //给弹出的对话框赋值		
+			var dlg=$(".exchange_goods_dialg");				
+			
+			var submit=$('.submit');			
+			submit.click(function(){ 	
+				var address=$.trim($('#address').val());  //地址
+				var zip=$.trim($('#zip').val());   //邮编				
+				var consignee=$.trim($('#consignee').val());  //收货人 				
+				var mobile_phone=$.trim($('#mobile_phone').val());   //手机				
+				var fax_phone=$.trim($('#fax_phone').val());   //固定电话				 
+				var email=$.trim($('#email').val());				
+				var qq=$.trim($('#qq').val());				
+				var remark=$.trim($('#remark').val());			
+				if(address==''){
+					messagebox('地址不得为空!','error');
+					return false;
+				}
+				if(address.length>500){
+					messagebox('地址不得大于500!','error');
+					return false;
+				}
+				if(zip==''){
+					messagebox('邮政编码不得为空!','error');
+					return false;
+				}				
+				if(consignee==''){
+					messagebox('收货人不得为空!','error');
+					return false;
+				}
+				if(email==''){
+					messagebox('电子邮件不得为空!','error');
+					return false;
+				}				
+				if(remark.length>1000){
+					messagebox('描述不得大于1000!','error');
+					return false;
+				}				
+				$.post(def.root+"index.php?m=exchange_goods&a=order", 
+					{goods_id:goods_id,address:address,zip:zip,consignee:consignee,mobile_phone:mobile_phone,fax_phone:fax_phone,email:email,qq:qq,submit:"submit"},
+					function(data){
+						if(data=='success'){
+							window.location.href=""; 
+							messagebox('恭喜您订单提交成功!');
+						}
+						else{
+							messagebox('对不起订单提交失败,请与管理员联系!','error');
+						}
+						//判断返回结果
+						
+					}); 																	
+			});						
+		});		
+}
+</script>
+<load href="__TMPL__public/css/exchange_goods.css" />
+<div class="jfsc">
+	<div class="jfsc_left">
+		<volist name="ex_list" id="val" key='k' >
+		    <div class="jfsc_left_a">
+		    	<div class="jfsc_left_a1"><img src="__ROOT__/{$val.img}" height="230" /></div>
+		    	<div class="jfsc_left_a2">{$val.name}</div>
+		        <div class="jfsc_left_a3">
+		        	<div class="jfsc_left_a3a">
+		            	<ul>
+		                	<li>库存剩余:<span>{$val.stock}</span> </li>
+							<li>已兑数量:<span>{$val.buy_count}</span></li>
+		                    <li>每人限兑:<span>{$val.user_num}</span></li>
+		                </ul>
+		            </div>
+		            <div class="jfsc_left_a3b"><a class="exchange_btn" href="javascript:;" exchange_id={$val.id} exchange_title={$val.name}>{$val.integral}积分</a></div>
+		            <div style="clear:both;"></div>
+		        </div>
+		    </div>
+		</volist> 
+		<div class="page_b">{$page}</div>
+    </div>
+    
+    
+	<div class="jfsc_right">
+        
+        <eq name="u.id" value="">
+		<div class="jfsc_rightaa">
+			<dl>
+				<dd>
+					<div class="er_link">
+						<a href="{:u('uc/login')}">
+						<img src="__TMPL__public/images/login.jpg">
+						</a>
+					</div>
+					<div class="er_rule">
+                    <li>
+						<a target="_blank" href="{:u('article/index',array('id'=>13))}">如何赚取积分？</a>
+					</div>
+				</dd>
+			</dl>
+		</div>
+		<else/>
+<div class="ucenter">
+        <div class="ucface"><img src="{:getUserFace($u['id'],'m')}"/></div>
+        <div class="ucenter_right">
+            <span class="ucenter_name">{$u.name}</span>
+
+            <span class="ucenter_set">{$u.integral}积分</span>
+            
+        </div>
+        <div class="ucenter_content">
+            <span id="user_info_span">{$u.info}</span>
+        </div>
+        <div class="ucenter_tl">
+            <ul>
+                <li><span>{$u.share_num}</span><br/>分享</li>
+                <li class="solid"><span>{$u.album_num}</span><br/>专辑</li>
+                <li><span>{$u.like_num}</span><br/>喜欢</li>
+            </ul>
+        </div>
+        
+        
+        <div class="ucenter-list">
+            <ul>
+                <li><span class="li1"></span><a href="{:u('uc/index')}">我的专辑</a></li>
+                <li><span class="li2"></span><a href="{:u('uc/like')}">我的喜欢</a></li>
+                <li><span class="li3"></span><a href="{:u('uc/share')}">我的分享</a></li>
+            </ul>
+        </div>
+    <br clear="all"/>
+    </div>
+    
+        </eq>
+    	<div class="jfsc_righta">
+        	<div class="jfsc_righta_a">积分排行<span>TOP10</span></div>
+            <div class="jfsc_righta_b">
+            	<ul>
+            		<volist name="top10integral" id="val" key='k' >
+            			<if condition="$k lt 4 ">            		            		
+		                	<li>
+		                    	<div class="jfsc_righta_b1"><span class="jfsc_righta_b1s">{$k}</span>{$val.name}</div>
+		                        <div class="jfsc_righta_b2">{$val.integral}</div>
+		                    </li>
+						<else /> 
+							<li>
+		                    	<div class="jfsc_righta_b1"><span>{$k}</span>{$val.name}</div>
+		                        <div class="jfsc_righta_b2">{$val.integral}</div>
+		                    </li>
+						</if>
+					</volist>	                    
+                </ul>
+            </div>
+        </div>        
+        <div class="jfsc_righta">
+        	<div class="jfsc_righta_a">兑换排行<span>TOP10</span></div>
+            <div class="jfsc_righta_b">
+            	<ul>
+                	 <volist name="top10ex" id="val" key='k' >   
+					 	<if condition="$k lt 4 ">							       		            		
+		                	<li>
+		                    	<div class="jfsc_righta_b1"><span class="jfsc_righta_b1s">{$k}</span>{$val.name}</div>
+		                        <div class="jfsc_righta_b2">{$val.exchange_num}</div>
+		                    </li>
+						<else /> 
+		                	<li>
+		                    	<div class="jfsc_righta_b1"><span>{$k}</span>{$val.name}</div>
+		                        <div class="jfsc_righta_b2">{$val.exchange_num}</div>
+		                    </li>						
+						</if>
+
+
+					   
+					</volist>	
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+<include file="public:footer"/>

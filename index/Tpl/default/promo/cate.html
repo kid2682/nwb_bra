@@ -1,0 +1,56 @@
+<include file="public:header"/>
+<load href="__TMPL__public/css/seller_promo.css" />
+<!--B2C随机广告-->
+<div class="mt15">
+	<volist name="ad_rel" id='val' key='key'> 
+		<if condition="$key eq 1">			       		
+			<a href="javascript:void(0)" style="border:none; margin-right:20px;" onclick="window.open('{$val['click_url']}')"><img src="{$val.pic_url}" /></a>
+			<else/>
+			<a href="javascript:void(0)" style="border:none;" onclick="window.open('{$val['click_url']}')"><img src="{$val.pic_url}" /></a>
+		</if>
+	</volist>
+</div>
+<!--B2C随机广告结束-->
+<div id="group_nav" class="clearfix">
+	<ul>
+		<volist name="promo_cate" id="val" > 										
+			<if condition="$val['cid'] eq $cid"> 					
+				<li><a class="on" href="{:u('promo/cate',array('cid'=>$val['cid']))}">{$val.name}</a></li>
+			<else />
+				<li><a href="{:u('promo/cate',array('cid'=>$val['cid']))}">{$val.name}</a></li>
+			</if>
+		</volist>	
+    </ul>
+	<div class="promo_cate_child">
+		<p>			
+			<volist name="child_data" id="val" > 
+				<if condition="$val['cid'] eq $real_cid"> 	
+					<a class="hover" href="{:u('promo/cate',array('cid'=>$val['cid'],'pid'=>$cid))}">{$val.name}</a>
+				<else />
+					<a href="{:u('promo/cate',array('cid'=>$val['cid'],'pid'=>$cid))}">{$val.name}</a>
+				</if>
+			</volist>
+		</p>
+	</div>
+</div>
+<div class="yhhdbt">
+	<h1>{$curent_name}</h1>
+</div>
+<div class="cxhdym">	
+	<volist name="promos" id="val" >
+		<div class="cxhd">
+	    	<div class="cxhd_a"><a href="{:u('item/urlpromo',array('url'=>$val['click_url']))}" class="sde" target="_blank">{$val.seller_name}</a>&nbsp;<a href="{:u('item/urlpromo',array('url'=>$val['seller_url']))}" target="_blank">{$val.title}</a></div>
+	        <div class="chxztp"><a href="{:u('item/urlpromo',array('url'=>$val['click_url']))}"  target="_blank"><img src="{$val.pic_url_1}" width="300" height="300" /></a></div>
+	        <div class="chxz_b">
+	        	<div class="chxz_b1"><a href="{:u('item/urlpromo',array('url'=>$val['seller_url']))}" target="_blank"><img src="{$val.seller_logo}" width="120" height="45" /></a></div>
+	            <div class="chxz_b2">
+	            	有效期:{$val.start_time}- {$val.end_time}
+	            </div>
+	        </div>
+	    </div>
+	</volist>
+    <div style="clear:both;"></div>
+</div>
+
+<div class="page_b">{$page}</div>
+<include file="public:footer"/>

@@ -1,0 +1,60 @@
+<include file="public:header" />
+<div class="pad-lr-10">
+	 <form name="searchform" action="" method="get" >
+    <table width="100%" cellspacing="0" class="search-form">
+        <tbody>
+            <tr>
+            <td>
+            <div class="explain-col">   
+				用户名 :	
+                <input name="keyword" type="text" class="input-text" size="25" value="{$keyword}" />
+                <input type="hidden" name="m" value="cash_back_log" />
+                <input type="submit" name="search" class="button" value="搜索" />
+        	</div>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>	
+    <form id="myform" name="myform" action="{:u('cash_back_log/delete')}" method="post" onsubmit="return check();">
+    <div class="table-list">
+    <table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th width=50>ID</th>
+                <th width=30><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>				
+                <th width=60>{:L('username')}</th>				
+                <th width=100>{:L('shouzhi')}</th>
+				<th width=120>{:L('in_money')}</th>
+                <th>{:L('out_money')}</th>
+				<th>{:L('after_money')}</th>
+				<th>{:L('info')}</th>
+				<th>{:L('time')}</th>			
+            </tr>
+        </thead>
+    	<tbody>
+        <volist name="log_list" id="val" key="k">
+        <tr>
+        	<td align="center">{$val.id}</td>  
+            <td align="center"><input type="checkbox" value="{$val.id}" name="id[]" </td>                    
+            <td align="center">{$val.uname}</td>			   		
+			<td align="center"><if condition="$val.type eq '1'">收入<else /> 支出</if></td>
+			<td align="center"><if condition="$val.in_money eq '0.00' "> <else/>{$val.in_money}</if></td>
+			<td align="center"><if condition="$val.out_money eq '0.00' "> <else/>{$val.out_money}</if></td>
+			<td align="center">{$val.after_money}</td>
+			<td align="center"><strong>{$val.info}</strong></td>
+			<td align="center">{$val.time|date="y-m-d H:i:s",###}</td>		
+        </tr>
+        </volist>
+    	</tbody>
+    </table>
+    <div class="btn">
+		<label for="check_box" style="float:left;">{$Think.lang.select_all}/{$Think.lang.cancel}</label>
+		<input type="submit" class="button" name="dosubmit" value="{$Think.lang.delete}" onclick="return confirm('{$Think.lang.sure_delete}')" style="float:left;margin-left:10px;"/>
+		<div id="pages">{$page}</div>
+    </div>
+    </div>
+    </form>
+</div>
+</body>
+</html>

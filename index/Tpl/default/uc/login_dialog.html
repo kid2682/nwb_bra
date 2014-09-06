@@ -1,0 +1,54 @@
+<div id="login_dialog" class="login box_content" style="width:500px;">
+	<table style="width:100%;">
+		<tr>
+			<th style="width:54px;">昵　称：</th>
+			<td style="width:240px;"><input type="text" class="input_text" id="name"/></td>
+			<td rowspan="4" valign="top">
+				
+                <div style="border-left:1px dotted #CDCDCD;padding-left:10px;height:150px;">
+                <if condition="$seo.sina_app_key && $seo.qq_app_key">
+					你也可以使用这些帐号登录
+					<div class="login_list clearfix mt10">
+						<!--<a href="{:u('uc/taobao_login')}" target="_blank" class="taobao"></a>-->
+						<neq name="seo.sina_app_key" value=""><a href="{:u('uc/sina_login')}" class="sina" target="_blank"></a></neq>
+						<neq name="seo.qq_app_key" value=""><a href="{:u('uc/qq_login')}" class="qq" target="_blank"></a></neq>
+					</div>  
+                <else/>
+                    <br/>
+                    如果忘记密码？请点击<a href="{:u('uc/find_password')}" target="_blank">找回密码</a>
+                    <br/><br/>
+                </if>  
+					<br/>
+					还没有账户？请<a href="{:u('uc/register')}" target="_blank">注册</a>
+				</div>
+                
+			</td>
+		</tr>
+		<tr>
+			<th>密　码：</th>
+			<td><input type="password" class="input_text" id="passwd"/></td>
+		</tr>
+		<tr>
+            <th>验证码：</th>
+            <td>
+            	<input type="text" name="verify" id="verify" class="input_text left" maxlength=4 style="width:100px;"/>
+            	<img src="{:u('public/verify')}" class="verify_img" class="left"                              
+				onclick="javascript:this.src='./?a=verify&m=public&tm='+Math.random()"
+                style="margin:5px 0px 0px 10px; cursor:pointer;"/>
+				
+            </td>
+        </tr>
+		<tr>
+			<td></td>
+			<td><input type="checkbox" style="margin-right:4px;"/><span style="padding-left:2px;position:relative; top:-3px;">两周内自动登录</span></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<input type="submit" class="submit" value="登录"/>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<p class="hint"></p>
+			</td>
+		</tr>
+	</table>        	
+</div>

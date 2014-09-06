@@ -1,0 +1,50 @@
+<include file="public:header" />
+<div class="pad_10">
+<form action="{:u('items_collect/publishmiao')}" method="post" name="myform" id="myform">	
+    <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+    	<tr>
+        	<th width="100">发布到分类 :</th>
+            <td>            	 
+				<select id="parent_cate" onchange="get_child_cates(this)">
+			            <option value="0">--请选择分类--</option>
+			            <volist name="cate_list['parent']" id="val">
+			            <optgroup label="{$val.name}"></optgroup>
+			            	<volist name="cate_list['sub'][$val['id']]" id="sval">
+			                  <option value="{$sval.id}" <if condition="$item_pid eq $sval['id']">selected="selected"</if>>&nbsp;&nbsp;&nbsp;&nbsp;{$sval.name}</option>
+			                </volist>
+			            </volist>
+			     </select>  
+				<select id="second_cate" name="cid" style="display:none;">             
+		        </select>
+			</td>
+        </tr>		
+        <tr>
+        	<th></th>
+            <td>
+            	<input type="hidden" name='ids' id="ids" value="{$ids}">
+            	<input type="submit" value="发布" name="dosubmit" class="button" id="dosubmit" onclick="collect();">
+			</td>
+        </tr>
+	</table>
+</form>
+<script type="text/javascript">
+function get_child_cates(obj)
+{
+	$('#second_cate').css("display","");
+	var parent_id = $(obj).val();
+	if( parent_id ){
+		$.get('?m=items&a=get_child_cates&parent_id='+parent_id,function(data){				
+			$('#second_cate').html(data);
+	    });		
+    }
+}
+$('#myform').submit(function(){
+	if($('#parent_cate').val()=='0'){		
+		alert('请选择分类');
+		return false;
+	}
+})
+</script>
+</div>
+</body>
+</html>

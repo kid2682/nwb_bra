@@ -1,0 +1,78 @@
+<include file="public:header" />
+<div class="subnav">
+    <div class="content_menu ib_a blue line_x" style="padding:20px 10px;">
+        <a href="{:U('items_collect/cate_collect',array('code'=>miao))}"><em style="font-size:26px;"><< 重新搜索</em></a>
+    </div>
+</div>
+<!--阿里妈妈筛选采集-->
+<div class="pad_lr_10" >	
+    <div class="table-list">
+        <table width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th width="40"><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
+                <th align="left">商品信息</th>
+                <th align="right">商品价格	</th>               
+				<th align="right">所属商家</th>
+                <th align="right">佣金比率	</th>
+				<th align="right">返现说明	</th>              
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="list" id="val">
+            <tr>
+                <td align="center">                	
+					<input type="checkbox" class="J_checkitem" value="{$val.iid}" name="id[]">
+				</td>
+                <td>
+                    <div class="fl" style="margin-right:10px;"><img src="{$val.pic_url}" width="200" height="200" /></div>
+                    <div>
+                        <a href="{$val.click_url}" target="_blank">{$val.title}</a>                        	
+                    </div>
+                </td>
+				<td align="right">{$val.price}元</td>
+				<td align="right">{$val.seller_name}</td>                
+                <td align="right">{$val.cashback_scope}</td>				
+                <td align="right">{$val['cashback_desc']}</td>          
+            </tr>
+            </volist>
+            </tbody>
+        </table>
+    </div>
+    <div class="btn_wrap_fixed" style="padding-bottom:40px; padding-left:20px; padding-top:20px;">
+        <label for="check_box" style="float:left;">全选/取消</label>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" class="btn btn_submit" data-tdtype="batch_action" data-acttype="ajax_form" data-uri="{:U('collect_alimama/publish')}" data-name="id" data-id="publish" data-title="发布" data-width="450" value="发布" />
+        <div id="pages">{$page}</div>
+    </div>
+</div>
+<script type="text/javascript">
+	
+$('input[data-tdtype="batch_action"]').live('click',function(){
+	if ($('.J_checkitem:checked').length == 0) {
+		alert('请选择要发布的商品');
+		return false;		
+	}
+	var ids='';
+	$('.J_checkitem:checked').each(function(){
+		ids += $(this).val() + ',';
+	});
+	ids = ids.substr(0, (ids.length - 1));
+	
+	window.top.art.dialog({id:'collect'}).close();
+	window.top.art.dialog({
+		title:'59秒数据采集',
+		id:'collect',
+		iframe:'?m=items_collect&a=publishmiao&ids='+ids+'',
+		width:'430',
+		height:'160'		
+	});
+	
+	
+})
+
+</script>
+
+<include file="public:footer" />
+</body>
+</html>

@@ -1,0 +1,79 @@
+<include file="public:ucheader"/>
+<load href="__TMPL__public/css/ucindex.css" />   
+<div class="ucleft">
+	<!--用户-->
+    <include file="userleft"/>
+    <!--用户-->
+    
+    <br clear="all"/>
+</div>
+<div class="ucright" style="background: none;margin-top:10px;">
+	<!--导航-->
+    <if condition="$u['id'] neq $user['id']">
+    <else/>
+    <div class="uchead">
+        <ul><li><a href="javascript:void(0)" id="create_album_i">创建专辑</a></li></ul>
+    </div>
+    </if>
+    <!--导航-->
+    <div class="uccontent">
+        <!--div class="ucarc">
+        <if condition="$u['id'] eq $user['id']">
+    		<h3><span></span><a id="create_album" href="javascript:void(0)">创建专辑</a></h3>
+        </if>
+            
+            <ul-->
+            	<!--li class="on"><a href="{:uc('uc/album')}">我发表的</a></li>
+                <li><a href="{:uc('uc/follow')}">关注的人</a></li>
+            </ul>
+        </div-->
+        <div class="album_list">
+        <present name="album_list">	
+        <else/>
+           	<if condition="$u['id'] eq $user['id']">
+                <span style="margin: 10px;">你还没有专辑哦~赶紧创建一个，收集你心爱的宝贝吧~</span>
+            <else/>
+                <span style="margin: 10px;">ta还没有专辑哦~</span>
+            </if>                
+        </present>    
+        <volist name="album_list" id="val" key="key">
+        	<div class="album_item">
+            	<div class="album_item_title">
+                <a href="{:u('album/details',array('id'=>$val['id'],'uid'=>$val['uid']))}" class="img" target="_blank">
+                    {$val.title}
+                </a>
+                </div>
+				<div class="groupbg" style="height: 216px;margin: 0 auto; width: 202px;">
+					<ul>
+						 <volist name="val['items']" key="key" id="ival">
+							<li <if condition="$key eq 1">class="first"</if> <if condition="($key eq 2) or ($key eq 3) or ($key eq 6)">style="margin-right: 0;"</if>>
+								<present name="ival['id']">
+                                <a href="{:u('item/index',array('id'=>$ival['id']))}">
+								    <img src="{$ival.img}" <if condition="$key eq 1">style="width:130px; margin:0 auto;"</if> alt="{$ival.title}" />
+								</a>
+                                <else/>
+                                    <img src="{$ival.img}" <if condition="$key eq 1">style="width:130px; margin:0 auto;"</if> alt="{$ival.title}" />
+                                </present>
+							</li>
+						</volist>
+					</ul>
+				</div>				
+                <div class="album_item_footer">
+                    <h5>{$val.number}个宝贝</h5>
+                    <present name="me">
+                    	<if condition="$type neq 'follow'">
+                        <ul>
+                            <li class="album_item_edit"><a href="javascript:void(0)" class="edit_album" album_id="{$val['id']}" title="修改专辑"><img src="__TMPL__/public/images/ucedit.png"/></a></li>
+                            <li class="album_item_del"><a href="javascript:var url = '{:uc('uc/album_info',array('act'=>'del','id'=>$val['id']))}';if(confirm('确认要删除{$val.title}专辑吗？'))location=url;" title="删除专辑"><img src="__TMPL__/public/images/ucdel.png" /></a></li>
+                        </ul>
+                        </if>
+                    </present>                    
+                </div>
+       	    </div>
+         </volist>
+		 <div class="clearfix"></div>
+        </div>        
+    </div>
+</div>
+
+<include file="public:footer"/> 

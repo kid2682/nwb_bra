@@ -1,0 +1,160 @@
+<tagLib name="wego" />
+<include file="public:header" />
+<form action="{:u('exchange_goods/update')}" method="post" name="myform" id="myform" enctype="multipart/form-data" style="margin-top:10px;">
+<div class="pad_10">	
+<div class="col-tab">
+      <ul class="tabBut cu-li">
+        <li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',2,1);">{$Think.lang.general_info}</li>
+        <!--li id="tab_setting_2" onclick="SwapTab('setting','on','',2,2);">{$Think.lang.article_seo}</li-->
+      </ul>
+	 <div id="div_setting_1" class="contentList pad-10">
+	 	<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+			<tr>
+				<th width="150">{:L('name')} :</th>
+				<td><input type="text" class="textinput requireinput" name="name" id="name" value="{$ex_goods_info.name}" size="80"/></td>
+			</tr>
+			<tr>
+				<th>{:L(goods_type)} :</th>
+				<td>
+					<select name="goods_type">
+						<option value="1" <if condition="$ex_goods_info.goods_type eq 1">selected="selected"</if>>{:L(goods_type_0)}</option>
+						<option value="2" <if condition="$ex_goods_info.goods_type eq 2">selected="selected"</if>>{:L(goods_type_1)}</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>{:L('img')} :</th>
+				<td>
+					 <input type="file" name="img" id="img" class="input-text" size=21 value="{$ex_goods_info.img}" />
+					 <br />
+					 <if condition="$ex_goods_info['img'] neq ''">
+		        	    <br /><img src="{$ex_goods_info.img}" />
+		           	 </if>
+					 
+				</td>
+			</tr>
+			<tr>
+				<th>{:L('integral')} :</th>
+				<td>
+					<input type="text" class="textinput" name="integral" id="integral" value="{$ex_goods_info.integral}" />
+				</td>
+			</tr>
+			<tr>
+				<th>{:L('stock')} :</th>
+				<td>
+					<input type="text" class="textinput" name="stock" id="stock" value="{$ex_goods_info.stock}" />
+				</td>
+			</tr>
+			<tr>
+				<th>{:L('user_num')} :</th>
+				<td>
+					<input type="text" class="textinput" name="user_num" id="user_num" value="{$ex_goods_info.user_num}" />
+				</td>
+			</tr>
+			<tr>
+				<th>{:L('is_best')} :</th>
+				<td>
+					<label><input type="radio" name="is_best" value="1" <if condition="$ex_goods_info.is_best eq 1"> checked="checked"</if>>{:L('yes')}</label>　
+					<label><input type="radio" name="is_best" value="0" <if condition="$ex_goods_info.is_best eq 0"> checked="checked"</if>>{:L('no')}</label>
+				</td>
+			</tr>
+			<tr>
+				<th>{:L('begin_time')} :</th>
+				<td>
+					 <wego:calendar name="begin_time">{$ex_goods_info.begin_time|date="Y-m-d",###}</wego:calendar>					
+				</td>
+			</tr>
+			<tr>
+				<th>{:L('end_time')} :</th>
+				<td>
+					<wego:calendar name="end_time" more="true">{$ex_goods_info.end_time|date="Y-m-d",###}</wego:calendar>
+				</td>
+			</tr>
+			<tr>
+				<th>{:L('sort')} :</th>
+				<td>
+					<input type="text" class="textinput" name="sort" size="10" value="100" />
+				</td>
+			</tr>
+		    <tr>
+		      <th>{:L('state')} :</th>
+			    <td><input type="radio" name="status" class="radio_style" value="1" <if condition="$ex_goods_info.status eq 1"> checked</if>>
+	          &nbsp;已审核&nbsp;&nbsp;&nbsp;
+	          <input type="radio" name="status" class="radio_style" value="0" <if condition="$ex_goods_info.status eq 0">  checked</if>>
+	          &nbsp;未审核&nbsp;&nbsp;&nbsp;          
+	          </td>
+		    
+		    </tr>
+			<tr>
+				<th>{:L('content')} :</th>
+				<td>
+					<wego:editor id="content" name="content" type="KINDEDITOR" style="width:68%;height:50px;" >{$ex_goods_info.content}</wego:editor>
+				</td>
+			</tr>
+		</table>
+	 </div>
+	  <div id="div_setting_2" class="contentList pad-10 hidden">
+        <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+          <tr>
+            <th width="100">{$Think.lang.seo_title} :</th>
+            <td><input type="text" name="seo_title" id="seo_title" class="input-text" size="60" value="{$ex_goods_info.seo_title}"></td>
+          </tr>
+          <tr>
+            <th>{$Think.lang.seo_keys} :</th>
+            <td><input type="text" name="seo_keys" id="seo_keys" class="input-text" size="60" value="{$ex_goods_info.seo_keys}"></td>
+          </tr>
+          <tr>
+            <th>{$Think.lang.seo_desc} :</th>
+            <td><textarea name="seo_desc" id="seo_desc" cols="80" rows="8">{$ex_goods_info.seo_desc}</textarea></td>
+          </tr>
+        </table>
+      </div>
+	  <input type="hidden" value="{$ex_goods_info.id}" name='id' />	  
+	  
+<div class="btn"><input type="submit" value="{$Think.lang.submit}" name="dosubmit" class="button" id="dosubmit"></div>
+</div>	
+</div>
+</form>
+<script type="text/javascript">
+	function SwapTab(name,cls_show,cls_hide,cnt,cur){
+    for(i=1;i<=cnt;i++){
+		if(i==cur){
+				 $('#div_'+name+'_'+i).show();
+				 $('#tab_'+name+'_'+i).attr('class',cls_show);
+			}else{
+				 $('#div_'+name+'_'+i).hide();
+				 $('#tab_'+name+'_'+i).attr('class',cls_hide);
+			}
+		}
+	}
+	
+	$(function(){
+		$.formValidator.initConfig({
+			formid:"myform",
+			autotip:true,
+			onerror:function(msg,obj){
+				window.top.art.dialog({
+					content:msg,
+					lock:true,
+					width:'200',
+					height:'50'},
+					 function()
+					 {
+					 	this.close();
+						$(obj).focus();
+					 })
+		}});		
+		
+		$("#name").formValidator({
+			onshow:"不能为空",onfocus:"标题不能为空哦"
+		}).inputValidator({
+			min:1,onerror:"请输入商品名称"
+		});	
+		$("#integral").formValidator({onshow:"请输入积分（1-100000）",onfocus:"只能输入1-100000之间的数字哦",oncorrect:"恭喜你,输入正确"}).inputValidator({min:1,max:100000,type:"value",onerrormin:"你输入的值必须大于等于1",onerror:"积分必须在1-100000之间，必须是数字，请确认"}).defaultPassed();
+		$("#stock").formValidator({onshow:"请输入库存（0-100000的数字）",onfocus:"只能输入0-100000之间的数字哦",oncorrect:"恭喜你,输入正确"}).inputValidator({min:0,max:100000,type:"value",onerrormin:"你输入的值必须大于等于0",onerror:"库存必须在0-100000之间，必须是数字，请确认"}).defaultPassed();
+		$("#user_num").formValidator({onshow:"请输入（1-100000的数字）",onfocus:"只能输入1-100000之间的数字哦",oncorrect:"恭喜你,输入正确"}).inputValidator({min:1,max:100000,type:"value",onerrormin:"你输入的值必须大于等于1",onerror:"每人限兑必须在1-100000之间，必须是数字，请确认"}).defaultPassed();
+				
+	})
+</script>
+</body>
+</html>

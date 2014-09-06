@@ -1,0 +1,48 @@
+<div class="list">
+    <ul>
+        <volist name="comments['list']" id="val">
+        <li class="clearfix">
+            <em class="avatar">
+            	<a href="{:u('uc/index',array('uid'=>$val['user']['id']))}" title="{$val.user.name}" target="_blank">
+                    <img src="{:getUserFace($val['user']['id'])}"/>                
+                </if>
+            </a></em>
+            <div class="item_info">
+            	<div class="left details_left">
+                    <a class="name" href="{:u('uc/index',array('uid'=>$val['user']['id']))}" target="_blank">{$val.user.name}：</a>
+                    {$val.info}                
+                </div>
+                <if condition="MODULE_NAME eq 'item'">
+                    <div class="right">
+                        <i>{:date("Y-n-j   H:i:s",$val["add_time"])}</i>
+                    </div>
+                </if>
+                <div class="clear"></div>
+			</div>
+        </li>
+        </volist>
+    </ul>
+</div>
+<if condition="strlen(trim($comments['page'])) neq 0">   
+<div id="page_wrap">
+    <div id="page" class="page mt20 clearfix comments" style="display:block;">
+	    <div class="page_num">{$comments.page}</div>
+    </div>
+</div>
+</if> 
+<script type="text/javascript">
+$(function(){ 
+	if(def.module=="album"){ 
+		$('.comments .unprev,.comments .prev').html('<');
+		$('.comments .unnext,.comments .next').html('>');
+	}else{
+		$('.comments .unprev,.comments .prev').html('上一页');
+		$('.comments .unnext,.comments .next').html('下一页');	
+	}			   	
+	$('#items_comments span').each(function(){ 
+		if($(this).attr('class')=='unprev'||$(this).attr('class')=='prev'||$(this).attr('class')=='unnext'||$(this).attr('class')=='next'){ 
+			$(this).hide();
+		}										
+	});
+});
+</script>

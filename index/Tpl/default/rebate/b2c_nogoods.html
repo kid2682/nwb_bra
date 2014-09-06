@@ -1,0 +1,168 @@
+<include file="public:header"/>
+<style type="text/css">
+		.nogoods{			
+			min-height:300px;
+			background:#FFF;
+			padding:40px 20px 20px 20px;
+			font-size:14px;
+		}
+		.nogoods span{
+			font-weight:bold;
+		}
+		.list-notice{
+		    color: #666666;
+		    line-height: 180%;
+		    margin: 20px 0;
+			font-size:12px;
+		}
+		.list-notice p{
+			font-weight:bolder;
+			color:black;
+			font-size:14px;
+		}
+		.nogoods .list-notice ol{
+			list-style: decimal;
+			padding-left:20px;
+		}
+		.nogoods .list-notice ol li{
+			list-style: decimal;
+		}
+		.six{
+		    background: none repeat scroll 0 0 #F6F6F6;
+		    border-bottom: 1px solid #DDDDDD;
+		    font-size: 14px;
+		    font-weight: bold;
+		    height: 34px;
+		    line-height: 36px;
+		    overflow: hidden;
+		    padding: 0 10px;
+		}
+		.side-product {
+		    padding: 5px;
+		}
+		.side-product dl{
+			border-bottom:1px solid #eee;
+			padding:5px;	
+		}
+		.side-product .dt_img{
+			width:100px;
+			height:100px;
+			float:left;
+		}	
+		.side-product .dt_img img{
+			padding:5px;
+		}
+		.side-product dd{
+			padding:2px 0px;
+		}
+		.side-product .dd_title{
+			height:34px;
+			overflow:hidden;
+			
+		}
+		#main-side {
+		    border: 1px solid #E1E1E1;
+		    float: right;
+		    overflow: hidden;
+		    width: 228px;
+		}
+		.chafanli a{
+			background-color: #FF6600;
+		    color: #FFFFFF;
+		    cursor: pointer;
+		    display: block;
+		    font-family: "微软雅黑";
+		    font-size: 16px;
+		    font-weight: bold;
+		    height: 36px;
+		    letter-spacing: 1px;
+		    line-height: 36px;
+		    margin-top: 14px;
+		    text-align: center;
+		    width: 230px;
+			float:right;
+			letter-spacing:2px;
+		}
+		.chafanli a:hover{
+			text-decoration:underline;
+		}
+		.side-product ul li{
+			padding:10px;
+			border-bottom:1px dashed #eee;
+			text-align:center;
+		}
+		.side-product ul li a.img{
+			display:block;
+			width:200px;
+			height:50px;
+			margin:0 auto;
+		}
+		.side-product ul li img{
+			display:block;
+			margin:0 auto;
+		}
+		.cash_desc{
+			 border: 1px solid #E1E1E1;
+		}
+		.cashback_desc_detail{
+			padding:10px;
+			line-height:150%;
+			font-size:14px;
+			font-weight:normal;
+		}
+</style>
+<load href="__TMPL__public/css/item_img.css" />
+<div class="content" style="background:#fff;">
+	<div class="mt15">
+		<script language="javascript" src="{:u('advert/index', array('id'=>4))}"></script>
+    </div>
+<div style="padding:0px 7px 7px 7px;">
+	<div class="item_left fl">
+    	<div class="single_item mt15 clearfix">       	          
+        	<div style="font-size:14px;">
+        		很抱歉，本站没有查到与<span class="red">"{$url}"</span>地址相关的宝贝，你可以根据下面地址跳转找到"<span><a href="{:u('item/url',array('url'=>$item['id']))}" class="red" style="font-size:18px;">{$item.name}</a></span>"找到此商品获取返利
+			</div>
+			<div style="height:80px;padding:10px 0px;">	
+				<div class="chafanli">
+					<a href="{:u('item/url',array('url'=>$item['id']))}" target="_blank">去{$item.name}购物拿返利</a>
+				</div>	
+				<div style="width:200px; float:right; text-align:center;">
+					<p><a href="{:u('item/url',array('url'=>$item['id']))}" target="_blank"><img src="{$item.net_logo}" /></a></p>
+					<p>立反：<a href="{:u('item/url',array('url'=>$item['id']))}" target="_blank"><span class="red">{$item.cash_back_rate}</span></a></p>
+				</div>
+			</div>
+			<div class="clearfix"></div>						        
+			<div class="cash_desc">
+				<div class="six">{$item.name}返利说明</div>
+				<div class="cashback_desc_detail">
+					{$item.cashback_desc}
+				</div>
+			</div>
+		</div>
+    </div>
+	<!--右侧-->	
+    <div class="item_right fr mt10" id="main-side"> 
+	        <h5 class="six">				
+				推荐商家
+			</h5>
+			<div class="side-product">
+				<ul>
+					<volist name="rec_seller" id="val" >
+	        			<li>
+		                	<a class="img" href="{:u('item/url',array('url'=>$val['id']))}" title="{$val.name}" target="_blank"> 
+								<if condition="$val.site_logo eq ''">
+									<img src="{$val.net_logo}" />
+								<else /> 
+									<img src="{$val.site_logo}" />	
+								</if> 								
+							</a>
+		                    <a href="{:u('item/url',array('url'=>$val['id']))}" title="{$val.name}" target="_blank">{$val.name}&nbsp;立返<span class="red">{$val.cash_back_rate}</span></a>		                    
+		                </li>
+					</volist>
+				</ul>
+			</div>
+    </div>
+	<div class="clearfix"></div>
+	</div>
+</div>
+<include file="public:footer"/>

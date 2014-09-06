@@ -1,0 +1,138 @@
+@CHARSET "UTF-8";
+/*商品分类*/
+.sp_flwai{
+	width:960px;
+	margin:0 auto;
+	padding-top:15px;
+	/*border-bottom:1px dashed #cdcccc;*/
+	/*padding-bottom:15px;*/
+	}
+.sp_fl{
+	width:960px;
+	background:#fff;
+	border:1px solid #d0d0d0;
+	box-shadow: 0 1px 3px rgba(34, 25, 25, 0.2);
+	padding-bottom:15px;
+	}
+
+.sp_fl_a{
+	width:930px;
+	margin:0 auto;
+	padding:5px 15px;
+	border-top:5px solid #8ead1f;
+	}
+.sp_fl_a1{
+	width:775px;
+	float:left;
+	}
+.sp_fl_a1 span{
+	float:left;
+	display:block;
+	font-family:"微软雅黑";
+	font-size:16px;
+	width:70px;
+	padding-top:10px;
+	}
+.sp_fl_a1 ul{
+	float:left;
+	width:700px;
+	}
+.sp_fl_a1 .sp_fl_a1sa{
+	width:930px;
+	}
+.sp_fl_a1 li{
+	float:left;
+	display:block;
+	white-space:nowrap;
+	padding-left:10px;
+	padding-top:10px;
+	}
+.sp_fl_a1 li a{
+	padding:0 10px;
+	line-height:20px;
+	height:20px;
+	display:block;
+	float:left;
+	background:#fdfced;
+	border:1px solid #ebe2ae;
+	border-radius: 3px 3px 3px 3px;
+	color:#666;
+}
+.sp_fl_a1 li a:hover{
+	color:#fff;
+	background:#8ead1f;		
+}
+.sp_fl_a1 li a.on{
+	color:#fff;
+	background:#8ead1f;		
+}
+
+.tjbb{
+	float:right;
+	padding-top:10px;
+	height:34px;
+	}
+.sp_fl_b{
+	width:930px;
+	margin:0 auto;
+	border-top:1px solid #e5e5e5;
+	padding-top:10px;
+	}
+.sp_fl_b1{
+	width:309px;
+	float:left;	
+	padding-bottom:10px;
+	}
+.sp_fl_b1a{
+	float:left;
+	width:90px;
+	height:90px;
+	}
+.sp_fl_b1b{
+	float:left;
+	width:219px;
+	}
+.sp_fl_b1b span{
+	font-family:"微软雅黑";
+	font-size:14px;
+	color:#7E900C;
+	padding-left:4px;
+}
+.sp_fl_b1b ul{
+	width:219px;
+	float:left;
+	}
+.sp_fl_b1b li{
+	float:left;	
+	display:inline-block;	
+	float:left;
+	padding-top:5px;
+	padding-left:9px;
+	*display:inline; 
+	*zoom:1;
+	*float:none;
+}
+.sp_fl_b1b li a{
+	float:left;
+	padding:2px 5px;	
+}
+.sp_fl_b1b li a:hover{
+    background-color: #8ead1f;
+    border-radius: 4px 4px 4px 4px;
+    color: white !important;
+    cursor: pointer;
+   padding:2px 5px;
+    white-space: nowrap;
+}
+	
+.sp_fl_b1b li a.on {
+    background-color: #8ead1f;
+    border-radius: 4px 4px 4px 4px;
+    color: white !important;
+    cursor: pointer;
+   padding:2px 5px;
+    white-space: nowrap;
+}
+.sp_fl_b1s{
+	border:none;
+	}

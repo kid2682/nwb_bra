@@ -1,0 +1,33 @@
+<ul>
+	<volist name="album_list" id="val" key="key">		
+		<if condition="$val.items_num neq 0">
+			<li class="album_list" style="<if condition="($key+1)%4 eq 1">margin-right:0px;</if>">
+						<volist name="val['items']" id="ival" key='k'>            
+							<if condition="($key+1) eq 1">
+								<div class="abl_big">
+									<a href="{:u('album/details',array('id'=>$val['id'],'uid'=>$val['uid']))}" target="_blank">
+										<img src="{$ival}" alt="{$val.title}" />
+									</a>
+								</div>
+							</if>
+						</volist>
+							<div class="abl_smalls" style="opacity: 0.5;">
+								<a href="{:u('album/details',array('id'=>$val['id'],'uid'=>$val['uid']))}" target="_blank">
+									<ul>
+										<volist name="val['items']" id="ival" key='k'>  
+											<if condition="($key+1) gt 1">
+												<li><img src="{$ival}" alt="{$val.title}" /></li>
+											</if>
+										</volist>		
+									</ul>
+								</a>
+							</div>					
+				
+					<div class="album_title">
+						<a class="left" href="{:u('album/details',array('id'=>$val['id'],'uid'=>$val['uid']))}">{$val.title}</a>
+						<span>{$val.items_num}个宝贝</span>
+					</div>			
+			</li>
+		</if>
+	</volist>
+</ul>

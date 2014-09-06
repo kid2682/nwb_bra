@@ -1,0 +1,136 @@
+@CHARSET "UTF-8";
+/*大家都在喜欢*/
+.main_3{
+	width:960px;
+	margin:0 auto;
+	padding-bottom:15px;
+	border-bottom:1px dashed #cdcccc;
+	}
+.latestLike {
+	box-shadow: 0 1px 3px rgba(34, 25, 25, 0.2); 
+	width:940px;
+	background:#fff;
+	padding:10px 10px 15px 10px; 
+	margin-top:15px;
+	 border:1px solid #d0d0d0
+}
+.latestLike h2 { 
+	font-size:16px; 
+	font-family:"微软雅黑";
+	height:28px;
+	line-height:28px; 
+	font-weight:normal;
+	color:#BEA77D;
+	overflow:hidden;
+}
+.latestLike h2 .more {
+	 padding-top:10px;
+	 line-height:12px;
+	 float:right;
+	 font-size:12px;
+	 font-weight:normal; 	 
+}
+.latestLike h2 span a:hover{
+	color:#ff6666;
+	text-decoration:underline;
+	}
+.latestLike .bd{ height:182px;overflow:hidden;width:940px;padding-top:5px;position:relative; }
+.latestLike .luckyMask{ height:182px;width:30px;position:absolute;right:0;top:10px;z-index:99;background:url(../images/luckyMask.png) no-repeat 0px 0px;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/luckyMask.png',sizingMethod='crop') }
+.latestLike ul { width:1200px;}
+.latestLike ul li { width:120px;padding:6px;float:left;margin-right:10px;background:#fff;border:1px solid #f1f1f1; }
+.latestLike ul li:hover { border:1px solid #FF6666; }
+.latestLike ul li .luckyBaobei{ height:130px;width:120px;overflow:hidden; }
+.latestLike ul li .user{ height:30px;padding-top:10px;padding-left:38px;padding-top:8px;position:relative; }
+.latestLike ul li .user img{ height:30px;width:30px;position:absolute;left:0;top:8px; }
+.latestLike ul li .name{ height:13px;width:82px;line-height:13px;display:block;overflow:hidden;white-space:nowrap;color:#5AD }
+.latestLike ul li .baobeiNum{ /*background:url(../../images/ui/grayHeart.gif) no-repeat left 9px;padding-left:12px;*/height:12px;line-height:12px;padding-top:6px;display:block;color:#999; }
+.latestLike .luckyMask{ height:182px;width:30px;position:absolute;right:0;top:10px;z-index:99;background:url(../images/luckyMask.png) no-repeat 0px 0px;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/luckyMask.png',sizingMethod='crop') }
+
+
+/*返利商家*/
+.flsjtj{
+	width:960px;
+	margin:0 auto;
+	padding:10px 0;
+	border-top:1px dashed #fbfaf9;	
+	}
+
+/*返现商家*/
+.fanxian{
+	width:960px;
+	margin:0 auto;
+	padding:10px 0;
+	border-top:1px dashed #fbfaf9;	
+	background:#fff;
+}
+.sp_flwaiss{
+	padding-bottom:15px;
+	border-bottom:1px dashed #cdcccc;
+	}
+.fxsj{
+	height:35px;
+	border-bottom:1px dashed #cdcccc;	
+}
+.fxsj span{
+	float:left;
+	display:block;
+	font-family:"微软雅黑";
+	font-size:16px;
+	line-height:35px;
+	text-indent:15px;
+	}
+.fxsj a{
+	display:block;
+	float:right;
+	margin-top:13px;
+	margin-right:15px;
+	display:inline;
+}
+.fxsj a:hover{
+	color:#FF6666;
+	text-decoration:underline;
+	}
+.fxsjs{
+	width:960px;
+	}
+.fxsjs ul{
+	width:950px;
+	padding-left:10px;
+	}
+.fxsjs li{
+	float:left;
+	display:block;
+	width:150px;
+	position:relative;
+	margin:25px 3px 0 3px;
+	}
+.fxsjs li a{
+	width:120px;
+	text-align:center;
+	line-height:20px;
+	display:block;
+	overflow:hidden;
+	}	
+.fxsjs li a:hover{
+	color:#7E900C;
+	text-decoration:underline;
+	}
+.tjsj_a1 {
+    background: url("../images/fantb.png") repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    font-family: "微软雅黑";
+    height: 45px;
+    line-height: 58px;
+    overflow: hidden;
+    position: absolute;
+    right: 10px;
+    text-align: center;
+    top: -10px;
+    width: 45px;
+}
+.step{
+	background:#fff;
+	margin-top:10px;
+	 border: 1px solid #D0D0D0;
+    box-shadow: 0 1px 3px rgba(34, 25, 25, 0.2);
+}

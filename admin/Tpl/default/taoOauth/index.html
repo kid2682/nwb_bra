@@ -1,0 +1,43 @@
+<!DOCtype html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title>淘宝授权</title>
+<style type="text/css">
+*{
+	margin:0px;
+	padding:0px;
+	font-size:12px;
+}
+</style>
+</head>
+<body>
+<div style="padding:10px;overflow:hidden; width:423px; height:auto; margin:0 auto; margin-top:80px; font-size:14px;">
+
+
+<present name="error">
+	<p style="text-align:left; font-size:14px; font-weight:bolder; color:red;">
+		对不起，页面授权失败<br>
+		<br>
+		<br>
+		error:<span style="color:#666;">{$error}</span><br><br>
+		
+		error_description:<span style="color:#666;">{$error_description}</span>
+	</p>
+<else/>
+	<p style="text-align:center; font-size:26px; font-weight:bolder; color:red;">
+		恭喜您页面授权成功
+	</p>
+</present>
+
+<img src="__ROOT__/statics/admin/images/oauth.png" style="border:none;display:block;margin:0 auto;">
+<present name="seeeion_key">
+	<br>
+	<br>
+	session:{$seeeion_key}
+	<br><br>
+	<span style="color:red">提示：复制session后面的值到第二步里面的session文本框内</span>
+</present>
+</div>
+</body>
+</html>

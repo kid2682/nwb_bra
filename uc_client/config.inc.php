@@ -1,0 +1,25 @@
+<?php define('UC_DBCHARSET','utf8');
+define('UC_CHARSET','utf-8');
+define('UC_DBCONNECT','0');
+define('UC_PPP','20');
+define('UC_APPID','2');
+define('UC_KEY','123456');
+define('UC_API','http://192.168.1.53/vgoubbs/uc_server');
+define('UC_IP','');
+define('UC_CONNECT','mysql');
+define('UC_DBHOST','192.168.1.100');
+define('UC_DBUSER','root');
+define('UC_DBPW','123456');
+define('UC_DBNAME','vgou_bbs');
+define('UC_DBTABLEPRE','`vgou_bbs`.pre_ucenter_');
+define('UC_UC_CONFIG','');
+$dbhost='192.168.1.100';
+$dbuser='root';
+$dbpw='123456';
+$dbname='wego24';
+$pconnect=0;
+$tablepre='`wego24`.vg_';
+$dbcharset='utf8';
+$cookiedomain='';
+$cookiepath='/';
+?>

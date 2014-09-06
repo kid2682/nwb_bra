@@ -1,0 +1,88 @@
+<include file="public:header" />
+<form action="{:u('items/batch_add')}" method="post" name="myform" id="myform"  enctype="multipart/form-data" style="margin-top:10px;">
+    <div class="pad-10">
+        <div class="col-tab">
+            <ul class="tabBut cu-li">
+                <li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',2,1);">基本信息</li>
+            </ul>
+            <div id="div_setting_1" class="contentList pad-10">
+				<div style="padding:10px; overflow:hidden;">
+					<div class="main_top" style="clear:both;">
+						<h4>温馨提示：</h4>
+						<p class="green"><font color=red>注：一行一个“淘宝，天猫” <a href="{:u('seller_list/index')}" style="color:blue;">b2c商家</a>的URL</font></p>
+						<p class="green">建议每次批量获取的url小于20个</p>
+						<p class="green"> http://detail.tmall.com/item.htm?id=12903959631<br/>
+					http://item.vancl.com/0084067.html?ref=ch_dresses_hp_1|hp-hp-head-nav_7-n<br/>
+					http://www.360buy.com/product/1003364975.html<br/>
+					http://product.dangdang.com/product.aspx?product_id=1008144122#ref=www-0-H<br/></p>						
+					</div>
+				</div>
+                <table>
+                    <tr>
+                        <th width="120">商品归类 :</th>
+                        <td style="padding-bottom:10px;">
+							<select id="parent_cate" onchange="get_child_cates(this)">
+						            <option value="0">--请选择分类--</option>
+						            <volist name="cate_list['parent']" id="val">
+						            <optgroup label="{$val.name}"></optgroup>
+						            	<volist name="cate_list['sub'][$val['id']]" id="sval">
+						                  <option value="{$sval.id}" <if condition="$item_pid eq $sval['id']">selected="selected"</if>>&nbsp;&nbsp;&nbsp;&nbsp;{$sval.name}</option>
+						                </volist>
+						            </volist>
+						     </select>  
+							<select id="second_cate" name="cid" style="display:none;">             
+					        </select>
+						</td>
+                    </tr>
+                    <tr>
+                    	<th>网址URL：</th>
+                        <td>
+                			<textarea name="urls" id="urls" cols="100" rows="10"></textarea>        
+                        </td>
+                    </tr>   
+                    <tr>
+                    	<th>抓取消息:</th>
+                        <td id="cmd">
+                        </td>
+                    </tr>                 
+                </table>
+            </div>
+            <div class="btn">
+                <input type="button" value="抓取" class="button" onclick="collect();">
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+function collect(){ 
+	$('#cmd').show();	
+	if($('#parent_cate').val()=='0'){	
+		console.log($('#parent_cate').val());
+		alert('请选择分类');
+		return false;
+	}	
+	$.post("{:u('items/batch_add')}",{dosubmit:true,urls:$('#urls').val(),cid:$('#second_cate').val()},function(data){
+		$('#cmd').html("");		
+		if(data.data.code){
+			alert(data.data.msg);
+			return;
+		}
+		var html="<div><h4>成功更新列表:</h4><div style='color:blue;'>"+data.data.success_update_list+"</div></div><br/>\
+		<div><h4>成功添加列表:</h4><div style='color:green;'>"+data.data.success_insert_list+"</div></div>\
+		<div><h4>失败列表:</h4><div style='color:red;'>"+data.data.fail_list+"</div></div>";
+		$('#cmd').append(html);					  			
+		//console.log(data);
+	},'json');	
+}	
+function get_child_cates(obj)
+{
+	$('#second_cate').css("display","");
+	var parent_id = $(obj).val();
+	if( parent_id ){
+		$.get('?m=items&a=get_child_cates&parent_id='+parent_id,function(data){				
+			$('#second_cate').html(data);
+	    });		
+    }
+}
+</script>
+</body></html>

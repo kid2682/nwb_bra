@@ -1,0 +1,32 @@
+<style type="text/css">
+	.box_content table tr td{
+		padding:5px 0px;		
+	}
+</style>
+<div class="box_content">
+	<table cellpadding="10">
+        <tr>
+            <td>
+            	收件人：
+            	<input type="text" id="to_user" name="to_user" value="{$info.from_user}" style="width:200px; height:22px;"/>
+            </td>
+        </tr>
+    	<tr>
+            <td>
+            	标　题：
+            	<input type="text" id="title" name="title" style="width:200px; height:22px;"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            	内　容：
+            	<textarea name="content" id="content"　 style="width:400px; height:100px;"></textarea>
+            </td>        
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" class="submit" value="确定"/>
+            </td>        
+        </tr>        
+    </table>
+</div>

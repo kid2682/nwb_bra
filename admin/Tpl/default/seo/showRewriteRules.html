@@ -1,0 +1,162 @@
+<!DOCtype html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title>当前伪静态规则</title>
+<style type="text/css">
+*{
+	margin:0px;
+	padding:0px;
+	font-size:12px;
+}
+h1{
+	font-size:13px;
+	color:#666;
+}
+.colorbox {
+    background: none repeat scroll 0 0 #F2F9FD;
+    border-bottom: 4px solid #DEEFFA;
+    border-top: 4px solid #DEEFFA;
+    clear: both;
+    padding: 10px;
+}
+</style>
+</head>
+<body>
+<div style="padding:10px; overflow:hidden;">
+<h1>Apache 伪静态规则</h1>
+<pre class="colorbox">
+&lt;IfModule mod_rewrite.c&gt;
+RewriteEngine on
+
+#不显示index.php
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+
+&lt;/IfModule&gt;
+</pre>
+</br>
+<h1>IIS 伪静态规则</h1>
+<pre class="colorbox">
+[ISAPI_Rewrite]
+# 3600 = 1 hour
+CacheClockRate 3600
+RepeatLimit 32
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)/index\{$suffix}$ $1/\?a=index&m=index
+RewriteRule ^(.*)/item-(\d+)\{$suffix}$ $1/\?a=index&m=item&id=$2
+
+RewriteRule ^(.*)/promo-(\d+)/(\d+)\{$suffix}\?&p=(\d+)$   $1/\?a=cate&m=promo&cid=$2&pid=$3&p=$4
+RewriteRule ^(.*)/promo-(\d+)/(\d+)\{$suffix}$   $1/\?a=cate&m=promo&cid=$2&pid=$3
+RewriteRule ^(.*)/promo-(\d+)\{$suffix}\?&p=(\d+)$   $1/\?a=cate&m=promo&cid=$2&p=$3
+RewriteRule ^(.*)/promo-(\d+)\{$suffix}$   $1/\?a=cate&m=promo&cid=$2
+RewriteRule ^(.*)/promo\{$suffix}\?&p=(\d+)$   $1/\?a=index&m=promo&p=$2
+RewriteRule ^(.*)/promo\{$suffix}$   $1/\?a=index&m=promo
+
+RewriteRule ^(.*)/search-index-sp-(\d+)-p-(\d+)-keywords-(.*)\{$suffix}$ $1/\?a=index&m=search&&sp=$2&p=$3&keywords=$4
+
+RewriteRule ^(.*)/search-index-sortby-(.*)\{$suffix}\?&p=(\d+)$   $1/\?a=index&m=search&sortby=$2&p=$3	
+RewriteRule ^(.*)/search-index-sortby-(.*)\{$suffix}$ $1/\?a=index&m=search&sortby=$2	
+
+RewriteRule ^(.*)/search-index-keywords-(.*)\{$suffix}\?&p=(\d+)$ $1/\?a=index&m=search&keywords=$2&p=$3					
+RewriteRule ^(.*)/search-index-keywords-(.*)\{$suffix}$ $1/\?a=index&m=search&keywords=$2
+RewriteRule ^(.*)/search-index\{$suffix}\?&p=(\d+)$   $1/\?a=index&m=search&p=$2	
+RewriteRule ^(.*)/search-index\{$suffix}$   $1/\?a=index&m=search
+
+RewriteRule ^(.*)/bsearch-jumpGetGoods-iid-(\d+)\{$suffix}$   $1/\index.php?a=jumpGetGoods&m=bsearch&iid=$2
+
+
+RewriteRule ^(.*)/album-details-id-(\d+)-uid-(\d+)\{$suffix}\?p=(\d+)$ $1/\?a=details&m=album&id=$2&uid=$3&p=$4
+RewriteRule ^(.*)/album-details-id-(\d+)-uid-(\d+)\{$suffix}$ $1/\?a=details&m=album&id=$2&uid=$3
+RewriteRule ^(.*)/album-(\d+)\{$suffix}\?p=(\d+)$ $1/\?a=index&m=album&cid=$2&p=$3
+RewriteRule ^(.*)/album-(\d+)\{$suffix}$ $1/\?a=index&m=album&cid=$2
+RewriteRule ^(.*)/album\{$suffix}$ $1/\?m=album&a=index
+
+RewriteRule ^(.*)/seller-(\d+)\{$suffix}\?&p=(\d+)$   $1/\?a=cate&m=seller&id=$2&p=$3
+RewriteRule ^(.*)/seller-(\d+)\{$suffix}$   $1/\?a=cate&m=seller&id=$2
+RewriteRule ^(.*)/seller\{$suffix}$   $1/\?a=index&m=seller
+
+RewriteRule ^(.*)/exchange_goods\{$suffix}\?&p=(\d+)$   $1/\?a=index&m=exchange_goods&p=$3
+RewriteRule ^(.*)/exchange_goods\{$suffix}$   $1/\?a=index&m=exchange_goods
+
+RewriteRule ^(.*)/cate-(\d+)/(\d+)/(\d+)\{$suffix}$ $1/\?a=index&m=cate&sp=$2&cid=$3&p=$4
+RewriteRule ^(.*)/cate-(\d+)\{$suffix}\?&p=(\d+)$ $1/\?a=index&m=cate&cid=$2&p=$3			
+RewriteRule ^(.*)/cate-(\d+)\{$suffix}$ $1/\?a=index&m=cate&cid=$2
+
+RewriteRule ^(.*)/item-(\d+)\{$suffix}\?&p=(\d+)$  $1/\?a=index&m=item&id=$2&p=$3
+RewriteRule ^(.*)/item-(\d+)\{$suffix}$  $1/\?a=b2c&m=item&id=$2
+RewriteRule ^(.*)/item-url-url-(.*)\{$suffix}$ $1/\?a=url&m=item&url=$2
+RewriteRule ^(.*)/item-urlpromo-url-(.*)\{$suffix}$ $1/\?a=urlpromo&m=item&url=$2	
+RewriteRule ^(.*)/item-b2c-id-(\d+)-uid-(\d+)\{$suffix}$ $1/\?a=b2c&m=item&id=$2&uid=$3
+RewriteRule ^(.*)/item-b2c-id-(\d+)\{$suffix}$ $1/\?a=b2c&m=item&id=$2
+
+RewriteRule ^(.*)/item-tao-id-(\d+)-uid-(\d+)\.html$ $1/\?a=tao&m=item&id=$2&uid=$3
+RewriteRule ^(.*)/item-tao-id-(\d+)\.html$ $1/\?a=tao&m=item&id=$2
+
+RewriteRule ^(.*)/tag-(\d+)\{$suffix}  $1/\?&p=(\d+)$  $1/\index.php?a=tag&m=cate&id=$2&p=&3
+RewriteRule ^(.*)/tag-(\d+)\{$suffix}  $1/\?a=tag&m=cate&id=$2
+RewriteRule ^(.*)/public-verify\{$suffix}$   $1/\?a=verify&m=public
+RewriteRule ^(.*)/article-(\d+)\{$suffix}$   $1/\?a=index&m=article&id=$2
+RewriteRule ^(.*)/articlelist-(\d+)\{$suffix}$   $1/\?a=index&m=articlelist&cid=$2
+RewriteRule ^(.*)/advert-index-id-(\d+)\{$suffix}$ $1/\?a=index&m=advert&id=$2
+RewriteRule ^(.*)/advert-click-id-(\d+)\{$suffix}$ $1/\?a=click&m=advert&id=$2
+RewriteRule ^(.*)/focus-click-id-(\d+)\{$suffix}$ $1/\?a=click&m=focus&id=$2
+RewriteRule ^(.*)/uc-find_password\{$suffix}$ $1/\?a=find_password&m=uc	
+RewriteRule ^(.*)/uc-album-uid-(\d+)\{$suffix}$ $1/\?a=album&m=uc&uid=$2
+RewriteRule ^(.*)/uc-index-uid-(\d+)\{$suffix}$ $1/\?a=index&m=uc&uid=$2
+RewriteRule ^(.*)/uc-share-uid-(\d+)\{$suffix}$ $1/\?a=share&m=uc&uid=$2
+RewriteRule ^(.*)/uc-like-uid-(\d+)\{$suffix}$ $1/\?a=like&m=uc&uid=$2
+RewriteRule ^(.*)/uc-follow-uid-(\d+)\{$suffix}$ $1/\?a=follow&m=uc&uid=$2
+RewriteRule ^(.*)/uc-fans-uid-(\d+)\{$suffix}$ $1/\?a=fans&m=uc&uid=$2
+RewriteRule ^(.*)/uc-me-uid-(\d+)\{$suffix}$ $1/\?a=me&m=uc&uid=$2
+RewriteRule ^(.*)/uc-account_face-uid-(\d+)\{$suffix}$ $1/\?a=account_face&m=uc&uid=$2
+RewriteRule ^(.*)/uc-completeface-uid-(\d+)\{$suffix}$ $1/\?a=completeface&m=uc&uid=$2
+RewriteRule ^(.*)/uc-account_basic-uid-(\d+)\{$suffix}$ $1/\?a=account_basic&m=uc&uid=$2
+RewriteRule ^(.*)/uc-album\{$suffix}$ $1/\?a=album&m=uc
+RewriteRule ^(.*)/uc-index\{$suffix}$ $1/\?a=index&m=uc
+RewriteRule ^(.*)/uc-share\{$suffix}$ $1/\?a=share&m=uc
+RewriteRule ^(.*)/uc-like\{$suffix}$ $1/\?a=like&m=uc
+RewriteRule ^(.*)/uc-follow\{$suffix}$ $1/\?a=follow&m=uc
+RewriteRule ^(.*)/uc-fans\{$suffix}$ $1/\?a=fans&m=uc
+RewriteRule ^(.*)/uc-me\{$suffix}$ $1/\?a=me&m=uc
+RewriteRule ^(.*)/uc-account_face\{$suffix}$ $1/\?a=account_face&m=uc
+RewriteRule ^(.*)/uc-completeface\{$suffix}$ $1/\?a=completeface&m=uc
+RewriteRule ^(.*)/uc-account_basic\{$suffix}$ $1/\?a=account_basic&m=uc
+RewriteRule ^(.*)/uc-album_info-act-edit-id-(\d+)-uid-(\d+)\{$suffix}$ $1/\?a=album_info&m=uc&act=edit&id=$2&uid=$3
+RewriteRule ^(.*)/uc-album_info-act-del-id-(\d+)-uid-(\d+)\{$suffix}$ $1/\?a=album_info&m=uc&act=del&id=$2&uid=$3
+RewriteRule ^(.*)/uc-album-type-follow-uid-(\d+)\{$suffix}$ $1/\?a=album&m=uc&type=follow&uid=$2
+RewriteRule ^(.*)/uc-account_basic-{$suffix}$ $1/\?a=account_basic&m=uc
+RewriteRule ^(.*)/uc-doBasic-{$suffix}$ $1/\?a=doBasic&m=uc
+RewriteRule ^(.*)/uc-account_face-{$suffix}$ $1/\?a=account_face&m=uc
+RewriteRule ^(.*)/uc-upload\{$suffix}$ $1/\?a=upload&m=uc
+RewriteRule ^(.*)/uc-showface\{$suffix}$ $1/\?a=showface&m=uc
+RewriteRule ^(.*)/uc-doShowFace\{$suffix}$ $1/\?a=doShowFace&m=uc
+RewriteRule ^(.*)/uc-index\{$suffix}$ $1/\?a=index&m=uc
+RewriteRule ^(.*)/uc-account_pwd\{$suffix}$ $1/\?a=account_pwd&m=uc
+RewriteRule ^(.*)/uc-account_exchange\{$suffix}$ $1/\?a=account_exchange&m=uc
+RewriteRule ^(.*)/uc-account_exchange-status-(\d+)\{$suffix}$ $1/\?a=account_exchange&m=uc&status=$2
+RewriteRule ^(.*)/uc-account_commission\{$suffix}$ $1/\?a=account_commission&m=uc
+RewriteRule ^(.*)/uc-account_commission-status-(.*)\{$suffix}$ $1/\?a=account_commission&m=uc&status=$2
+RewriteRule ^(.*)/uc-account_cash_details-type-(\d+)\{$suffix}$ $1/\?a=account_cash_details&m=uc&type=$2
+RewriteRule ^(.*)/uc-account_user_tixian\{$suffix}$ $1/\?a=account_user_tixian&m=uc
+RewriteRule ^(.*)/uc-account_get_cash\{$suffix}$ $1/\?a=account_get_cash&m=uc
+RewriteRule ^(.*)/uc-account_get_cash-type-(\d+)\{$suffix}$ $1/\?a=account_get_cash&m=uc&type=$2
+RewriteRule ^(.*)/uc-account_invitation\{$suffix}$ $1/\?a=account_invitation&m=uc
+RewriteRule ^(.*)/uc-account_message\{$suffix}$ $1/\?a=account_message&m=uc
+RewriteRule ^(.*)/uc-account_sns\{$suffix}$ $1/\?a=account_sns&m=uc
+RewriteRule ^(.*)/uc-account_message-type-(\d+)\{$suffix}$ $1/\?a=account_message&m=uc&type=$2
+RewriteRule ^(.*)/uc-logout\{$suffix}$ $1/\?a=logout&m=uc
+RewriteRule ^(.*)/uc-login\{$suffix}$ $1/\?a=login&m=uc
+RewriteRule ^(.*)/uc-doBasic\{$suffix}$ $1/\?a=doBasic&m=uc
+RewriteRule ^(.*)/uc-register\{$suffix}$ $1/\?a=register&m=uc
+RewriteRule ^(.*)/uc-qq_login\{$suffix}$ $1/\?a=qq_login&m=uc
+RewriteRule ^(.*)/uc-sina_login\{$suffix}$ $1/\?a=sina_login&m=uc
+RewriteRule ^(.*)/uc-sign\{$suffix}$ $1/\?a=sign&m=uc
+RewriteRule ^(.*)/bsearch-jumpGetGoods-iid-(.*)\{$suffix}$ $1/\?a=jumpGetGoods&m=bsearch&iid=$2
+</pre>
+</div>
+</body>
+</html>

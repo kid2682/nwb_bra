@@ -1,0 +1,36 @@
+<tagLib name="wego" />
+<include file="public:header" />
+<div class="pad-lr-10">
+	 <form name="searchform" action="" method="get" >
+    <table width="100%" cellspacing="0" class="search-form">
+        <tbody>
+            <tr>
+            <td>
+            <div class="explain-col">   
+				备份名称 :			
+				
+                <input name="sql_file_name" type="text" class="input-text" size="20" value="{$name}" />
+                <input type="hidden" name="m" value="exchange_goods" />
+				<input type="hidden" value="database" name="m">
+				<input type="hidden" value="dump" name="a">
+                <input type="submit" name="submit" class="button" value="备份" />
+        	</div>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>	
+</div>
+	<tbody>
+		<foreach name="sql_list" item="sql_item">
+		<tr <if condition="$key % 2 eq 1">class="even"</if>>
+			<td style="text-align:left;">{$sql_item.filename}</td>
+			<td>{$sql_item.filedate}</td>
+			<td>
+				<a href="{:U('database/restore',array('dir'=>$sql_item['filename']))}">恢复</a>&nbsp;
+				<a href="{:U('database/delete',array('dir'=>$sql_item['filename']))}">删除</a>
+			</td>
+		</tr>
+		</foreach>
+	</tbody>
+

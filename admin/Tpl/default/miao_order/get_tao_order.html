@@ -1,0 +1,68 @@
+<tagLib name="wego" />
+<include file="public:header" />
+<div class="pad-10" >    
+    <table width="100%" cellspacing="0" class="search-form">
+        <tbody>
+            <tr>
+            <td>
+            <div class="explain-col">
+            	时间范围：
+            	<wego:calendar name="star_time">{$date}</wego:calendar>
+                                        到
+                <wego:calendar name="end_time" more="true">{$date}</wego:calendar>   
+                <input type="button" name="button" class="button" id="button" value="立即获取" />
+        	</div>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+  
+
+   
+</div>
+<script language="javascript">
+$(function(){
+	$('#button').click(function(){
+		var star=$('#star_time').val();
+		var end=$('#end_time').val();
+		collect(star,end);
+	});
+});	
+	
+function collect(star_data, end_data) {
+	window.top.art.dialog({id:'getorder'}).close();
+	window.top.art.dialog({title:'淘宝订单采集',id:'getorder',iframe:'?m=miao_order&a=get_tao_order_jump&star_data='+star_data+'&end_data='+end_data,width:'430',height:'160'});
+}
+
+$(function(){
+		$.formValidator.initConfig({
+			formid:"myform",
+			autotip:true,
+			onerror:function(msg,obj){
+				window.top.art.dialog({
+					content:msg,
+					lock:true,
+					width:'200',
+					height:'50'},
+					 function()
+					 {
+					 	this.close();
+						$(obj).focus();
+					 })
+		}});		
+		
+		$("#star_time").formValidator({
+			onshow:"",onfocus:"开始时间不能为空哦"
+		}).inputValidator({
+			min:1,onerror:"请选择开始时间"
+		});	
+		$("#end_time").formValidator({
+			onshow:"",onfocus:"结束时间不能为空哦"
+		}).inputValidator({
+			min:1,onerror:"请选择结束时间"
+		});
+				
+})
+</script>
+</body>
+</html>

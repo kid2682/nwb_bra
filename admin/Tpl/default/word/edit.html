@@ -1,0 +1,53 @@
+<tagLib name="wego" />
+<include file="public:header" />
+<div class="pad_10">
+<form action="{:u('word/edit')}" method="post" name="myform" id="myform">
+<table width="100%" cellpadding="2" cellspacing="1" class="table_form">	
+    <tr> 
+      <th width="80">关 键 词  : </th>
+      <td><input type="text" name="word" id="word" class="input-text" value="{$banword_info.word}"></td>
+    </tr>
+    <tr> 
+      <th>替 换 为 : </th>
+      <td><input type="text" name="replacement" id="replacement" class="input-text" value="{$banword_info.replacement}"></td>
+    </tr>
+     <tr> 
+      <th>分  类 :</th>
+       <td>
+     	  <wego:select options="word_cate_list" name="cid" id="cid" selected="banword_info_cid" />
+      </td>
+    </tr>
+	<tr>
+		<th>状 态  : </th>
+		<td>
+	  		<input type="radio" name="status" class="radio_style" value="1" <if condition="$banword_info.status eq 1"> checked</if>> &nbsp;有效&nbsp;&nbsp;&nbsp;
+	  	  <input type="radio" name="status" class="radio_style" value="0" <if condition="$banword_info.status eq 0"> checked</if>> &nbsp;禁用
+		</td>
+    </tr>
+</table>
+<input type="hidden" name="id" value="{$banword_info.id}" />
+<input type="submit" name="dosubmit" id="dosubmit" class="dialog" value=" ">
+</form>
+<script type="text/javascript">
+var banword_id = "{$banword_info.id}";
+var banword_name="{$banword_info.word}";
+$(function(){
+	$.formValidator.initConfig({formid:"myform",
+		autotip:true,
+		onerror:function(msg,obj){
+			window.top.art.dialog({content:msg,lock:true,width:'200',height:'50'}, 
+								  function(){
+									  this.close();
+									  $(obj).focus();
+									})
+		}
+	});	
+	$("#title").formValidator({
+		onshow:"不能为空",onfocus:"不能为空"
+	}).inputValidator({
+		min:1,onerror:"请填写菜单分类名称"
+	});
+})
+</script>
+</div>
+</body>

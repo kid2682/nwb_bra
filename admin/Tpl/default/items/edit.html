@@ -1,0 +1,109 @@
+<include file="public:header" />
+<form action="{:u('items/edit')}" method="post" name="myform" id="myform" enctype="multipart/form-data" style="margin-top:10px;">
+  <div class="pad-10">
+  <div class="col-tab">
+  <ul class="tabBut cu-li">
+    <li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',2,1);">基本信息</li>
+    <li id="tab_setting_2" onclick="SwapTab('setting','on','',2,2);">SEO设置</li>
+  </ul>
+  <div id="div_setting_1" class="contentList pad-10">
+    <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+      <tr>
+        <th width="100">商品名称 :</th>
+        <td><input type="text" name="title" id="title" class="input-text" size="60" value="{$items.title}"></td>
+      </tr>
+      <tr>
+        <th>所属分类 :</th>
+        <td><select name="cid" onchange="return check_cate(this);">
+        	<option value="0">--请选择分类--</option>
+            <volist name="cate_list" id="val">
+                <option value="{$val.id}" level="{$val.level}" <if condition="$items['cid'] eq $val['id']"> selected="selected" </if>>
+                    {:str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',$val['level'])}
+                    {:trim($val['name'])}
+                </option>
+            </volist>
+          </select></td>
+      </tr>
+      <tr>
+      	<th>商品图片</th>
+      	<td>
+            <img src="{$items.img}" style="border: 1px solid #999999;padding:1px;"/><br /><br />
+            <input type="file" name="img" id="img" class="input-text" size=21 />
+        </td>
+      </tr>
+      <tr>
+        <th>来源 :</th>
+        <td>
+        	<select name="sid" id="sid">
+            	<option value="0" selected="selected">--选择来源--</option>
+            	<volist name="site_list" id="val">
+                <option value="{$val.id}" alias="{$val.alias}" <if condition="$items['sid'] eq $val['id']">selected="selected"</if>>{$val.name}</option>
+                </volist>
+            </select>
+        </td>
+      </tr>
+      <tr>
+        <th>链接地址 :</th>
+        <td><input type="text" name="url" id="url" class="input-text" value="{$items.url}" size="60"></td>
+      </tr>
+      <tr>
+        <th>标签 :</th>
+        <td><input type="text" name="tags" id="tags" class="input-text" value="{$items.tags}" size="60"></td>
+      </tr>
+      <tr>
+        <th>价格 :</th>
+        <td><input type="text" name="price" id="price" class="input-text" value="{$items.price}" size="20">元</td>
+      </tr>
+      <if condition="$items.uid gt 0">
+      <tr>
+        <th>分享介绍 :</th>
+        <td valign="middle">
+        	<textarea style="width:300px;height:100px;" class="input-text" name="remark">{$items.remark}</textarea>
+        	不显示<input type="radio" value="0" name="remark_status" <if condition="$items.remark_status eq 0">checked="checked"</if>/>&nbsp;&nbsp;
+            显示<input type="radio" value="1" name="remark_status" <if condition="$items.remark_status eq 1">checked="checked"</if>/>
+        </td>
+      </tr>  
+      </if>    
+      <tr><td><input type="hidden" name="id" value="{$items.id}" id="items_id"/></td></tr>
+    </table>
+  </div>
+
+  <div id="div_setting_2" class="contentList pad-10 hidden">
+    <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+      <tr>
+        <th width="100">{$Think.lang.seo_title} :</th>
+        <td><input type="text" name="seo_title" id="seo_title" class="input-text" size="60" value="{$items.seo_title}"></td>
+      </tr>
+      <tr>
+        <th>{$Think.lang.seo_keys} :</th>
+        <td><input type="text" name="seo_keys" id="seo_keys" class="input-text" size="60" value="{$items.seo_keys}"></td>
+      </tr>
+      <tr>
+        <th>{$Think.lang.seo_desc} :</th>
+        <td><textarea name="seo_desc" id="seo_desc" cols="80" rows="8">{$items.seo_desc}</textarea></td>
+      </tr>
+    </table>
+  </div>
+  <div class="bk15"></div>
+  <div class="btn">
+    <input type="submit" value="{$Think.lang.submit}" name="dosubmit" class="button" id="dosubmit">
+  </div>
+
+</div>
+</div>
+</form>
+<script type="text/javascript">
+function SwapTab(name,cls_show,cls_hide,cnt,cur){
+    for(i=1;i<=cnt;i++){
+		if(i==cur){
+			 $('#div_'+name+'_'+i).show();
+			 $('#tab_'+name+'_'+i).attr('class',cls_show);
+		}else{
+			 $('#div_'+name+'_'+i).hide();
+			 $('#tab_'+name+'_'+i).attr('class',cls_hide);
+		}
+	}
+}
+</script>
+</body>
+</html>

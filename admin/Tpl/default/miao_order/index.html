@@ -1,0 +1,123 @@
+<include file="public:header" />
+<script type="text/javascript" src="__ROOT__/statics/js/jquery/plugins/jquery.imagePreview.js"></script>
+<div class="pad-lr-10">
+	 <form name="searchform" action="" method="get" >
+    <table width="100%" cellspacing="0" class="search-form">
+        <tbody>
+            <tr>
+            <td>
+            <div class="explain-col"> 
+                                     请输入订单号/用户名 :
+                <input name="keyword" type="text" class="input-text" size="25" value="{$keyword}" />
+                <input type="hidden" name="m" value="miao_order" />
+                <input type="submit" name="search" class="button" value="搜索" />
+        	</div>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>	
+    <form id="myform" name="myform" action="{:u('miao_order/delete')}" method="post" onsubmit="return check();">
+    <div class="table-list">
+    <table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th width=50>ID</th>
+                <th width=30><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>				
+				<th>{:L('order_code')}</th>
+                <th width=60>{:L('order_time')}</th>				
+                <th width=100>{:L('seller_name')}</th>			
+                <th>{:L('username')}</th>
+				<th>{:L('item_count')}</th>
+				<th>{:L('item_price')}</th>
+				<th>{:L('commission')}</th>
+				<th>{:L('cash_back')}</th>
+				<th>反<if condition="$cashback_type eq '1'">集分宝
+					  <else/>
+					 	{$tb_fanxian_name}
+					  </if>
+					  单位({$tb_fanxian_unit})
+				</th>
+                <th width=60>状态</th>				
+                <th width=60>操作</th>
+            </tr>
+        </thead>
+    	<tbody>
+        <volist name="miao_order_list" id="val" key="k">
+        <tr>
+        	<td align="center">{$val.id}</td>
+            <td align="center"><input type="checkbox" value="{$val.id}" name="id[]" </td>			
+			<td align="center">{$val.order_code}</td> 
+            <td align="center">{$val.order_time}</td>         
+            <td align="center">{$val.seller_name}</td> 			
+			<td align="center">{$val.username}</td>
+			<td align="center">{$val.item_count}</td>
+			<td align="center">{$val.item_price}</td>
+			<td align="center">{$val.commission}</td>
+			<td align="center">{$val.cash_back}</td>
+			<td align="center">{$val.cash_back_jifenbao}</td>			
+            <td align="center"><if condition="$val.status eq '未确认' "><span class="red">{$val.status}</span><else /><span class="green">{$val.status}</span></if></td>
+            <td align="center"><a href="javascript:edit({$val.id},'订单列表')">编辑</a></td>
+        </tr>
+        </volist>
+    	</tbody>
+    </table>
+    <div class="btn">
+		<label for="check_box" style="float:left;">{$Think.lang.select_all}/{$Think.lang.cancel}</label>
+		<input type="submit" class="button" name="dosubmit" value="{$Think.lang.delete}" onclick="return confirm('{$Think.lang.sure_delete}')" style="float:left;margin-left:10px;"/>
+		<div id="pages">{$page}</div>
+    </div>
+    </div>
+    </form>
+</div>
+<script language="javascript">
+$(function(){
+	$(".preview").preview();
+});
+
+function check(){
+	var ids='';
+	$("input[name='id[]']:checked").each(function(i, n){
+		ids += $(n).val() + ',';
+	});
+	if(ids=='') {
+		window.top.art.dialog({content:lang_please_select+'菜单分类名称	',lock:true,width:'200',height:'50',time:1.5},function(){});
+		return false;
+	}
+	return true;
+}
+function edit(id, name) {
+	var lang_edit = "{$Think.lang.edit}";
+	window.top.art.dialog({id:'edit'}).close();
+	window.top.art.dialog({
+		title:lang_edit+'--'+name,
+		id:'edit',
+		iframe:'?m=miao_order&a=edit&id='+id,width:'480',height:'500'
+		}, 
+		function()
+		{
+			var d = window.top.art.dialog({id:'edit'}).data.iframe;
+			d.document.getElementById('dosubmit').click();
+			return false;
+		}, 
+		function()
+		{
+			window.top.art.dialog({id:'edit'}).close()
+		});
+}
+function status(id,type){
+    $.get("{:u('miao_order/status')}", { id: id, type: type }, function(jsondata){
+		var return_data  = eval("("+jsondata+")");
+		$("#"+type+"_"+id+" img").attr('src', '__ROOT__/statics/images/status_'+return_data.data+'.gif');
+	}); 
+}
+//排序方法
+function sort(id,type,num){
+    $.get("{:u('miao_order/sort')}", { id: id, type: type,num:num }, function(jsondata){
+		var return_data  = eval("("+jsondata+")");
+		$("#"+type+"_"+id+" ").attr('value', return_data.data);
+	}); 
+}
+</script>
+</body>
+</html>

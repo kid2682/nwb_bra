@@ -1,0 +1,63 @@
+<include file="public:ucheader"/>
+<load href="__TMPL__public/css/account.css" />
+<!--样式-->
+<load href="__TMPL__public/css/uc/css_b.css" />
+<load href="__TMPL__public/css/ucindex.css" /> 
+<div class="ucleft">
+	<!--用户-->
+    <include file="userleft"/>
+    <!--用户-->    
+    <br clear="all"/>
+</div>
+
+<div class="ucright">
+
+	<div class="ucnav">
+ 		<ul>
+        	<li><a href="{:u('uc/account_exchange',array(status=>2))}" <if condition="$status eq '2' "> class="navon" </if>>所有订单</a></li>
+            <li><a href="{:u('uc/account_exchange',array(status=>0))}" <if condition="$status eq '0' "> class="navon" </if>>处理中订单</a></li>
+            <li><a href="{:u('uc/account_exchange',array(status=>1))}" <if condition="$status eq '1' "> class="navon" </if>>已完成订单</a></li>
+			<li><a href="{:u('exchange_goods/index')}">我要兑换</a></li>
+        </ul>    	    
+    </div>
+
+    <div class="uccontent">
+	    <div class="uc_account clearfix"> 
+	        <!--右侧-->
+	        <div class="right_region exchange">
+	  
+	        <div class="yhsy_dingd wdst_yh">
+	                <table cellpadding="0" cellspacing="0">
+	                    <tr class="dingdbtss">
+	                     <td class="dingdbt" width="15%">订单号</td>
+                        <td class="dingdbt" width="40%">兑换商品</td>                        
+                        <td class="dingdbt" width="20%">下单时间</td>
+                        <td class="dingdbt" width="10%">积分</td>
+                        <td class="dingdbt" width="10%">订单状态</td>
+	                    </tr>
+	                    <volist name="ex_order_list" id="val" key='k' >
+							<tr class="dingdbtssb">
+		                        <td width="10%">{$val.sn}</td>
+		                        <td width="15%">{$val.data_name}</td>
+		                        <td width="15%">{$val.create_time|date="Y-m-d H:i:s",###}</td>
+		                        <td width="10%">{$val.order_score}</td>
+		                        <td width="15%">
+		                            <if condition="$val.goods_status eq '0' ">
+										未发货					
+									</if>
+									<if condition="$val.goods_status eq '1' ">
+										已发货					
+									</if>					
+									
+		                        </td>
+		                    </tr>
+						 </volist>
+	                </table>
+	            </div>
+	            <div class="page_b">{$page}</div>   
+	    	</div>
+	    </div>        
+    </div>
+ 
+</div>
+<include file="public:footer"/> 

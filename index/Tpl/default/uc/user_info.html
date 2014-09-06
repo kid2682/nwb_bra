@@ -1,0 +1,45 @@
+<div class="uc_user_info " style="padding: 0;">
+    <div class="ucenter" style="border-radius: 4px 4px 4px 4px;box-shadow: 0 1px 3px rgba(34, 25, 25, 0.2);">
+        <div class="ucface"><img src="{:getUserFace($u['id'],'m')}"/></div>
+        <div class="ucenter_right">
+            <span class="ucenter_name">{$u.name}</span>
+            <if condition="$u['id'] neq $user['id']">
+            <div class="add_follow <if condition='$u["is_follow"] eq 1'>yet</if>" fans_id="{$u.id}"></div>
+            <div class="recommend_already" ></div>
+            <div class="add_recommend" fans_id="{$user.id}" album_id="{$info.album_id}"></div>
+            <else/>
+            <span class="ucenter_set">{$u.integral}积分</span>
+            </if>
+            
+            
+        </div>
+        <div class="ucenter_content">
+            <span id="user_info_span">{$u.info}</span>
+        </div>
+        <div class="ucenter_tl">
+            <ul>
+                <li><span>{$u.share_num}</span><br/>分享</li>
+                <li class="solid"><span>{$u.album_num}</span><br/>专辑</li>
+                <li><span>{$u.like_num}</span><br/>喜欢</li>
+            </ul>
+        </div>
+        
+        
+        <div class="ucenter-list">
+            <ul>
+            <if condition="$u['id'] neq $user['id']">
+                <li><span class="li1"></span><a href="{:uc('uc/index')}"><php>if($u['sex']==0){</php>他<php>}elseif($u['sex']==1){</php>她<php>}else{</php>ta<php>}</php>的专辑</a></li>
+                <li><span class="li2"></span><a href="{:uc('uc/like')}"><php>if($u['sex']==0){</php>他<php>}elseif($u['sex']==1){</php>她<php>}else{</php>ta<php>}</php>的喜欢</a></li>
+                <li><span class="li3"></span><a href="{:uc('uc/share')}"><php>if($u['sex']==0){</php>他<php>}elseif($u['sex']==1){</php>她<php>}else{</php>ta<php>}</php>的分享</a></li>
+            <else/>
+                <li><span class="li1"></span><a href="{:u('uc/index')}">我的专辑</a><a id="create_album" href="javascript:void(0)" class="red">创建专辑</a></li>
+                <li><span class="li2"></span><a href="{:u('uc/like')}">我的喜欢</a></li>
+                <li><span class="li3"></span><a href="{:u('uc/share')}">我的分享</a></li>
+            </if>
+            </ul>
+        </div>
+    <br clear="all"/>
+    </div>
+  
+
+</div>

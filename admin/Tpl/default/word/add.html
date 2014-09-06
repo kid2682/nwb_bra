@@ -1,0 +1,58 @@
+<tagLib name="wego" />
+<include file="public:header" />
+<div class="pad_10">
+<form action="{:u('word/add')}" method="post" name="myform" id="myform">
+<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+	<tr> 
+      <th width="80">关 键 词 :</th>
+      <td><input type="text" name="word" id="word" class="input-text"></td>
+    </tr>
+    <tr> 
+      <th>替 换 为 :</th>
+      <td><input type="text" name="replacement" id="replacement" class="input-text"></td>
+    </tr>
+     <tr> 
+      <th>分  类 :</th>
+       <td>
+	     <wego:select options="word_cate_list" name="cid" />
+      </td>
+    </tr>
+    <tr>
+      <th>状  态 :</th>
+      <td>
+      	<input type="radio" name="status" class="radio_style" value="1" checked="checked" > &nbsp;有效&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="status" class="radio_style" value="0"> &nbsp;禁用
+      </td>
+    </tr>
+</table>
+<input type="submit" name="dosubmit" id="dosubmit" class="dialog" value=" ">
+</form>
+<script type="text/javascript">
+	$(function(){
+		$.formValidator.initConfig({
+			formid:"myform",
+			autotip:true,
+			onerror:function(msg,obj){
+				window.top.art.dialog({
+					content:msg,
+					lock:true,
+					width:'200',
+					height:'50'},
+					 function()
+					 {
+					 	this.close();
+						$(obj).focus();
+					 })
+		}});		
+		
+		$("#title").formValidator({
+			onshow:"不能为空",onfocus:"不能为空"
+		}).inputValidator({
+			min:1,onerror:"请填写菜单分类名称"
+		});	
+	
+	})
+</script>
+</div>
+</body>
+</html>

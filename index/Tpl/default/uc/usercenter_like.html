@@ -1,0 +1,20 @@
+<!--用户-->
+    <div class="uclist">
+    <if condition="$u['id'] neq $user['id']">
+        <h3><php>if($u['sex']==0){</php>他<php>}elseif($u['sex']==1){</php>她<php>}else{</php>ta<php>}</php>最近喜欢/分享了...</h3>
+    <else/>
+        <h3>我最近喜欢/分享了...</h3>
+    </if>
+        <ul>
+            <volist name="likelist" id="vo">
+            <li><a href="{:u('item/index',array('id'=>$vo['items_id']))}" target="_blank">
+            <img alt="{$vo.title}" url="{:base64_encode($vo['img'])}" style="display:inline;" class="encode_url"/>
+            </a><span>{$vo.add_time|gettime}喜欢了</span></li>
+            </volist>
+            <volist name="itemslist" id="vo">
+            <li><a href="{:u('item/index',array('id'=>$vo['id']))}" target="_blank">
+            <img alt="{$vo.title}" url="{:base64_encode($vo['img'])}" style="display:inline;" class="encode_url"/>
+            </a><span>{$vo.add_time|gettime}分享了</span></li>
+            </volist>
+        </ul>
+    </div>

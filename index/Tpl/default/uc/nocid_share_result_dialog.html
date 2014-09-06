@@ -1,0 +1,38 @@
+<table id="share_result_dialog">
+    <tr>
+        <th style="width:80px;">宝贝名称：</th>
+        <td class='title'></td>
+    </tr>
+    <tr>
+        <th>所属分类:</th>
+        <td>
+            <select id="parent_cate" onchange="get_child_cates(this)">
+		            <option value="0">请选择分类</option>
+		            <volist name="cate_list['parent']" id="val">
+		            <optgroup label="{$val.name}"></optgroup>
+		            	<volist name="cate_list['sub'][$val['id']]" id="sval">
+		                  <option value="{$sval.id}" <if condition="$item_pid eq $sval['id']">selected="selected"</if>>&nbsp;&nbsp;&nbsp;&nbsp;{$sval.name}</option>
+		                </volist>
+		            </volist>
+		     </select> 
+			<select id="second_cate" name="cid" style="display:none;">	       
+	        </select>
+        </td>
+    </tr>
+    <tr>
+        <th>宝贝图片：</th>
+        <td class="img"></td>
+    </tr>  
+    <tr>
+        <th>宝贝描述:</th>
+        <td>
+            <textarea class="remark big_text" value="" style="height:100px;" maxlength="50"></textarea>
+        </td>
+    </tr>                
+    <tr>
+        <td>        	
+        	<input type="submit" class="ui_button commit" value="发布"/>
+		</td>
+        <td></td>
+    </tr>                          
+</table>

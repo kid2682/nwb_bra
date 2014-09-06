@@ -1,0 +1,77 @@
+<include file="public:header" />
+<div class="pad_10">
+<form action="{:u('items_collect/catetaobao_collect')}" method="post" name="myform" id="myform">
+	<input type="hidden" name="cate_id" value="{$cate_id}" />
+    <input type="hidden" name="cate_name" value="{$cate_name}" />
+    <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+    	<tr>
+        	<th width="100">保存分类 :</th>
+            <td>
+            	<select id="parent_cate" onchange="get_child_cates(this)">
+			            <option value="0">--请选择分类--</option>
+			            <volist name="cate_list['parent']" id="val">
+			            <optgroup label="{$val.name}"></optgroup>
+			            	<volist name="cate_list['sub'][$val['id']]" id="sval">
+			                  <option value="{$sval.id}" <if condition="$item_pid eq $sval['id']">selected="selected"</if>>&nbsp;&nbsp;&nbsp;&nbsp;{$sval.name}</option>
+			                </volist>
+			            </volist>
+			     </select>  
+				 <select id="second_cate" name="cid" style="display:none;">             
+		         </select>
+			</td>
+        </tr>
+        <tr>
+        	<th>搜索关键词 :</th>
+            <td><input type="text" id="keyword" name="keyword" value="{$keyword}"></td>
+        </tr>
+        <tr>
+        	<th>采集页数 :</th>
+            <td><input type="text" name="pages" value="10"> <span class="gray">每页40个商品</span></td>
+        </tr>
+        <tr>
+        	<th></th>
+            <td>
+            	<input type="hidden" name="taocid" id="taocid" value="{$taocid}">
+				<input type="hidden" name="start_price" id="start_price" value="{$start_price}">
+				<input type="hidden" name="end_price" id="end_price" value="{$end_price}">
+				<input type="hidden" name="start_commissionRate" id="start_commissionRate" value="{$start_commissionRate}">
+				<input type="hidden" name="end_commissionRate" id="end_commissionRate" value="{$end_commissionRate}">
+				<input type="hidden" name="start_commissionNum" id="start_commissionNum" value="{$start_commissionNum}">
+				<input type="hidden" name="end_commissionNum" id="end_commissionNum" value="{$end_commissionNum}">
+				<input type="hidden" name="start_totalnum" id="start_totalnum" value="{$start_totalnum}">
+				<input type="hidden" name="end_totalnum" id="end_totalnum" value="{$end_totalnum}">
+				<input type="hidden" name="levelstart" id="levelstart" value="{$levelstart}">
+				<input type="hidden" name="levelend" id="levelend" value="{$levelend}">
+				<input type="hidden" name="keyword" id="keyword" value="{$keyword}">								
+            	<input type="submit" value="开始采集" name="dosubmit" class="button" id="dosubmit">
+			</td>
+        </tr>
+	</table>
+</form>
+<script type="text/javascript">
+$(function(){
+	$("#cate_id").change(function(){
+		keywords = $(this).find("option:selected").attr("keywords");
+		$("#keywords").val(keywords);
+	});
+})
+function get_child_cates(obj)
+{
+	$('#second_cate').css("display","");
+	var parent_id = $(obj).val();
+	if( parent_id ){
+		$.get('?m=items&a=get_child_cates&parent_id='+parent_id,function(data){				
+			$('#second_cate').html(data);
+	    });		
+    }
+}
+$('#myform').submit(function(){
+	if($('#parent_cate').val()=='0'){		
+		alert('请选择分类');
+		return false;
+	}
+})
+</script>
+</div>
+</body>
+</html>

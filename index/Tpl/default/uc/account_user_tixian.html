@@ -1,0 +1,94 @@
+<include file="public:ucheader"/>
+<load href="__TMPL__public/css/account.css" />
+<!--样式-->
+<load href="__TMPL__public/css/uc/css_b.css" />
+<load href="__TMPL__public/css/ucindex.css" /> 
+
+<div class="ucleft">
+	<!--用户-->
+    <include file="userleft"/>
+    <!--用户-->
+   
+    <br clear="all"/>
+</div>
+<div class="ucright">
+	<div class="ucnav">
+ 		<ul>
+        	<li><a href="{:u('uc/account_commission')}">佣金列表</a></li>
+            <li><a href="{:u('uc/account_commission',array(status=>no))}">待审核佣金</a></li>
+            <li><a href="{:u('uc/account_cash_details',array(type=>1))}">收入明细</a></li>
+            <li><a href="{:u('uc/account_cash_details',array(type=>2))}">支出明细</a></li>
+            <li><a <eq name="ACTION_NAME" value="account_user_tixian"> class="navon" </eq> href="{:u('uc/account_user_tixian')}">提现记录</a></li>
+            <li><a href="{:u('uc/account_get_cash')}">我要提现</a></li>
+        </ul>    	    
+    </div>
+    <div class="uccontent">
+
+    <div class="uc_account clearfix"> 
+		
+        
+        <!--右侧-->
+        <div class="right_region exchange">
+  
+        <div class="yhsy_dingd wdst_yh">
+                <table cellpadding="0" cellspacing="0">
+                    <tr class="dingdbtss">
+                        <td class="dingdbt" width="15%">提现者</td>
+                        <td class="dingdbt" width="15%">提现金额</td>                        
+						<td class="dingdbt" width="15%">提现<if condition="$cashback_type eq '1'">集分宝
+							  <else/>
+							 	{$tb_fanxian_name}
+							  </if>
+						</td>
+                        <td class="dingdbt" width="15%">时间</td>
+                        <td class="dingdbt" width="15%">状态</td>
+                    </tr>
+                    <volist name="tixian_list" id="val" key='k' >
+					<tr class="dingdbtssb">
+                        <td width="10%">{$val.uname}</td>
+                        <td width="15%">{$val.money}</td>
+						 <td width="15%">{$val.jifenbao}</td>
+                        <td width="15%">{$val.addtime|date="Y-m-d H:i:s",###}</td>
+                        <td width="10%"><if condition="$val.status eq '0' "><span class="red">尚未处理</span></if> <if condition="$val.status eq '1' "><span class="green">提现成功</span></if> <if condition="$val.status eq '2' "><span class="red">提现失败</span></if></td>                        
+                    </tr>
+				    </volist>
+                </table>
+            </div>
+            <div class="page_b">{$page}</div>   
+    </div>
+    </div>
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){ 
+	$.formValidator.initConfig({formid:"myform",autotip:true,
+		onerror:function(msg,obj){
+			art.dialog({content:msg,lock:true,width:'200',height:'50'}, 
+					   function(){this.close();$(obj).focus();})
+			}
+	});
+		
+	$("#passwd").formValidator({onshow:"填写密码",onfocus:"填写6位以上密码"})
+		.inputValidator({min:6,onerror:"请填写6位以上密码"});
+		
+	$("#new_pwd").formValidator({onshow:"填写密码",onfocus:"填写6位以上密码"})
+		.inputValidator({min:6,onerror:"请填写6位以上密码"});
+
+	$("#confirm_pwd").formValidator({onshow:"确认密码",onfocus:"确认密码",oncorrect:"填写正确"})
+		.inputValidator({min:6,onerror:"请填写6位以上密码"})
+		.compareValidator({desid:"new_pwd",operateor:"=",onerror:"两次输入密码不一致"});	
+});
+</script>
+<include file="public:footer"/> 

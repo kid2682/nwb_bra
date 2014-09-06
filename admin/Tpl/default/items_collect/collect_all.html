@@ -1,0 +1,32 @@
+<include file="public:header" />
+<div class="pad_10">
+<div style="padding:10px; overflow:hidden;">
+<div class="main_top" style="clear:both;">
+	<h4>温馨提示：</h4>	
+	<p class="green">1.主要用于一键采集站内所有分类的所对应的商品，此操作可以减轻您的工作量，但是如果分类关键字设置不合理，将会采集一些无用商品。例如：女装下面的 条纹（有可能采集一些鞋子的信息）</p>
+	<p class="green">2.请填写每个分类采集的商品数量,默认为40</p>				
+</div>
+</div>
+<form action="{:u('items_collect/collect_all')}" method="post" name="myform" id="myform">
+    <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+        <tr>
+        	<th width="160">每个分类采集的商品数量 :</th>
+            <td><input type="text" name="num" value="40"></td>
+        </tr>
+        <tr>
+        	<th></th>
+            <td><input type="submit" value="开始采集" name="dosubmit" class="button" id="dosubmit"></td>
+        </tr>
+	</table>
+</form>
+<script type="text/javascript">
+$(function(){
+	$("#cate_id").change(function(){
+		keywords = $(this).find("option:selected").attr("keywords");
+		$("#keywords").val(keywords);
+	});
+})
+</script>
+</div>
+</body>
+</html>

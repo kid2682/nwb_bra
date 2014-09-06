@@ -1,0 +1,77 @@
+<div class="album_items_add_dialog box_content">
+  
+
+  <table cellpadding="10">
+    <tr>
+      <td rowspan="3" class="thumb" valign="top"></td>
+      <td> 
+      <div class="album_div">
+        <div class="album_div_create_div">
+         <span>专辑</span>
+         	
+         	<input type="hidden" class="pid" value="{$list[0].id}"/>
+            <eq name="list[0][title]" value="">
+            <div class="showdiv">请先创建专辑</div>
+            <input type="text" class="album_div_create_name" name="name" <if condition="empty($list)"> style="display:none;"</if> readonly="readonly" />
+            <input style="display:none;" type="image" class="album_div_create_buootm" src="__TMPL__/public/images/album_bjxl.png"/>
+            <else/>
+        	<input type="text"  class="album_div_create_name" name="name" value="{$list[0][title]}" <if condition="empty($list)"> style="border-bottom:0px;"</if> readonly="readonly" />
+			<input type="image" class="album_div_create_buootm" src="__TMPL__/public/images/album_bjxl.png"/>
+            </eq>
+ 
+			<br clear="all"/>
+        </div>
+        <div class="album_div_create_list"<if condition="empty($list)"> style="display:block;border-top:0px;border-bottom:0px;"</if> >
+        	<if condition="empty($list)">  
+            <ul style="height:0px;margin:0;">
+            <else/>
+            <ul>
+            </if>
+           
+            <volist name="list" id="val">
+            	<li><a href="javascript:void(0)" pid="{$val.id}">{$val.title}</a></li>
+            </volist>
+            </ul>
+            <table cellpadding="10">
+                <tr>
+                  <td>
+                    <input type="text" name="title" class="title" style="height:18px;width:75px;"/>
+                    <select name="pcid" class="cid">
+                      <volist name="cate" id="val">
+                        <option value="{$val.id}">{$val.title}</option>
+                      </volist>
+                    </select>
+                    <input type="button" class="create_album" value="创建专辑" /></td>
+                </tr>
+             </table>
+        </div>
+       </div>
+        </td>
+    </tr>
+    <tr>
+      <td> 
+      <span style="float:left;display:block;line-height:20px;margin:0px 5px;">备注</span>
+        <textarea style="width:219px;"></textarea></td>
+    </tr>
+    <tr>
+      <td><input type="submit" class="submit" value="确定"/></td>
+    </tr>
+  </table>
+
+   
+	<!--table cellpadding="10">
+    <tr>
+      <td rowspan="3" class="thumb" valign="top"></td>
+      <td> 名称
+        <input type="text" name="title" class="title" style="height:18px;width:75px;"/>
+        <select name="cid" class="cid">
+          <volist name="cate" id="val">
+            <option value="{$val.id}">{$val.title}</option>
+          </volist>
+        </select>
+        <input type="button" class="create_album" value="创建专辑"/></td>
+    </tr>
+  </table-->
+  
+ 
+</div>

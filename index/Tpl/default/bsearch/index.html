@@ -1,0 +1,90 @@
+<include file="public:header"/>
+<load href="__ROOT__/statics/js/jquery/plugins/jquery.masonry.js" />
+<load href="__ROOT__/statics/js/jquery/plugins/jquery.infinitescroll.js" />
+<load href="__TMPL__public/js/loadjs.js" />
+<load href="__TMPL__public/js/bsearch.js" />
+<style>
+	.listcate {
+	    background: none repeat scroll 0 0 #FFFFFF;
+	    border: 1px solid #D4D4D4;
+	    border-radius: 1px 1px 1px 1px;
+	    box-shadow: 0 1px 3px rgba(34, 25, 25, 0.2);
+	    margin-top: 10px;
+	    overflow: hidden;
+	    padding: 10px 0;
+	    width: 950px;
+	}
+	.listcate li {
+	    float: left;
+	    line-height: 25px;
+	    margin: 0 15px 0 0;
+	    padding: 0 5px;
+	    white-space: nowrap;
+	}
+	.listcate li.sc{
+		color: #FF6666;
+	    font-family: "微软雅黑";
+	    font-size: 14px;
+	    padding-left: 4px;
+	}
+</style>
+<div class="content">
+    <div class="search_result">
+        <if condition="$items_list eq ''">
+            <div class="no_result break_word mt15">很抱歉，没有找到与“<span class="keyword">{$keywords}</span>”相关的内容</div>
+         <else/>
+            <div class="result_header clearfix">
+            	<if condition="!empty($keywords)">
+                	<div class="fl">找到{$items_total}条与“<span class="keyword">{$keywords}</span>”相关的宝贝</div>
+                </if>
+            </div>
+		</if>
+			<div class="listcate">
+			    <ul>		
+				<li class="sc">
+					相关分类
+		        </li>  		     	
+				  <volist name="item_categories" id="val">					
+					  <li ><a href="{:u('bsearch/index',array('cid'=>$val['category_id'],'sid'=>$val['sid']))}">{$val.category_name}</a></li>					  	
+				 </volist>          
+			    </ul>
+			</div>
+            <div class="item_list infinite_scroll">  
+					<volist name="items_list" id="val">					
+				    <div class="item mt15 masonry_brick jq_corner" data-corner="7px" iid="{$val['iid']}">
+				        <div class="item_t">
+				            <div class="img tc"> 
+				            	<a target="_blank" href="{:u('bsearch/jumpGetGoods',array('iid'=>$val['iid']))}" hidefocus="true" rel="nofollow">				            		
+									<img alt="{$val.title}" src="{$val['pic_url']}">
+				            	</a>				                              
+				         	</div>
+				            <div class="title">
+				                <a target="_blank" href="{:u('bsearch/jumpGetGoods',array('iid'=>$val['iid']))}" hidefocus="true" rel="nofollow">
+				                	<if condition="$is_cashback eq 1">
+				                		<span class="fanxian">返现{$val.cashback_scope}</span>
+									</if>
+									&nbsp;<span>{$val.title}</span>
+								</a>
+				            </div>
+				        </div>
+						<div class="mallprice">
+				                <div class="left">
+				                    <div>优惠价 <strong>{$val.price}</strong>元</div>
+				                    <div class="malltitle">          
+										<a href="{:u('item/urlpromo',array('url'=>$val['seller_url']))}" target="_blank" title="{$val.seller_name}">{$val.seller_name|msubstr=0,4,'utf-8',false}</a>
+								 有售</div>
+				                </div>
+				                <div class="right">				                	
+									<a href="{:u('item/urlpromo',array('url'=>$val['click_url']))}" target="_blank"></a>
+								</div>
+								<div class="right share">
+									<a href="javascript:void(0)" class="search_share" iid="{$val['iid']}"></a>
+								</div>
+				        </div>      
+				    </div>
+				</volist>
+            </div>		    
+            <div id="page" class="page mt20"><div class="page_num">{$page}</div></div>
+    </div>
+</div>
+<include file="public:footer"/>

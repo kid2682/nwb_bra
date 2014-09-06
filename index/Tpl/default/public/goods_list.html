@@ -1,0 +1,105 @@
+<volist name="items_list" id="val">
+    <div class="item mt15 masonry_brick jq_corner" data-corner="7px" iid="{$val['id']}">
+        <div class="item_t">
+            <div class="img tc"> 
+            	<a target="_blank" href="{:u('item/index',array('id'=>$val['id']))}" hidefocus="true" rel="nofollow">            		
+                    <php>if($seo['goods_save_images']){</php>                   	 	
+						<img src="__TMPL__public/images/grey.gif" url="upload/{:replace_url($val['img'],1)}" class="no_encode_url" alt="{$val['title']}"/>
+                    <php>}else{</php>
+                    <img alt="{$val.title}" url="{:base64_encode($val['img'])}" style="display:inline;" class="encode_url" src="__TMPL__public/images/grey.gif"/>
+                    <php>}</php>                    
+            	</a>
+                <span class="price">￥{$val.price}&nbsp;&nbsp;
+					<if condition="$is_cashback eq 1">
+						<if condition="$val['sid'] eq 1">  
+								返：<php> echo intval($val['cash_back_rate'])*$tb_fanxian_bili*$cashback_rate/100; </php>	<if condition="$cashback_type eq '1'">个集分宝<else/>{$tb_fanxian_unit}{$tb_fanxian_name}</if>
+						<else/>							
+								返：<php>if(strpos($val['cash_back_rate'],"%") !==false){if(strpos($val['cash_back_rate'],"-") === false){echo round($val['price'] * substr($val['cash_back_rate'],0,strlen($val['cash_back_rate'])-1)/100,1)."元";}else{echo round($val['price'] * substr($val['cash_back_rate'],0,strpos($val['cash_back_rate'],"-"))/100,1)."-".round($val['price'] * substr($val['cash_back_rate'],strpos($val['cash_back_rate'],"-"),strlen($val['cash_back_rate'])-1)/100,1)."元";}}else{echo $val['cash_back_rate'];}</php>							
+						</if>
+					</if>
+				</span> 
+                <div class="like_already_list" ></div>
+                <div class="btns">
+                	<a href="javascript:;" class="like_btn" iid="{$val.id}"></a>               
+                </div>
+                <div class="btns">
+                	<a href="javascript:;" class="img_album_btn" iid="{$val.id}"></a>               
+                </div>
+                <div class="btns">
+                	<a href="javascript:;" class="item_commnets" iid="{$val.id}"></a>               
+                </div>
+         	</div>
+            <div class="title">
+                <span><if condition="$val['seller_name'] neq '' "><span class="fanxian">【{$val.seller_name}】</span></if><a alt="{$val.title}" target="_blank" href="{:U('item/index',array('id'=>$val['id']))}">&nbsp;{$val.title}</a></span>
+            </div>
+        </div>
+        <div class="item_b clearfix" style="position: relative;">
+            <!--返利{$val.cash_back_rate}-->
+            <div class="items_likes fl"> 
+            	<b href="javascript:;" class="item_commnet" iid="{$val.id}" iurl="{:u('item/index',array('id'=>$val['id']))}">喜欢</b>
+                <em class="red" id="like_num_{$val.id}">{$val.likes}</em> 
+           	</div>
+            <div class="items_comment">
+            	<!--a href="{:u('item/index',array('id'=>$val['id']))}#items_comments" target="_blank">评论</a-->
+                <b href="javascript:void(0);" class="item_commnet" id="{$val.id}">评论</b>
+                <em class="red" id="cm_{$val.id}">{$val.comments}</em> 
+            </div>
+        </div>  
+{/*------------------------------------------------------------------------------------------------------*/}
+<div class="user clearfix">
+	        	<div class="clearfix comm_share">
+	            	<div class="div_fx">
+		               <span class="fx"></span><span class="sz">{$val.count}</span> 
+					</div>
+                    <div class="fxuser">
+                    <volist name="val['likelist']" id="vo">
+                        <img src="{:getUserFace($vo['uid'])}"  width="30px" height="30px"/>
+                    </volist>
+                    </div>
+	            </div>		
+	  
+ 
+	<present name="val['three_comments']">
+					<volist name="val['three_comments']" id="comments">
+						<div class="clearfix comm_share">
+			            	<div class="avatar">
+				                <a href="{:u('uc/index',array('uid'=>$comments['user']['id']))}"><img src="{:getUserFace($comments['user']['id'])}" class="tipuser" uid='{$comments['user']['id']}' width="32px" height="32px"/></a> 
+							</div>               
+			               <p>
+			                	<a href="{:u('uc/index',array('uid'=>$comments['user']['id']))}"><em>{$comments.user.name|msubstr=0, 10, "utf-8", false} </em></a>
+			                    <span>	                        
+			                            {$comments.info}		                       
+			                    </span>
+			                </p>
+			            </div>
+					</volist>
+	</present>
+                <present name="val['user']">	      
+	        	<div class="clearfix comm_share">
+	            	<div class="avatar">
+		               <a href="{:u('uc/index',array('uid'=>$val['user']['id']))}"><img src="{:getUserFace($val['user']['id'])}" class="tipuser" uid='{$val['user']['id']}' width="32px" height="32px"/></a> 
+					</div>
+					 <p>
+	                	<a href="{:u('uc/index',array('uid'=>$val['user']['id']))}"><em>{$val.user.name}:</em> </a>分享  
+	                    <span>
+	                        <if condition="$val.remark_status eq 1">
+	                            {$val.remark}
+	                        </if>
+	                    </span>
+			         </p>
+	            </div>		
+	  </present> 
+                <div class="clearfix comm_share" id="comment_{$val.id}" style="display: none;">
+                    <textarea class="plcontent_{$val.id}" style="width: 200px; height:48px;"></textarea>
+	            	<div class="div_fx_pl">
+		               <span class="plcount_{$val.id}" style="display: block;float:left;">100/100</span>
+                       <span style="display: block;float: right;"><input class="onsubmit" type="button"/></span>
+					</div>
+	            </div>
+                
+                
+	<div style="hight:0px;"></div>   
+</div>   
+{/*------------------------------------------------------------------------------------------------------*/}        
+    </div>
+</volist>

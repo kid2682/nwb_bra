@@ -1,0 +1,78 @@
+<include file="public:header" />
+
+<div class="pad_10">
+<form action="{:u('miao_order/update')}" method="post" name="myform" id="myform" >
+<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+	<tr>
+      <th></th>
+      <td><input type="hidden" name="id" class="input-text" value="{$miao_order_info.id}"></td>
+    </tr>	
+	<tr>
+      <th width="100">{:L('order_code')} :</th>
+      <td><input type="text" readonly="readonly" name="order_code" id="order_code" class="input-text" value="{$miao_order_info.order_code}" size="50"></td>
+    </tr>
+    <tr>
+	<tr>
+      <th width="100">{:L('order_time')} :</th>
+      <td><input type="text" readonly="readonly" name="order_time" id="order_time" class="input-text" value="{$miao_order_info.order_time}" size="50"></td>
+    </tr>
+    <tr>
+      <th>{:L('seller_name')} :</th>
+      <td><input type="text" readonly="readonly" name="seller_name" id="seller_name" class="input-text" value="{$miao_order_info.seller_name}" size="50"></td>
+    </tr>
+    <tr>
+      <th>{:L('username')} :</th>
+      <td><input type="text" readonly="readonly" name="username" id="username" class="input-text" value="{$miao_order_info.username}" size="50"></td>
+    </tr>
+    <tr>
+      <th>{:L('item_count')} :</th>
+      <td>
+      	<input type="text" readonly="readonly" name="item_count" id="item_count" class="input-text" value="{$miao_order_info.item_count}" size="50">
+      </td>
+    </tr>
+    <tr>
+      <th>{:L('item_price')}：</th>
+      <td>
+       <input type="text" readonly="readonly" name="item_price" id="item_price" class="input-text" value="{$miao_order_info.item_price}" size="50">
+      </td>
+    </tr>
+    <tr>
+      <th>{:L('commission')}：</th>
+      <td>
+         <input type="text" readonly="readonly" name="commission" id="commission" class="input-text" value="{$miao_order_info.commission}" size="50">
+      </td>
+    </tr>
+    <tr>
+      <th width="100">{:L('cash_back')} :</th>
+      <td>
+      	<input type="text" readonly="readonly" name="cash_back" id="cash_back" class="input-text" value="{$miao_order_info.cash_back}">
+	  </td>
+    </tr>
+     <tr>
+      <th width="100">{:L('state')} :</th>
+      <td>
+      <!--
+	  	<if condition="$miao_order_info.status eq '未确认'">未确认</if>
+		<if condition="$miao_order_info.status eq '有效'">有效</if>
+		<if condition="$miao_order_info.status eq '无效'">无效</if>
+	  -->      	
+		<input type="radio" name="type" class="radio_style" value="未确认" <if condition="$miao_order_info.status eq '未确认'">checked="checked"</if> > &nbsp;未确认&nbsp;&nbsp;&nbsp;
+    	<input type="radio" name="type" class="radio_style" value="有效" <if condition="$miao_order_info.status eq '有效'">checked="checked"</if>> &nbsp;有效
+		<input type="radio" name="type" class="radio_style" value="无效" <if condition="$miao_order_info.status eq '无效'">checked="checked"</if>> &nbsp;无效	
+      </td>
+    </tr>    
+</table>
+<input type="submit" name="dosubmit" id="dosubmit" class="dialog" value="">
+</form>
+<script type="text/javascript">
+	$(function(){
+		$.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){window.top.art.dialog({content:msg,lock:true,width:'250',height:'50'}, function(){this.close();$(obj).focus();})}});
+		
+		$("#name").formValidator({onshow:"不能为空",onfocus:"不能为空"}).inputValidator({min:1,onerror:"请填写导航名称"});
+		$("#alias").formValidator({onshow:"不能为空",onfocus:"不能为空"}).inputValidator({min:1,onerror:"请填写导航别名"});
+		$("#url").formValidator({onshow:"不能为空",onfocus:"不能为空"}).inputValidator({min:1,onerror:"请填写导航RUL"});
+	})
+</script>
+</div>
+</body>
+</html>

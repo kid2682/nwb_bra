@@ -1,0 +1,28 @@
+<ul>
+	<volist name="album_list" id="val" key="key">		
+		<if condition="$val.items_num neq 0">
+			<li class="album_list" style="<if condition="($key+1)%4 eq 1">margin-right:0px;</if>">
+					<div class="clearfix title">
+						<a class="left" href="{:u('album/details',array('id'=>$val['id'],'uid'=>$val['uid']))}">{$val.title}</a>
+					</div>
+					<div class="groupbg">
+						<ul>
+			            	<volist name="val['items']" id="ival" key='k'>
+								<li <if condition="$k eq 1">class="first"</if> <if condition="($k eq 2) or ($k eq 3) or ($k eq 6)">style="margin-right: 0;"</if>>
+									<a href="{:u('album/details',array('id'=>$val['id'],'uid'=>$val['uid']))}" title="{$val.title}" target="_blank">
+											<img <if condition="$k eq 1">style="height:130px; max-width:130px;"</if> src="{$ival}" alt="{$val.title}" />
+									</a>
+								</li>
+			        		</volist>
+						</ul>
+					</div>	
+					<div class="group_desc mt10">
+						<span class="follow_red_btn tc cursor fr">
+							<a class="white" target="_blank" href="{:u('album/details',array('id'=>$val['id'],'uid'=>$val['uid']))}">去看看</a>
+						</span>
+						<span class="share_nums gray">{$val.items_num}个宝贝</span>
+					</div>		
+			</li>
+		</if>
+	</volist>
+</ul>

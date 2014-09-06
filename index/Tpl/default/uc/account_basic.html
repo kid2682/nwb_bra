@@ -1,0 +1,267 @@
+<include file="public:ucheader"/>
+<load href="__TMPL__public/css/ucindex.css" />  
+<script language="javascript" type="text/javascript" src="__ROOT__/statics/js/jquery/plugins/formvalidator.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/statics/js/jquery/plugins/formvalidatorregex.js"></script>
+<link href="__ROOT__/statics/css/formvalidator.css" rel="stylesheet" type="text/css" />
+<load href="__TMPL__public/css/account.css" />
+<load href="__ROOT__/statics/js/dateselect.js" />
+<load href="__ROOT__/statics/js/area.js" />
+
+<!--样式-->
+<load href="__TMPL__public/css/uc/css_b.css" />
+ 
+<div class="ucleft">
+	<!--用户-->
+    <include file="userleft"/>
+    <!--用户-->
+   
+    <br clear="all"/>
+</div>
+<div class="ucright">
+	<div class="ucnav">
+ 		<ul>
+        	<li><a <eq name="ACTION_NAME" value="account_basic"> class="navon" </eq>   href="{:u('uc/account_basic')}">基本信息</a></li>
+            <li><a href="{:u('uc/account_face')}">上传头像</a></li>
+            <li><a href="{:u('uc/account_sns')}">账号绑定</a></li>
+            <li><a href="{:u('uc/account_pwd')}">修改密码</a></li>
+        </ul>    	    
+    </div>
+    <div class="uccontent">
+        <script>
+    $(function(){
+        $("form").submit(function(){			
+            var id = document.myform.id.value;
+            var name = document.myform.name.value;
+			var realname = document.myform.realname.value;
+			var alipay= document.myform.alipay.value;			
+			
+			var name = document.myform.name.value;
+            var sexlen = document.getElementsByName("sex");
+            var sex;
+            for(var i=0;i<sexlen.length;i++){
+                if(sexlen[i].checked)
+                    sex=sexlen[i].value;
+            }
+            var qq = document.myform.qq.value;
+            var email = document.myform.email.value;
+            var province = document.myform.province.value;
+            var city = document.myform.city.value;
+            var year = document.myform.year.value;
+            var month = document.myform.month.value;
+            var day = document.myform.day.value;
+            var constellation = document.myform.constellation.value;
+            var job = document.myform.job.value;			
+		
+            $.post("{:U('uc/doBasic')}",
+            {id:id,name:name,realname:realname,alipay:alipay,sex:sex,qq:qq,email:email,province:province,city:city,year:year,month:month,day:day,constellation:constellation,job:job},
+            
+            function(data){
+                if(data == 1){
+                    messagebox('修改成功！!');
+                }else{
+                    messagebox('修改失败！!');
+                }
+            })
+            return false;
+        })
+    })
+</script>
+
+    <div class="uc_account clearfix"> 
+		
+        
+        <!--右侧-->
+        <div class="right_region exchange">
+
+            <div class="">
+            
+            <form action="" method="post" name="myform" id="myform" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="{$user.id}"/>
+            	<table cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td class="tiaotc">用户名：</td>
+                                <td><input class="xuasrs" readonly="" style="border: 0;" type="text" name="name"  value="{$user.name}" tabindex="1" value=""></td>
+                            </tr>
+							
+                            <tr>
+                                <td class="tiaotc">姓　名：</td>
+                                <td>
+                                	<input class="xuasrs" type="text" name="realname"  value="{$user.realname}" tabindex="2" value="">
+									<span class="tis1" id="realnameshow" style="display: none;">请输入支付宝姓名</span><span style="font-size:12px;">　提示：请填写正确的姓名</span>
+								</td>
+                            </tr>
+							
+                            <tr>
+                                <td class="tiaotc">支付宝账号：</td>
+                                <td>
+                                	<input class="xuasrs" type="text" name="alipay"  value="{$user.alipay}" tabindex="3" value="">
+									<span class="tis1" id="alipayshow" style="display: none;">请输入支付宝账号</span><span style="font-size:12px;">　提示：请填写正确的支付宝账号，否则无法提现成功</span>
+								</td>
+                            </tr>
+							
+																					
+                            <tr>
+                                <td class="tiaotc">性别：</td>
+                                <td>
+                                <span class="tis_a"><input type="radio" id="sys" <eq name="user.sex" value="0"> checked="checked" </eq> value="0" name="sex"></span>
+                                <span class="tis_b">男</span>
+                                <span class="tis_a"><input type="radio" id="sys" <eq name="user.sex" value="1"> checked="checked" </eq> value="1" name="sex"></span>
+                                <span class="tis_b">女</span>
+                                <span class="tis_a"><input type="radio" id="sys" <eq name="user.sex" value="2"> checked="checked" </eq> value="2" name="sex"></span>
+                                <span class="tis_b">保密</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tiaotc">Q　Q：</td>
+                                <td><input class="xuasrs" type="text" name="qq" id="qq" value="{$user.qq}"/><span class="tis1" id="qqshow" style="display: none;">请输入QQ号码</span></td>
+                            </tr>
+                            <tr>
+                                <td class="tiaotc">邮箱：</td>
+                                <td><input class="xuasrs" type="text" name="email" id="email" value="{$user.email}" ><span class="tis1" id="emailshow" style="display: none;">请输入邮箱</span></td>
+                            </tr>
+                            <tr>
+                                <td class="tiaotc">所在地：</td>
+                                <td class="riqi">
+                                <select class="delectss" id="J_Province" name="province"></select>
+                                <select class="delectss" id="J_City" name="city"></select>
+                                
+                                </td>
+                            </tr>
+                            
+                             <tr>
+                                <td class="tiaotc">生日：</td>
+                                <td class="riqi">
+                                <select class="delectss" id="J_Year" name="year"></select>年
+                                <select class="delectss" id="J_Month" name="month"></select>月
+                                <select class="delectss" id="J_Day" name="day"></select>日
+                                
+                                </td>
+                            </tr>
+                             <tr>
+                                <td class="tiaotc">星座：</td>
+                                <td class="riqi">
+                                <select class="delectss" name="constellation">
+                                    <option value="0" <eq name="user.constellation" value="0"> selected="selected" </eq>>请选择星座</option>
+                                	<option value="1" <eq name="user.constellation" value="1"> selected="selected" </eq>>白羊座</option>
+                                    <option value="2" <eq name="user.constellation" value="2"> selected="selected" </eq>>金牛座</option>
+                                    <option value="3" <eq name="user.constellation" value="3"> selected="selected" </eq>>双子座</option>
+                                    <option value="4" <eq name="user.constellation" value="4"> selected="selected" </eq>>巨蟹座</option>
+                                    <option value="5" <eq name="user.constellation" value="5"> selected="selected" </eq>>狮子座</option>
+                                    <option value="6" <eq name="user.constellation" value="6"> selected="selected" </eq>>处女座</option>
+                                    <option value="7" <eq name="user.constellation" value="7"> selected="selected" </eq>>天枰座</option>
+                                    <option value="8" <eq name="user.constellation" value="8"> selected="selected" </eq>>天蝎座</option>
+                                    <option value="9" <eq name="user.constellation" value="9"> selected="selected" </eq>>射手座</option>
+                                    <option value="10" <eq name="user.constellation" value="10"> selected="selected" </eq>>摩羯座</option>
+                                    <option value="11" <eq name="user.constellation" value="11"> selected="selected" </eq>>水瓶座</option>
+                                    <option value="12" <eq name="user.constellation" value="12"> selected="selected" </eq>>双鱼座</option>
+
+                                </select>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td class="tiaotc">职业：</td>
+                                <td class="riqi">
+                                <select class="delectss" name="job">
+                                	<option value="0" <eq name="user.job" value="0"> selected="selected" </eq>>请选择你的职业</option>
+                     		        <option value="1" <eq name="user.job" value="1"> selected="selected" </eq>>公关</option>
+                        			<option value="2" <eq name="user.job" value="2"> selected="selected" </eq>>媒体</option>
+                        			<option value="3" <eq name="user.job" value="3"> selected="selected" </eq>>模特</option>
+                        			<option value="4" <eq name="user.job" value="4"> selected="selected" </eq>>设计师</option>
+                        			<option value="5" <eq name="user.job" value="5"> selected="selected" </eq>>市场/营销</option>
+                        			<option value="6" <eq name="user.job" value="6"> selected="selected" </eq>>创意/文案</option>
+                        			<option value="7" <eq name="user.job" value="7"> selected="selected" </eq>>广告</option>
+                        			<option value="8" <eq name="user.job" value="8"> selected="selected" </eq>>法律</option>
+                        			<option value="9" <eq name="user.job" value="9"> selected="selected" </eq>>贸易</option>
+                        			<option value="10" <eq name="user.job" value="10"> selected="selected" </eq>>公务员</option>
+                        			<option value="11" <eq name="user.job" value="11"> selected="selected" </eq>>教育</option>
+                        			<option value="12" <eq name="user.job" value="12"> selected="selected" </eq>>互联网</option>
+                        			<option value="13" <eq name="user.job" value="13"> selected="selected" </eq>>计算机</option>
+                        			<option value="14" <eq name="user.job" value="14"> selected="selected" </eq>>自由职业</option>
+                        			<option value="15" <eq name="user.job" value="15"> selected="selected" </eq>>学生</option>
+                        			<option value="16" <eq name="user.job" value="16"> selected="selected" </eq>>非盈利机构</option>
+                        			<option value="17" <eq name="user.job" value="17"> selected="selected" </eq>>保险</option>
+                        			<option value="18" <eq name="user.job" value="18"> selected="selected" </eq>>财务</option>
+                        			<option value="19" <eq name="user.job" value="19"> selected="selected" </eq>>餐饮</option>
+                        			<option value="20" <eq name="user.job" value="20"> selected="selected" </eq>>电子/微电子</option>
+                        			<option value="21" <eq name="user.job" value="21"> selected="selected" </eq>>翻译</option>
+                        			<option value="22" <eq name="user.job" value="22"> selected="selected" </eq>>房地产/建筑</option>
+                        			<option value="23" <eq name="user.job" value="23"> selected="selected" </eq>>航空航天</option>
+                        			<option value="24" <eq name="user.job" value="24"> selected="selected" </eq>>家电业</option>
+                        			<option value="25" <eq name="user.job" value="25"> selected="selected" </eq>>家居/室内设计</option>
+                        			<option value="26" <eq name="user.job" value="26"> selected="selected" </eq>>教育/培训</option>
+                        			<option value="27" <eq name="user.job" value="27"> selected="selected" </eq>>酒店</option>
+                        			<option value="28" <eq name="user.job" value="28"> selected="selected" </eq>>会计</option>
+                        			<option value="29" <eq name="user.job" value="29"> selected="selected" </eq>>科研/院校</option>
+                        			<option value="30" <eq name="user.job" value="30"> selected="selected" </eq>>快速消费品</option>
+                        			<option value="31" <eq name="user.job" value="31"> selected="selected" </eq>>零售</option>
+                        			<option value="32" <eq name="user.job" value="32"> selected="selected" </eq>>旅游</option>
+                        			<option value="33" <eq name="user.job" value="33"> selected="selected" </eq>>其他</option>
+                                </select>
+                                </td>
+                            </tr>
+                            
+                             <tr>
+                                <td class="tiaotc"></td>
+                               <td class="tiaotcs"><input id="subSearch" class="fabu" type="submit" value="确认修改"></td>
+                            </tr> 
+                        </table>
+                </form>
+            </div>
+        </div>
+		<div style="clear:both;"></div>
+    </div>
+
+<script type="text/javascript">
+var sex=$.trim("{$user.sex|default='0'}");
+var brithday=$.trim("{$user.brithday}");
+var address=$.trim("{$user.address}");
+
+$(function(){ 
+		   
+	/*
+	setTimeout(function(){ 
+		$('.err').fadeOut();
+	},3000);
+	*/
+	$.formValidator.initConfig({formid:"myform",autotip:true,
+		onerror:function(msg,obj){
+			art.dialog({content:msg,lock:true,width:'200',height:'50'}, 
+					   function(){this.close();$(obj).focus();})
+			}
+	});
+		
+	$("#name").formValidator({onshow:"填写昵称",onfocus:"6个字符以上"})
+		.inputValidator({min:6,onerror:"6个字符以上"});
+		
+	$("input[name='sex'][value='"+sex+"']").attr("checked","checked");
+	//出生日期
+	var year = 1985;
+	var month = 1;
+	var day = 1;	
+	if(brithday != null){
+	  	var bths = brithday.split("|");
+	  	year = bths[0];
+	  	month = bths[1];
+	  	day = bths[2];
+	}
+	var ds = new DateSelector("J_Year", "J_Month", "J_Day", 
+		{Year: year, Month: month, Day: day, MinYear: new Date().getFullYear() -100, MaxYear: new Date().getFullYear() });	
+	//所在地
+	var pro = "请选择";
+	var city = "请选择";
+	if(address != null){
+	  var adds = address.split("|");
+	  pro = adds[0];
+	  city = adds[1];
+	}
+	setup(pro,city);	
+	
+});
+</script>
+        
+        
+        
+    </div>
+</div>
+
+<include file="public:footer"/> 

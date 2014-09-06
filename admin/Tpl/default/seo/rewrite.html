@@ -1,0 +1,39 @@
+<include file="public:header" />
+<form id="myform" name="myform" action="{:u('seo/doEditSeo')}" method="post">
+  <div class="pad-10">
+		<div style="padding:10px; overflow:hidden;">
+					<div class="main_top" style="clear:both;">
+						<h4>温馨提示：</h4>						
+						<p class="green">1.开启伪静态需要您的空间支持,会对服务器带来一定压力</p>
+						<p class="green">1.开启伪静态需要配置伪静态规则，您可以：<a href="{:u('seo/showRewriteRules')}" target="_blank" style="color:#367ABB;">查看当前伪静态规则</a></p>						
+					</div>
+		</div>
+      	<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+      		<tr>
+  			  <th width="100">查看伪静态规则:</th>
+              <td>
+             	<a href="{:u('seo/showRewriteRules')}" target="_blank" style="color:#367ABB;">查看当前伪静态规则</a>
+              </td>
+      		</tr>                     
+            <tr>              
+              <th width="100">URL模式:</th>
+              <td>
+                <input type="radio" <if condition="$set.url_model eq '0'">checked="checked"</if> value="0" name="site[url_model]"> 不开启伪静态 &nbsp;&nbsp;                
+                <input type="radio" <if condition="$set.url_model eq '2'">checked="checked"</if> value="2" name="site[url_model]">开启伪静态
+              </td>
+            </tr>
+			<tr>
+              <th width="100">伪静态后缀:</th>
+              <td>
+                	<input type="text" name="site[html_suffix]" value="{$set.html_suffix}"><span>提示：填写您要配置的后缀支持.shtml,.html,.xhtml,/等后缀</span>
+              </td>
+            </tr>       
+
+         </table>      
+
+      <div class="bk15"></div>
+
+      <div class="btn"><input type="submit" value="{$Think.lang.submit}" onclick="return submitFrom();" name="dosubmit" class="button" id="dosubmit"></div>
+    </div>
+</form>
+</body></html>

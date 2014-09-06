@@ -1,0 +1,44 @@
+<div id="exchange_goods_dialg" class="login box_content">
+	<table style="width:100%;">
+		<tr>
+			<td width="100">商品名称：</td>
+			<td colspan="3"><span id="good_title"></span></td>
+		</tr>
+		<tr>
+			<td width="100">详细地址：</td>
+			<td colspan="3"><input type="text" value="{$consignee_data.address}" style="width:454px;" class="finput" name="address" id="address" /></td>
+		</tr>
+		<tr>
+			<td width="100">邮政编码：</td>
+			<td><input type="text" value="{$consignee_data.zip}" style="width:175px;" class="finput" name='zip' id="zip"></td>
+			<td width="100" align="right">收货人：</td>
+			<td><input type="text" value="{$consignee_data.consignee}" style="width:175px;" class="finput" id="consignee" name="consignee" /></td>			
+			
+		</tr>
+		<tr>
+			<td width="100">手机号码：</td>
+			<td><input type="text" value="{$consignee_data.mobile_phone}" style="width:175px;" class="finput" name="mobile_phone" id="mobile_phone"></td>
+			<td width="100" align="right">固定电话：</td>
+			<td><input type="text" value="{$consignee_data.fax_phone}" style="width:175px;" class="finput" name="fax_phone" id="fax_phone"></td>
+		</tr>
+		<tr>
+			<td width="100">电子邮箱：</td>
+			<td><input type="text" value="{$consignee_data.email}" style="width:175px;" class="finput" name="email" id="email"></td>			
+			<td width="100" align="right">ＱＱ号码：</td>
+			<td><input type="text" value="{$consignee_data.qq}" style="width:175px;" class="finput" id="qq" name="qq"></td>
+		</tr>
+		<tr>
+			<td width="100">备　　注：</td>
+			<td colspan="3"><textarea style="width:450px; height:80px;" class="finput" id="remark" name="remark"></textarea></td>
+		</tr>
+		<tr>
+			<td width="100">&nbsp;</td>
+			<td colspan="3">
+			<!--
+			<a href="javascript:;" id="submitConsignee"><img src="/FanweShareV21/tpl/pink2/images/confirm_btn.png"></a>
+			-->			
+			<input type="submit" class="submit" value="确定"/>
+			</td>
+		</tr>		
+	</table>        	
+</div>

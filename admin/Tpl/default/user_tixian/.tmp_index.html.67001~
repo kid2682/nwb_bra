@@ -1,0 +1,69 @@
+<include file="public:header" />
+<div class="pad-lr-10">
+	 <form name="searchform" action="" method="get" >
+    <table width="100%" cellspacing="0" class="search-form">
+        <tbody>
+            <tr>
+            <td>
+            <div class="explain-col"> 
+                                     请输入订单号/用户名 :
+                <input name="keyword" type="text" class="input-text" size="25" value="{$keyword}" />
+                <input type="hidden" name="m" value="user_tixian" />
+                <input type="submit" name="search" class="button" value="搜索" />
+        	</div>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>	
+    <form id="myform" name="myform" action="{:u('user_tixian/delete')}" method="post" onsubmit="return check();">
+    <div class="table-list">
+    <table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th width=50>ID</th>
+                <th width=30><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>				
+				<th width=100>{:L('uname')}</th>
+				<th width=100>姓名</th>
+				<th width=120>支付宝账户</th>
+                <th width=60>{:L('money')}</th>	
+				<th width=120>提现<if condition="$cashback_type eq '1'">集分宝
+					  <else/>
+					 	{$tb_fanxian_name}
+					  </if></th>			
+                <th width=100>{:L('addtime')}</th>			
+                <th width=120>{:L('ip')}</th>
+				<th>{:L('remark')}</th>
+                <th width=60>{:L('status')}</th>	
+                <th width=140>操作</th>
+            </tr>
+        </thead>
+    	<tbody>
+        <volist name="tixian_list" id="val" key="k">
+        <tr>
+        	<td align="center">{$val.id}</td>
+            <td align="center"><input type="checkbox" value="{$val.id}" name="id[]" </td>			
+			<td align="center">{$val.uname}</td>
+			<td align="center">{$val.realname}</td>
+			<td align="center">{$val.alipay}</td> 
+            <td align="center">{$val.money}</td>
+			<td align="center">{$val.jifenbao}</td>         
+            <td align="center">{$val.addtime|date="Y-m-d H:i:s",###}</td> 			
+			<td align="center">{$val.ip}</td>
+			<td align="center">{$val.remark}</td>				
+            <td align="center"><if condition="$val.status eq '0' "><span class="red">尚未处理</span></if> <if condition="$val.status eq '1' "><span class="green">提现成功</span></if> <if condition="$val.status eq '2' "><span class="red">提现失败</span></if></td>
+            <td align="center"><a href="{:u('cash_back_log/index',array('keyword'=>$val[uname]))}">收支明细</a>&nbsp;<a href="{:u('user_tixian/ok',array('id'=>$val[id]))}">确认提现</a>&nbsp; <a href="{:u('user_tixian/back',array('id'=>$val[id]))}">退回</a> </td>
+        </tr>
+        </volist>
+    	</tbody>
+    </table>
+    <div class="btn">
+		<label for="check_box" style="float:left;">{$Think.lang.select_all}/{$Think.lang.cancel}</label>
+		<input type="submit" class="button" name="dosubmit" value="{$Think.lang.delete}" onclick="return confirm('{$Think.lang.sure_delete}')" style="float:left;margin-left:10px;"/>
+		<div id="pages">{$page}</div>
+    </div>
+    </div>
+    </form>
+</div>
+</body>
+</html>

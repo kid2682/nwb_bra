@@ -1,0 +1,249 @@
+<include file="public:header"/>
+<style type="text/css">
+		.nogoods{			
+			min-height:300px;
+			background:#FFF;
+			padding:40px 20px 20px 20px;
+			font-size:14px;
+		}
+		.nogoods span{
+			font-weight:bold;
+		}
+		.list-notice{
+		    color: #666666;
+		    line-height: 180%;
+		    margin: 20px 0;
+			font-size:12px;
+		}
+		.list-notice p{
+			font-weight:bolder;
+			color:black;
+			font-size:14px;
+		}
+		.nogoods .list-notice ol{
+			list-style: decimal;
+			padding-left:20px;
+		}
+		.nogoods .list-notice ol li{
+			list-style: decimal;
+		}
+		.six{
+		    background: none repeat scroll 0 0 #F6F6F6;
+		    border-bottom: 1px solid #DDDDDD;
+		    font-size: 14px;
+		    font-weight: bold;
+		    height: 34px;
+		    line-height: 36px;
+		    overflow: hidden;
+		    padding: 0 10px;
+		}
+		.side-product {
+		    padding: 5px;
+		}
+		.side-product dl{
+			border-bottom:1px solid #eee;
+			padding:5px;	
+		}
+		.side-product .dt_img{
+			width:100px;
+			height:100px;
+			float:left;
+		}	
+		.side-product .dt_img img{
+			padding:5px;
+		}
+		.side-product dd{
+			padding:2px 0px;
+		}
+		.side-product .dd_title{
+			height:34px;
+			overflow:hidden;
+			
+		}
+		#main-side {
+		    border: 1px solid #E1E1E1;
+		    float: right;
+		    overflow: hidden;
+		    width: 228px;
+		}
+		.chafanli a{
+			background-color: #FF6600;
+		    color: #FFFFFF;
+		    cursor: pointer;
+		    display: block;
+		    font-family: "微软雅黑";
+		    font-size: 16px;
+		    font-weight: bold;
+		    height: 36px;
+		    letter-spacing: 1px;
+		    line-height: 36px;
+		    margin-top: 14px;
+		    text-align: center;
+		    width: 230px;
+			float:right;
+			letter-spacing:2px;
+		}
+		.chafanli a:hover{
+			text-decoration:underline;
+		}
+		.side-product ul li{
+			padding:10px;
+			border-bottom:1px dashed #eee;
+			text-align:center;
+		}
+		.side-product ul li a.img{
+			display:block;
+			width:200px;
+			height:50px;
+			margin:0 auto;
+		}
+		.side-product ul li img{
+			display:block;
+			margin:0 auto;
+		}
+		.cash_desc{
+			 border: 1px solid #E1E1E1;
+		}
+		.cashback_desc_detail{
+			padding:10px;
+			line-height:150%;
+			font-size:14px;
+			font-weight:normal;
+		}
+		.qgm {
+		    background-color: #FF6600;
+		    color: #FFFFFF;
+		    cursor: pointer;
+		    display: block;
+		    font-family: "微软雅黑";
+		    font-size: 16px;
+		    font-weight: bold;
+		    height: 36px;
+		    letter-spacing: 1px;
+		    line-height: 36px;
+		    margin-top: 14px;
+		    text-align: center;
+		    width: 140px;
+		}	
+</style>
+<load href="__TMPL__public/css/item_img.css" />
+<load href="__TMPL__public/js/item/163css.base.js" />
+<SCRIPT type=text/javascript>
+	$(function(){			
+	   $(".jqzoom").jqueryzoom({
+			xzoom:460,
+			yzoom:420,
+			offset:10,
+			position:"right",
+			preload:1,
+			lens:1
+		});
+		$("#spec-list").jdMarquee({
+			deriction:"left",
+			width:350,
+			height:56,
+			step:2,
+			speed:4,
+			delay:10,
+			control:true,
+			_front:"#spec-right",
+			_back:"#spec-left"
+		});
+		$("#spec-list img").bind("mouseover",function(){
+			var src=$(this).attr("bsrc");
+			$("#spec-n1 img").eq(0).attr({
+				src:src.replace("\/n5\/","\/n1\/"),
+				jqimg:src.replace("\/n5\/","\/n0\/")
+			});
+			$(this).css({
+				"border":"2px solid #ff6600",
+				"padding":"1px"
+			});
+		}).bind("mouseout",function(){
+			$(this).css({
+				"border":"1px solid #ccc",
+				"padding":"2px"
+			});
+		});				
+	})
+	</SCRIPT>
+	
+<load href="__TMPL__public/js/item/163css.lib.js" />
+<load href="__TMPL__public/js/item/163css.js" />
+
+<div class="content" style="background:#fff;">
+	<div class="mt15">
+		<script language="javascript" src="{:u('advert/index', array('id'=>4))}"></script>
+    </div>
+<div style="padding:0px 7px 7px 7px;">
+	<div class="item_left fl">
+    	<div class="single_item mt15 clearfix">        	          
+        	<div class="item_pic" style="width:360px; height:360px; overflow:hidden;">			
+				<div id=preview>
+					<div class="jqzoom" id="spec-n1" onclick="window.open('{:u('item/urlpromo',array('url'=>$item['seller_url']))}')">
+		               	<img src="{$item['original_pic_url']}" jqimg="{$item['original_pic_url']}" style="max-width:350px; max-height:350px;"/>		                
+					</div>
+				</div>
+			</div>
+            <div class="item_detail">
+            	<div class="break_word" style="position: relative;">
+            	<p class="item_title f14 bold">
+            		<a onclick="window.open('{:u('item/urlpromo',array('url'=>$item['seller_url']))}')" href="javascript:void(0)">{$item.title}</a>
+				</p>
+					<div class="clearfix" style="padding:0px 0px 5px 0px;">
+                        <p class="fl">买家: <span style="position:relative; top:14px;">
+							<a href="{:u('item/urlpromo',array('url'=>$item['seller_url']))}" target="_blank">
+                        		<img src="{$net_logo}" alt="{$item.seller_name}" />
+							</a></span>
+						</p>
+                    </div> 					
+                    <div class="clearfix" style="padding:6px 0;">
+                        <p class="fl">价格: <span style="color:red;font-weight:bolder; font-size:20px;">{$item.price}</span>元</p>
+                    </div>  
+					<div class="clearfix" style="padding:6px 0;">
+                        <p class="fl">
+                                                                        立反: <span id="taofanli" style="color:red;font-weight:bolder; font-size:24px;"><php>if(strpos($item['cashback_scope'],"%") !==false){if(strpos($item['cashback_scope'],"-") === false){echo round($item['price'] * substr($item['cashback_scope'],0,strlen($item['cashback_scope'])-1)/100,1)."元";}else{echo round($item['price'] * substr($item['cashback_scope'],0,strpos($item['cashback_scope'],"-"))/100,1)."-".round($item['price'] * substr($item['cashback_scope'],strpos($item['cashback_scope'],"-"),strlen($item['cashback_scope'])-1)/100,1)."元";}}else{echo $item['cashback_scope'];}</php></span>
+						</p>
+                    </div>										           	
+					<p style="margin-top:20px;">					
+						<span onclick="window.open('{:u('item/urlpromo',array('url'=>$item['seller_url']))}')" class="qgm">
+							去购买拿返利						
+						</span>
+					</p>                   
+                </div>
+            </div>   
+        </div>
+		<div class="cash_desc">
+			<div class="six">商品详情</div>
+			<div class="cashback_desc_detail" style="overflow:hidden;">
+				{$item.desc}
+			</div>
+		</div>
+    </div>
+	<!--右侧-->
+    <div class="item_right fr mt10" id="main-side"> 
+	        <h5 class="six">				
+				推荐商家
+			</h5>
+			<div class="side-product">
+				<ul>
+					<volist name="rec_seller" id="val" >
+	        			<li>
+		                	<a class="img" href="{:u('item/url',array('url'=>$val['id']))}" title="{$val.name}" target="_blank"> 
+								<if condition="$val.site_logo eq ''">
+									<img src="{$val.net_logo}" />
+								<else /> 
+									<img src="{$val.site_logo}" />	
+								</if> 								
+							</a>
+		                    <a href="{:u('item/url',array('url'=>$val['id']))}" title="{$val.name}" target="_blank">{$val.name}&nbsp;立返<span class="red">{$val.cash_back_rate}</span></a>		                    
+		                </li>
+					</volist>
+				</ul>
+			</div>
+    </div>
+	<div class="clearfix"></div>
+	</div>
+
+</div>
+<include file="public:footer"/>

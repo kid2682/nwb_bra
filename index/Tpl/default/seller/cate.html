@@ -1,0 +1,73 @@
+<include file="public:header"/>
+<!--B2C随机广告-->
+<div class="mt15">
+	<volist name="ad_rel" id='val' key='key'> 
+		<if condition="$key eq 1">			       		
+			<a href="javascript:void(0)" style="border:none; margin-right:20px;" onclick="window.open('{$val['click_url']}')"><img src="{$val.pic_url}" /></a>
+			<else/>
+			<a href="javascript:void(0)" style="border:none;" onclick="window.open('{$val['click_url']}')"><img src="{$val.pic_url}" /></a>
+		</if>
+	</volist>
+</div>
+<!--B2C随机广告结束-->
+<load href="__TMPL__public/css/seller_promo.css" />
+<div id="group_nav" class="clearfix">
+	<ul>
+    	<volist name="seller_cate" id="val" >  								
+			<if condition="$val['id'] eq $cate_id"> 					
+				<li><a class="on" href="{:u('seller/cate',array('id'=>$val['id']))}">{$val.name}</a></li>
+			<else />
+				<li><a href="{:u('seller/cate',array('id'=>$val['id']))}">{$val.name}</a></li>
+			</if>
+		</volist>		
+    </ul>
+</div>
+<!--列表-->
+<div class="sjlb">
+	<div class="sjlber">       
+	   <volist name="seller_list" id="val" >
+	    	<div class="sjlber_a">
+	        	<div class="sjlber_left">
+	            	<div class="sjlber_left_a">
+	            		<a href="{:u('item/url',array('url'=>$val['id']))}" title="{$val.name}" target="_blank">	            		
+							<if condition="$val.site_logo eq ''">
+								<img src="{$val.net_logo}" />
+							<else /> 
+								<img src="{$val.site_logo}" />	
+							</if> 	
+						</a>	
+					</div>
+					<if condition="$is_cashback eq 1">
+	                	<div class="sjlber_left_b">{$val.cash_back_rate}</div>
+					</if>
+	            </div>
+	            <div class="sjlber_right">
+	            	<div class="sjlber_right_a"><a href="{:u('item/url',array('url'=>$val['id']))}" target="_blank" title="{$val.name}">{$val.name}</a></div>
+	                <div class="sjlber_right_b">
+	                	<div class="sjlber_right_b1">
+	                    	<ul>
+	                        	<li>评分：</li>
+	                            <li><img src="__TMPL__/public/images/pingf.png" /></li>
+	                        </ul>
+	                    </div>
+	                    <div class="sjlber_right_b2">进入官网：<a href="{:u('item/url',array('url'=>$val['id']))}" target="_blank" title="{$val.name}">{$val.name}</a></div>
+	                </div>
+	                <div class="sjlber_right_c">{$val.description}</div>
+	                <div class="sjlber_right_d">
+	                	<neq name="val.freeshipment" value="0"><span>免费送货</span></neq>
+                        <neq name="val.installment" value="0"><span>分期付款</span></neq>
+	                    <neq name="val.has_invoice" value="0"><span>有发票</span></neq>
+	                </div>
+	            </div>
+	            <div style="clear:both;"></div>
+	        </div>
+		</volist>		
+        <!--分页-->
+        <div class="page_b">        	
+            {$page}
+		</div>
+    </div>
+</div>
+<include file="public:footer"/>
+</body>
+</html>

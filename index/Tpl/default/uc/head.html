@@ -1,0 +1,68 @@
+<load href="__TMPL__public/css/user_b.css" />
+<div id="uc_head">
+	<div class="yhxx">
+	    	<div class="yhtoux"><img src="{:getUserFace($u['id'],'m')}" width="80" height="80" /></div>
+	        <div class="yhxx_zl">
+	        	<div class="yhxx_zl_a">{$u.name}<span>在线</span></div>
+	            <div class="yhxx_zl_b">    
+					<if condition="$u['id'] eq $user['id']">
+	                    <a href="{:u('uc/account_basic')}" class="uc_home_link">[设置个人资料]</a>
+                   	<else/>
+						<div class="add_follow <if condition='$u["is_follow"] eq 1'>yet</if>" fans_id="{$uid}"></div>
+                    </if>					
+				</div>
+	            <div class="yhxx_zl_c"><span id="user_info_span">{$u.info}</span>				
+				 	<if condition="$u['id'] eq $user['id']"><a href="javascript:;" class="uc_home_link" id="user_info" uid="{$user['id']}">[编辑]</a></if>	
+				</div>
+	        </div>
+	        
+	        <div class="yhxhshuj">
+	        	<div class="yhxhshuj_a">
+	            	<ul>
+	                	<li>
+		                	 <a href="{:uc('uc/follow')}"><span>{$u.follow_num}</span>
+	                            <div>关注</div>
+							 </a>    
+	                    </li>
+	                    <li>
+	                    	<a href="{:uc('uc/fans')}">
+	                    		<span>{$u.fans_num}</span>
+	                            <div>粉丝</div>
+							</a>	                    	
+	                    </li>
+	                    <li style="border-right:none;">
+							<a href="{:uc('uc/like')}">
+		                    	<span>{$u.like_num}</span>
+		                        <div class="beixhuan">喜欢</div>
+							</a>
+	                    </li>
+						<li style="border-right:none;">
+							<a href="{:uc('uc/share')}">
+		                    	<span>{$u.share_num}</span>
+		                        <div class="beixhuan">分享</div>
+							</a>
+	                    </li>
+						 <li style="border-right:none;">
+							<a href="{:uc('uc/album')}">
+		                    	<span>{$u.album_num}</span>
+		                        <div class="beixhuan">专辑</div>
+							</a>
+	                    </li>
+						
+						
+	                </ul>
+	            </div>
+                <!--div class="add_follow <if condition='$u["is_follow"] eq 1'>yet</if>" fans_id="{$u.id}"></div-->
+
+                <php>if($user['id'] != $u['id'] && !$u["is_follow"]){</php><div class="jiaguanz"><a href="###" class="add_follow <php>if($u['is_follow']==1){</php>yet<php>}</php>" fans_id="{$u.id}">+关注</a></div><php>}</php>
+	        </div>
+	        
+	 </div>
+    <div class="nav clear-fix">    	
+        <a href="{:uc('uc/index')}" <if condition="ACTION_NAME eq index">class="current"</if>>主页</a>
+        <a href="{:uc('uc/me')}" <if condition="ACTION_NAME eq me">class="current"</if>>动态</a>         
+        <!--a href="{:uc('uc/index')}" <if condition="ACTION_NAME eq index">class="current"</if>>专辑</a-->
+        <a href="{:uc('uc/like')}" <if condition="ACTION_NAME eq like">class="current"</if>>喜欢</a>
+        <a href="{:uc('uc/share')}" <if condition="ACTION_NAME eq share">class="current"</if>>分享</a>
+    </div>
+</div>

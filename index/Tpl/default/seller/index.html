@@ -1,0 +1,96 @@
+<include file="public:header"/>
+<if condition="$display_b2c_ad eq 1">
+	<!--B2C随机广告-->
+	<div class="mt15">
+		<volist name="ad_rel" id='val' key='key'> 
+			<if condition="$key eq 1">			       		
+				<a href="javascript:void(0)" style="border:none; margin-right:20px;" onclick="window.open('{$val['click_url']}')"><img src="{$val.pic_url}" /></a>
+				<else/>
+				<a href="javascript:void(0)" style="border:none;" onclick="window.open('{$val['click_url']}')"><img src="{$val.pic_url}" /></a>
+			</if>
+		</volist>
+	</div>
+	<!--B2C随机广告结束-->
+</if>
+<load href="__TMPL__public/css/seller_promo.css" />
+<div id="group_nav" class="clearfix">
+	<ul>
+		<volist name="seller_cate" id="val" >
+			<li><a href="{:u('seller/cate',array('id'=>$val['id']))}">{$val.name}</a></li>
+		</volist>		
+    </ul>
+</div>
+<!--推荐商家-->
+<notempty name="rec_seller">
+	<div class="fanxian">
+		<div class="sp_fl">
+	    	<div class="fxsj"><span style="color:#666666;">推荐商家</span></div>
+	        <div class="fxsjs">
+	        	<ul>
+	        		<volist name="rec_seller" id="val" >
+	        			<li>
+		                	<a href="{:u('item/url',array('url'=>$val['id']))}" title="{$val.name}" target="_blank"> 
+								<if condition="$val.site_logo eq ''">
+									<img src="{$val.net_logo}" />
+								<else /> 
+									<img src="{$val.site_logo}" />	
+								</if> 								
+							</a>
+		                    <a href="{:u('item/url',array('url'=>$val['id']))}" title="{$val.name}" target="_blank">{$val.name}</a>
+							<if condition="$is_cashback eq 1">
+		                   		 <div class="tjsj_a1">{$val.cash_back_rate}</div>
+							</if>
+		                </li>
+					</volist>
+	                <div style="clear:both;"></div>
+	            </ul>
+	        </div>
+	    
+	    </div>
+	</div>
+</notempty>
+<!--所有商家-->
+<div class="fltuij">
+<volist name="cate_list" id="val" >	
+	<div class="fltj">
+    	<div class="fltj_a"><span>{$val.cate_name}</span><a href="{:u('seller/cate',array('id'=>$val['cate_id']))}">更多>></a></div>
+        <div class="fltj_b">
+        	<ul>
+        		<volist name="val.seller_list" id="v" key="k" >						
+					<if condition="$k lt 5"> 
+						<li>
+		                	<div>
+		                		<a href="{:u('item/url',array('url'=>$v['id']))}" title="{$v.name}" target="_blank">	                		
+									<if condition="$v.site_logo eq ''">
+										<img src="{$v.net_logo}"  width="100" />
+									<else /> 
+										<img src="{$v.site_logo}"  width="100" />	
+									</if> 
+								</a>	
+							</div>
+		                    <p><a href="{:u('item/url',array('url'=>$v['id']))}" title="{$v.name}" target="_blank">{$v.name}</a></p>
+							<if condition="$is_cashback eq 1">							
+		                    	<p>返{$v.cash_back_rate}</p>
+							</if>
+		                </li>
+					</if>            	
+                </volist>
+                <div style="clear:both;"></div>
+            </ul>
+        </div>
+        <div class="fltj_c">
+        	<ul>
+        		<volist name="val.seller_list" id="v" key="k" >						
+					<if condition="$k gt 4"> 
+						<li><a href="{:u('item/url',array('url'=>$v['id']))}" title="{$v.name}" target="_blank">{$v.name|msubstr=0,8,'UTF-8'}</a></li>
+            		</if>
+				</volist>	
+            </ul>
+        </div>
+        
+        
+    </div>
+</volist>
+    <div style="clear:both;"></div>
+</div>
+<include file="public:footer"/>

@@ -1,0 +1,64 @@
+<include file="public:header"/>
+<load href="__TMPL__public/css/uc_v1.css" />   
+
+<div class="middle">
+    <div class="uc clearfix account">    	 
+			<present name="err">
+				<meta http-equiv="refresh" content="3;url={$url}" /> 
+	         	<div class="ac_pwd">				 
+				      <a href="{$url}" class="{$err.err}">{$err.msg}</a>  
+				</div>
+            </present> 		
+			<present name="ac_pwd">
+				<div class="login">
+					 <p class="login_title">找回密码</p>
+					<form id="myform" name="myform" action="" method="post" onsubmit="return check();">
+		                <table class="mt10">
+		                    <tr>
+		                        <th>密　　 码:</th>
+		                        <td>
+		                        	<input type="password" value="" id="password" name="password" class="input_text" size="20"/>
+		                        	<div class="hint error"></div>
+		                        </td>                    
+		                    </tr>
+		                    <tr>
+		                        <th>确认密码:</th>
+		                        <td><input type="password" value="" id="rpassword" name="rpassword" class="input_text" size="40" />
+								<div class="hint error"></div>							
+		                        </td>                    
+		                    </tr>  
+		                    <tr>
+		                        <th><input type="hidden" value="{$k}" name="k"></th>
+		                        <td><input type="submit" class="submit" value="确定" name="dosubmit"/></td>                    
+		                    </tr>                
+		                </table>            
+		            </form>
+				</div>				
+			</present> 		
+		
+	</div>
+	
+<script type="text/javascript">
+function check(){ 
+	var password=$.trim($('#password').val());
+	var rpassword=$.trim($('#rpassword').val());
+	if(password.length<6){ 			
+		$('#password').next('.hint').html('密码长度不得小于六位');
+		return false;
+	}
+	else{
+		$('#password').next('.hint').html('');
+	}	
+	if(rpassword.length<6){ 			
+		$('#rpassword').next('.hint').html('确认密码长度不得小于六位');
+		return false;
+	}
+	if(rpassword!=password){
+		$('#rpassword').next('.hint').html('确认密码和原密码不相同');
+		return false;
+	}	
+	return true;
+}
+</script>
+</div>
+<include file="public:footer"/> 

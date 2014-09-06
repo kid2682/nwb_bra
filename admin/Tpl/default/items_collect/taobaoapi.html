@@ -1,0 +1,103 @@
+<include file="public:header" />
+<form id="myform" name="myform" action="{:u('items_collect/taobaoapi')}" method="post">
+  <div class="pad-10">
+          <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+            <tr>
+              <th width="100">淘宝网会员帐号 :</th>
+              <td><input type="text" name="usernick"　　 size="40" value="{$taobao.taobao_usernick}"> <span class="gray">联盟帐号即您的淘宝用户名</span></td>
+            </tr>
+            <tr>
+              <th >阿里妈妈PID :</th>
+              <td><input type="text" name="pid" size="40" value="{$taobao.taobao_pid}"> <span class="gray">mm-12345678-00 只填写中间部份即可如：12345678</span></td>
+            </tr>
+            <tr>
+              <th>App Key :</th>
+              <td><input type="text" name="appkey"  size="40" value="{$taobao.taobao_appkey}"> <span class="gray">通过http://open.taobao.com开发平台获取</span></td>
+            </tr>
+            <tr>
+              <th>App Secret :</th>
+              <td><input type="text" name="appsecret" size="40" value="{$taobao.taobao_appsecret}"> <span class="gray">通过http://open.taobao.com开发平台获取</span></td>
+            </tr>
+			<tr>
+              <th>搜索框完整pid :</th>
+              <td><input type="text" name="taobao_search_pid" size="40" value="{$taobao.taobao_search_pid}"> <span class="gray">如何获取完整pid <a href="http://bbs.wego360.com/forum.php?mod=viewthread&tid=7598" target="_blank">查看</a></span></td>
+            </tr>
+			<tr>
+             	  <th width="120px">淘宝商品佣金比率：</th>
+			      <td>
+			    	<input type="text" style="height:15px; width:40px; font-size:12px;" name="commission_rate_min" value="{$taobao.commission_rate_min}">
+					-
+					<input type="text" style="height:15px; width:40px; font-size:12px;" name="commission_rate_max" value="{$taobao.commission_rate_max}">
+					<span>设置全站返回的佣金比率,不在设定范围内的商品将会被过滤掉。输入数值（100 = 1%）的意思 设定范围（100 - 5000） （最低 < 最高） 建议不要设置太高，避免个别分类无法调用到商品！建议默认:（200-5000）</span>
+			      </td>
+            </tr>
+			<tr>
+              <th width="120px">淘宝卖家信誉过滤：</th>
+		      <td>		      
+					<select name="levelstart">
+						<option value="5goldencrown" <if condition="$taobao.levelstart eq '5goldencrown'">selected="selected"</if> label="5金冠">5金冠</option>
+						<option value="4goldencrown" <if condition="$taobao.levelstart eq '4goldencrown'">selected="selected"</if> label="4金冠">4金冠</option>
+						<option value="3goldencrown" <if condition="$taobao.levelstart eq '3goldencrown'">selected="selected"</if> label="3金冠">3金冠</option>
+						<option value="2goldencrown" <if condition="$taobao.levelstart eq '2goldencrown'">selected="selected"</if> label="2金冠">2金冠</option>
+						<option value="1goldencrown" <if condition="$taobao.levelstart eq '1goldencrown'">selected="selected"</if> label="1金冠">1金冠</option>
+						<option value="5crown" <if condition="$taobao.levelstart eq '5crown'">selected="selected"</if> label="5冠">5冠</option>
+						<option value="4crown" <if condition="$taobao.levelstart eq '4crown'">selected="selected"</if> label="4冠">4冠</option>
+						<option value="3crown" <if condition="$taobao.levelstart eq '3crown'">selected="selected"</if> label="3冠">3冠</option>
+						<option value="2crown" <if condition="$taobao.levelstart eq '2crown'">selected="selected"</if> label="2冠">2冠</option>
+						<option value="1crown" <if condition="$taobao.levelstart eq '1crown'">selected="selected"</if> label="1冠">1冠</option>
+						<option value="5diamond" <if condition="$taobao.levelstart eq '5diamond'">selected="selected"</if> label="5钻">5钻</option>
+						<option value="4diamond" <if condition="$taobao.levelstart eq '4diamond'">selected="selected"</if> label="4钻">4钻</option>
+						<option value="3diamond" <if condition="$taobao.levelstart eq '3diamond'">selected="selected"</if> label="3钻">3钻</option>
+						<option value="2diamond" <if condition="$taobao.levelstart eq '2diamond'">selected="selected"</if> label="2钻">2钻</option>
+						<option value="1diamond" <if condition="$taobao.levelstart eq '1diamond'">selected="selected"</if> label="1钻">1钻</option>
+						<option value="5heart" <if condition="$taobao.levelstart eq '5heart'">selected="selected"</if> label="5星">5星</option>
+						<option value="4heart" <if condition="$taobao.levelstart eq '4heart'">selected="selected"</if> label="4星">4星</option>
+						<option value="3heart" <if condition="$taobao.levelstart eq '3heart'">selected="selected"</if> label="3星">3星</option>
+						<option value="2heart" <if condition="$taobao.levelstart eq '2heart'">selected="selected"</if> label="2星">2星</option>
+						<option value="1heart" <if condition="$taobao.levelstart eq '1heart'">selected="selected"</if> label="1星">1星</option>
+					</select> - 
+					<select name="levelend">
+						<option value="5goldencrown" <if condition="$taobao.levelend eq '5goldencrown'">selected="selected"</if> label="5金冠">5金冠</option>
+						<option value="4goldencrown" <if condition="$taobao.levelend eq '4goldencrown'">selected="selected"</if> label="4金冠">4金冠</option>
+						<option value="3goldencrown" <if condition="$taobao.levelend eq '3goldencrown'">selected="selected"</if> label="3金冠">3金冠</option>
+						<option value="2goldencrown" <if condition="$taobao.levelend eq '2goldencrown'">selected="selected"</if> label="2金冠">2金冠</option>
+						<option value="1goldencrown" <if condition="$taobao.levelend eq '1goldencrown'">selected="selected"</if> label="1金冠">1金冠</option>
+						<option value="5crown" <if condition="$taobao.levelend eq '5crown'">selected="selected"</if> label="5冠">5冠</option>
+						<option value="4crown" <if condition="$taobao.levelend eq '4crown'">selected="selected"</if> label="4冠">4冠</option>
+						<option value="3crown" <if condition="$taobao.levelend eq '3crown'">selected="selected"</if> label="3冠">3冠</option>
+						<option value="2crown" <if condition="$taobao.levelend eq '2crown'">selected="selected"</if> label="2冠">2冠</option>
+						<option value="1crown" <if condition="$taobao.levelend eq '1crown'">selected="selected"</if> label="1冠">1冠</option>
+						<option value="5diamond" <if condition="$taobao.levelend eq '5diamond'">selected="selected"</if> label="5钻">5钻</option>
+						<option value="4diamond" <if condition="$taobao.levelend eq '4diamond'">selected="selected"</if> label="4钻">4钻</option>
+						<option value="3diamond" <if condition="$taobao.levelend eq '3diamond'">selected="selected"</if> label="3钻">3钻</option>
+						<option value="2diamond" <if condition="$taobao.levelend eq '2diamond'">selected="selected"</if> label="2钻">2钻</option>
+						<option value="1diamond" <if condition="$taobao.levelend eq '1diamond'">selected="selected"</if> label="1钻">1钻</option>
+						<option value="5heart" <if condition="$taobao.levelend eq '5heart'">selected="selected"</if> label="5星">5星</option>
+						<option value="4heart" <if condition="$taobao.levelend eq '4heart'">selected="selected"</if> label="4星">4星</option>
+						<option value="3heart" <if condition="$taobao.levelend eq '3heart'">selected="selected"</if> label="3星">3星</option>
+						<option value="2heart" <if condition="$taobao.levelend eq '2heart'">selected="selected"</if> label="2星">2星</option>
+						<option value="1heart" <if condition="$taobao.levelend eq '1heart'">selected="selected"</if> label="1星">1星</option>
+					</select>
+				<span>设置全站商品卖家信用过滤,不在设定范围内的卖家以及商品将会被过滤。建议（1钻 - 5金冠）</span>
+		      </td>
+            </tr>
+			 <tr>
+              <th width="120">数据采集设置 :</th>
+              <td>
+                <input type="radio" <if condition="$taobao.tao_collect_set eq '1'">checked="checked"</if> onclick="" value="1" name="tao_collect_set" /> 采集商品api &nbsp;&nbsp;
+                <input type="radio" <if condition="$taobao.tao_collect_set eq '0'">checked="checked"</if> onclick="" value="0" name="tao_collect_set" /> 采集促销api &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;				
+              </td>
+            </tr>
+			<tr>
+	          <th>获取淘宝授权：</th>
+	          <td>说明：淘宝授权主要用于获取淘宝订单 <a style="color:#0364AE;" href="{:u('items_collect/author_tao')}">点击设置授权</a></td>
+	        </tr>			
+        </table>
+      <div class="bk15"></div>
+
+      <div class="btn"><input type="submit" value="{$Think.lang.submit}" onclick="return submitFrom();" name="dosubmit" class="button" id="dosubmit"></div>
+
+    </div>
+  </div>
+</form>
+</body></html>

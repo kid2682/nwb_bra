@@ -1,0 +1,27 @@
+<!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" style=" width:100px;height:20px;">
+    <a class="bds_tqq" href="#" style="background: url('../Public/images/qqwb.png') no-repeat scroll 0 0 transparent;display:block;width:20px;height:20px;float:left;background: url('../Public/images/qqwb.png') no-repeat scroll 0 0 transparent !important;padding:0px 5px;"></a> 
+    <a class="bds_tsina" pic="logo" style="background: url('../Public/images/sinawb.png') no-repeat scroll 0 0 transparent;background: url('../Public/images/sinawb.png') no-repeat scroll 0 0 transparent !important;display:block;width:20px;height:20px;float:left;padding:0px 5px;"></a> 
+</div>
+
+<script type="text/javascript" id="bdshare_js" data="type=tools" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+	/**
+	 * 在这里定义bds_config
+	 */
+	var bds_config = {
+		'bdPic':def.tmpl+'public/images/logo.gif',//'请参考自定义分享出去的图片'
+		//'bdText':"{$val.title}"+def.root+"{:U('item/index',array('id'=>$val['id']))}",		//'请参考自定义分享内容'
+	}		
+	document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+</script>
+
+<style>
+
+span.bds_more, .bds_tools a{
+    margin-top:5px;
+}
+
+</style>
+<!-- Baidu Button END -->
