@@ -41,7 +41,7 @@ $array = array(
 			'tag/:id\d'=>'cate/tag',
 			
 			
-		),		
+		),
 
 );
 return array_merge($config, $array);

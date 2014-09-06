@@ -566,7 +566,7 @@ class baseAction extends Action {
 	/*
 	 * 商品瀑布流
 	 * */
-	function waterfall($count,$where,$order=""){
+	function waterfall($count,$where,$order="",$join="",$group){
 		import("ORG.Util.Page");
 		$items_mod=D("items");
 		
@@ -582,9 +582,9 @@ class baseAction extends Action {
 		$pager = new Page($count, $list_rows);
 		
 		$first_row = $pager->firstRow + $s_list_rows * ($sp - 1);
-		$items_list = $items_mod->relation(true)->where($where)
-			->limit($first_row . ',' . $s_list_rows)->order($order)
-			->select();           
+		$items_list = $items_mod->join($join)->relation(true)->where($where)
+			->limit($first_row . ',' . $s_list_rows)->order($order)->group($group)
+			->select();
 		//print_r($items_list);
 		//获取评论数
 		foreach ($items_list as $key=>$val){

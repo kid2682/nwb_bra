@@ -16,7 +16,7 @@ class searchAction extends baseAction {
         import("ORG.Util.Page");
         //$sql_where = "title LIKE '%" . $keywords . "%'";
         $sql_where='1=1 AND status=1';
-        $sql_where.= !empty($_REQUEST['keywords']) ? " AND title LIKE '%" . trim($_REQUEST['keywords']) . "%'" :'';
+        $sql_where.= !empty($_REQUEST['keywords']) ? " AND vg5_items_tags_item.tag_id in (".$keywords.") " :'';
         $sql_where.=' AND cid!=0';
     	 if(isset($_GET['cid'])){
         	$sql_where='cid=0';
@@ -43,13 +43,36 @@ class searchAction extends baseAction {
         //seo设置
 
         	$this->nav_seo('search','nav',1);
-     
-        $this->assign('search_keywords',explode(',',$this->setting['search_words']));
+        $items_tags_mod = M("items_tags");
+        $words_array = $items_tags_mod->where("id in(".$this->setting['hot_tags'].")")->limit("10")->getField("id,name");
+        $keyword_array = empty($keywords)?array():explode(',',$keywords);
+
+        $show_array = array();
+        $keys_array = array();
+        foreach($words_array as $id=>$keys){
+            $temp = $keyword_array;
+            $item = array("key"=>$keys,"bg"=>0);
+            if(in_array($id,$keyword_array)){
+                $item["bg"] = 1;
+                array_splice($temp,array_search($id,$temp),1);
+                array_push($keys_array,$keys);
+            }else{
+                array_push($temp,$id);
+            }
+            $item["link"] = implode(',',$temp);
+            array_push($show_array,$item);
+        }
+        $this->assign("keywords_decs",implode(',',$keys_array));
+        $this->assign('search_keywords',$show_array);
         $this->assign('keywords', $keywords);
-        $this->assign('sortby', $sortby);        
-        $count = $items_mod->where($sql_where)->count();
+        $this->assign('sortby', $sortby);
+        $join = "vg5_items_tags_item on(vg5_items.id = vg5_items_tags_item.item_id)";
+        $group = "id";
+        $items_mod->join($join)->group($group);
+        $count = count($items_mod->where($sql_where)->select());
+        //SELECT * FROM `vg5_items` left join `vg5_items_tags_item` on (vg5_items.id = vg5_items_tags_item.item_id) where tag_id in (1,2);
         $this->assign('items_total', $count);
-        $this->waterfall($count, $sql_where,$sql_order);
+        $this->waterfall($count, $sql_where,$sql_order,$join,$group);
     }
     public function nocid(){
    	  	$keywords = isset($_REQUEST['keywords']) && trim($_REQUEST['keywords']) ? trim($_REQUEST['keywords']) :'';

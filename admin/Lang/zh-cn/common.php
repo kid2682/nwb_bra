@@ -124,5 +124,6 @@ return array(
 	'no'=>'否',
 	'integral'=>'积分',
 	'verify_error'=>'验证码错误',
+    'setHotTags'=>'设置热门标签',
 );
 ?>
