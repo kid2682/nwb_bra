@@ -66,11 +66,11 @@ class searchAction extends baseAction {
         $this->assign('search_keywords',$show_array);
         $this->assign('keywords', $keywords);
         $this->assign('sortby', $sortby);
-        $join = "vg5_items_tags_item on(vg5_items.id = vg5_items_tags_item.item_id)";
+        $join = "vg_items_tags_item on(vg_items.id = vg_items_tags_item.item_id)";
         $group = "id";
         $items_mod->join($join)->group($group);
         $count = count($items_mod->where($sql_where)->select());
-        //SELECT * FROM `vg5_items` left join `vg5_items_tags_item` on (vg5_items.id = vg5_items_tags_item.item_id) where tag_id in (1,2);
+        //SELECT * FROM `vg_items` left join `vg_items_tags_item` on (vg_items.id = vg_items_tags_item.item_id) where tag_id in (1,2);
         $this->assign('items_total', $count);
         $this->waterfall($count, $sql_where,$sql_order,$join,$group);
     }

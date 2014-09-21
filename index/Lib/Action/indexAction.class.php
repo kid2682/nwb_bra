@@ -15,46 +15,15 @@ class indexAction extends baseAction {
         //头条
 		$top_actives = $article_mod->cache('TOP_ACTIVES',C('TOP_ACTIVES'))->where('is_best=1')->order('add_time DESC')->find();           
 		$this->assign('top_actives', $top_actives);
-        //列表
-		$hot_actives = $article_mod->cache('HOT_ACTIVES',C('TOP_ACTIVES'))->where('is_hot=1')->limit('1,5')
-			->order('is_hot DESC,add_time DESC')->select();
-		$this->assign('hot_actives', $hot_actives);
+
 		//轮播器
         $ad_list = $focus_mod->where('cate_id=1 AND status=1')->order('ordid DESC')->select();
         $this->assign('ad_list', $ad_list);
 		$this->assign('seo', $this->seo);
-		//调取最新喜欢的数据
-	  	if(S('index_lately_like')){
-            $lately_like = S('index_lately_like');
-        }else{
-            $lately_like = $this->lately_like();
-            S('index_lately_like',$lately_like,'180');  //缓存3分钟
-		}
-		$this->assign('lately_like',$lately_like);
-		//获取返现商家信息
-		if(S('index_rec_seller')){
-            $rec_seller = S('index_rec_seller');
-        }else{
-            $rec_seller = $this->rec_seller();
-            S('index_rec_seller',$rec_seller,'300');  //缓存5分钟
-		}
-		if(count($rec_seller)<=0){
-			$rec_seller='';
-		}
-		
-		if($this->setting['display_b2c_ad']==1){
-			//动态广告系统
-			$miao_api = $this->miao_client();   //获取59秒api设置信息		
-			$adv_data = $miao_api->AdsGet('', '468x60');
-			$ad_rel=$adv_data['ads']['ad'];
-			$ad_rel=getRandArray($ad_rel);		
-			//print_r($ad_rel);
-			if(count($ad_rel)>0){
-				$this->assign('ad_rel',$ad_rel);
-			}
-		}
-		$this->assign('rec_seller',$rec_seller);   //推荐商家		
-		$this->display();
+        $sql_where='1=1 AND status=1';
+        $sql_where.=' AND cid!=0';
+        $this->waterfall(10, $sql_where);
+		//$this->display();
 	}
 	function get_index_group_cates() {
 		$items_cate_mod = M('items_cate');

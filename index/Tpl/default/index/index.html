@@ -1,10 +1,14 @@
 <include file="public:header"/>
 <load href="__TMPL__public/css/index.css" />
+<load href="__ROOT__/statics/css/style.css" />
+<load href="/SMZDM/static/js/common.js" />
 <load href="__TMPL__public/js/user_tip.js" />
 <load href="__ROOT__/statics/js/jquery.lazyload.js" />
 <load href="__ROOT__/statics/js/jquery/plugins/jquery.KinSlideshow-1.2.1.min.js" />
+<load href="__ROOT__/statics/js/jquery/plugins/jquery.masonry.js" />
+<load href="__ROOT__/statics/js/jquery/plugins/jquery.infinitescroll.js" />
+<load href="__TMPL__public/js/item.js" />
 <div class="content">
-	 <div class="step"><img src="__TMPL__public/images/step.png" /></div>
      <div class="index_top box_shadow mt15 clearfix">
         	<div class="index_focus fl">
             	<script type="text/javascript">
@@ -48,84 +52,20 @@
         	</div>
       	</div>
 
-<if condition="$display_b2c_ad eq 1">
-	<!--B2C随机广告-->
-	<div class="mt15">
-		<volist name="ad_rel" id='val' key='key'> 
-			<if condition="$key eq 1">			       		
-				<a href="javascript:void(0)" style="border:none; margin-right:20px;" onclick="window.open('{$val['click_url']}')"><img src="{$val.pic_url}" /></a>
-				<else/>
-				<a href="javascript:void(0)" style="border:none;" onclick="window.open('{$val['click_url']}')"><img src="{$val.pic_url}" /></a>
-			</if>
-		</volist>
-	</div>
-</if>
-<!--B2C随机广告结束-->
-<!--大家正在喜欢-->
-<div class="main_3">
-		<div class="latestLike box-shadow">
-			<div class="hd">
-				<h2><span class="more"><a href="{:u('search/index')}" target="_blank">更多&gt;</a></span>大家刚刚喜欢了...</h2>
-			</div>
-			<div class="bd" id="J_LatestLike">
-				<div class="luckyMask"></div>
-				<ul style="margin-left: 0px; opacity: 1; ">				
-					<volist name="lately_like" id='val'>
-		            	<li style="display: list-item; ">
-							<div class="luckyBaobei">
-								<a href="{:u('item/index',array('id'=>$val['items_id']))}" target="_blank" title="{$val['title']}"><img src="{$val.img}" alt="{$val.title}" style="width:120px;" /></a>
-							</div>
-							<div class="user">						
-								<a href="{:u('uc/index',array('uid'=>$val['uid']))}"><img src="{:getUserFace($val['uid'])}" class="tipuser" uid='{$val['uid']}' width="30px" height="30px"/></a>
-								<span class="name ofh"><a href="{:u('uc/index',array('uid'=>$val['uid']))}" title="{$val['uname']}" target="_blank">{$val['uname']}</a></span>
-								<span class="baobeiNum">
-									{$val['time']}分钟前
-								</span>
-							</div>
-						</li>		
-					</volist>
-	            </ul>
-			</div>
-		</div>
+
+<div class="contentbox clearfix">
+    <div class="contentbox_l fl">
+        <div class="product_show" id="zdm">
+        </div>
+    </div>
 </div>
 
 <!--刚刚喜欢结束-->
 <!--商品循环开始-->
 <div id="container">
-<volist name="index_group_cates" id='val'>
-	<div class="mt20 clearfix">
-    	<span class="fr"><a target="_blank" class="gray" href="{:u('cate/index',array('cid'=>$val['id']))}">更多<samp>&gt;&gt;</samp></a></span>
-        <h2 class="fl index_h2"><span class="bea77d">微购族分享的</span> <a target="_blank" href="{:u('cate/index',array('cid'=>$val['id']))}"><span class="red" style="font-size:20px;">{$val.name}</span></a></h2>
-        <ul class="guide_links fl">
-        	<volist name="val['s']" id='sval'>
-        	<li><a target="_blank" href="{:u('cate/index',array('cid'=>$sval['id']))}">{$sval.name}</a></li>
-            </volist>
-        </ul>
-    </div>    
-    <volist name="val['g']" id='gval' key="key">
-    <div class="cate_box <if condition="$key%4 eq 1">alpha<elseif condition="$key%4 eq 0" />omega</if>">
-		<div class="box_shadow mt15 group_box">
-		<div class="groupbg">
-			<h3 class="f16 bold"><a target="_blank" href="{:u('cate/index',array('cid'=>$gval['id']))}">{$gval.name}</a></h3>
-			<!--a target="_blank" href="{:u('cate/index',array('cid'=>$gval['id']))}" class="mt5 cursor block g_db_bg"></a-->
-				<ul>
-	            	<volist name="gval['items']" id='gi' key="gikey"> 						       		
-	        			<li <if condition="$gikey eq 1">class="first"</if> <if condition="($gikey eq 2) or ($gikey eq 3) or ($gikey eq 6)">style="margin-right: 0;"</if>><a title="{$gi['title']}" target="_blank" href="{:U('item/index',array('id'=>$gi['id']))}"><img alt="{$gi['title']}" <if condition="$gikey eq 1">style="height:130px; max-width:130px;"</if>  url="{:base64_encode($gi['simg'])}" src="__TMPL__public/images/grey.gif" /></a></li>
-	        		</volist>
-				</ul>
-			
-			<div class="group_desc mt10">
-				<span class="follow_red_btn tc cursor fr"><a target="_blank" href="{:u('cate/index',array('cid'=>$gval['id']))}" class="white">去看看</a></span>
-				<span class="share_nums gray">{$gval.item_nums}个宝贝</span>
-			</div>
-			<div class="mt10"></div>
-		</div>
-		</div>
-	</div>
-    </volist>
-    <div class="clearfix"></div>
-    
-</volist>
+    <div class="item_list infinite_scroll">
+        <include file="public:goods_list"/>
+    </div>
 </div>
 </div>
 <!--广告开始-->
@@ -224,7 +164,13 @@ $(function() {
 		effect : "fadeIn",
         threshold : 200
 	});
-
+    $.ajax({
+        url:"/SMZDM/index.php?m=index&a=index&sp=1&ajax=true",
+        dataType:"json",
+        success:function(msg){
+            $("#zdm").append(msg.data.html);
+        }
+    });
 });
 </script>
 

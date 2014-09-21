@@ -566,7 +566,7 @@ class baseAction extends Action {
 	/*
 	 * 商品瀑布流
 	 * */
-	function waterfall($count,$where,$order="",$join="",$group){
+	function waterfall($count,$where,$order="",$join="",$group=""){
 		import("ORG.Util.Page");
 		$items_mod=D("items");
 		
